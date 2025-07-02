@@ -1,0 +1,66 @@
+.card {
+  background-color: #a59bb5;
+  color: white;
+  padding: 24px;
+  border-radius: 16px;
+  width: 100%;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(66, 60, 96, 0.15);
+  transition: transform 0.5s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    transform: translateY(-8px) scale(1);
+    box-shadow: 0 8px 20px rgba(66, 60, 96, 0.3);
+  }
+
+  .header {
+    margin-bottom: 16px;
+
+    .period {
+      font-size: 14px;
+      font-weight: 500;
+      color: #fdf2ee;
+    }
+
+    .company {
+      font-size: 24px;
+      margin: 8px 0 4px;
+      font-weight: 700;
+    }
+
+    .role {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+
+  .body {
+    font-size: 16px;
+    line-height: 1.6;
+
+    .experienceItem {
+      margin-top: 20px;
+
+      .description {
+        margin-bottom: 10px;
+      }
+
+      .stackList {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .stackItem {
+          background-color: rgba(255, 255, 255, 0.15);
+          padding: 6px 12px;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
