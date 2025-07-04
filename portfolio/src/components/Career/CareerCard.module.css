@@ -1,7 +1,7 @@
 .card {
   background-color: #a59bb5;
   color: white;
-  padding: 24px;
+  padding: 30px;
   border-radius: 16px;
   width: 100%;
   margin-bottom: 40px;
@@ -32,18 +32,60 @@
     .role {
       font-size: 18px;
       font-weight: 500;
+      margin-top: 15px;
     }
   }
 
-  .body {
+  .content {
     font-size: 16px;
     line-height: 1.6;
 
     .experienceItem {
-      margin-top: 20px;
+      margin-top: 40px;
 
       .description {
-        margin-bottom: 10px;
+        margin: 0.25rem 0;
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      .toggleRow {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+
+        .toggleButton {
+          background-color: transparent;
+          border: none;
+          border-radius: 4px;
+          font-size: 0.85rem;
+          padding: 0.25rem 0.5rem;
+          color: #555;
+          cursor: pointer;
+          display: inline-block;
+          transition: background-color 0.2s ease;
+
+          &:hover {
+            background-color: #ccc;
+          }
+
+          .toggleIcon {
+            margin-left: 4px;
+          }
+        }
+
+        .inlineSubDescriptionBlock {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        .inlineSubDescription {
+          font-size: 1.125rem;
+          color: #555;
+          line-height: 1.4;
+        }
       }
 
       .stackList {
@@ -52,6 +94,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
+        margin-top: 0.75rem;
 
         .stackItem {
           background-color: rgba(255, 255, 255, 0.15);

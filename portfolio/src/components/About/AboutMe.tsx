@@ -16,7 +16,8 @@ const AboutMe = () => {
         }
       },
       {
-        threshold: 0.5,
+        threshold: 0.4,
+        rootMargin: "0px 0px -20% 0px",
       }
     );
 
@@ -30,7 +31,7 @@ const AboutMe = () => {
   }, [hasAnimated]);
 
   return (
-    <section className={styles.mainSection}>
+    <section className={styles.mainSection} ref={triggerRef}>
       <h2 className={styles.title}>About me</h2>
 
       <div className={styles.imageWrapper}>
@@ -46,7 +47,7 @@ const AboutMe = () => {
         />
       </div>
 
-      <div className={styles.descBox} ref={triggerRef}>
+      <div className={styles.descBox}>
         <p className={`${styles.desc} ${hasAnimated ? styles.animate : ""}`}>
           기술로 사회의 장벽을 허물고, <br />
           누구나 차별 없이 이용할 수 있는 UI/UX를 만들고자하는
