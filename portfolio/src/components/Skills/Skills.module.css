@@ -6,6 +6,7 @@
   background-color: #fdf2ee;
   padding: 60px;
   color: #423c60;
+  box-sizing: border-box;
 
   .subTitle {
     font-size: 38px;

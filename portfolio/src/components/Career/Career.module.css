@@ -1,7 +1,6 @@
 .section {
   box-sizing: border-box;
   width: 100%;
-  height: 100vh;
   padding: 60px;
   background-color: #fdf2ee;
   color: #423c60;
