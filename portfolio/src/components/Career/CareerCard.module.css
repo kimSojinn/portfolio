@@ -84,3 +84,45 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .card {
+    width: 300px;
+    padding: 20px;
+
+    .header {
+      .period {
+        font-size: 12px;
+      }
+
+      .company {
+        font-size: 20px;
+      }
+
+      .role {
+        font-size: 16px;
+      }
+    }
+
+    .content {
+      .experienceItem {
+        .description {
+          font-size: 14px;
+        }
+
+        .inlineSubDescriptionBlock {
+          .inlineSubDescription {
+            font-size: 12px;
+          }
+        }
+
+        .stackList {
+          .stackItem {
+            padding: 3px 6px;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+}

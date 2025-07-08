@@ -13,3 +13,19 @@
     text-decoration: underline;
   }
 }
+
+@media (max-width: 768px) {
+  .section {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+      text-align: center;
+      font-size: 30px;
+      margin-top: 50px;
+    }
+  }
+}
