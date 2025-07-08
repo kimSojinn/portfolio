@@ -9,6 +9,13 @@ const AboutMe = () => {
   const triggerRef = useRef(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      setHasAnimated(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {

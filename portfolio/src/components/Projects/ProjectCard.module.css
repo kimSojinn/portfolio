@@ -83,3 +83,36 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .card {
+    width: 300px;
+
+    .period {
+      font-size: 12px;
+    }
+
+    .organization {
+      font-size: 18px;
+    }
+
+    .stackList {
+      .stackItem {
+        padding: 4px 6px;
+        font-size: 10px;
+      }
+    }
+
+    .description {
+      font-size: 14px;
+    }
+
+    .role {
+      font-size: 12px;
+    }
+
+    .link {
+      font-size: 12px;
+    }
+  }
+}

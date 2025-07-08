@@ -1,49 +1,82 @@
 .layout {
   box-sizing: border-box;
   position: relative;
-}
-
-.introSection {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100vh;
-  z-index: 1;
-  background-color: white;
+
+  .introSection {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    background-color: white;
+  }
+
+  .scrollSections {
+    position: relative;
+    z-index: 2;
+    margin-top: 100vh;
+    width: 100%;
+  }
+
+  .floatingButtons {
+    position: fixed;
+    bottom: calc(5% + 20px);
+    right: calc(5% + 20px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+  }
+
+  .floatingButtons button,
+  .iconButton {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #fdf2ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s ease;
+  }
+
+  .floatingButtons button:hover {
+    background-color: #f0f0f0;
+  }
 }
 
-.scrollSections {
-  position: relative;
-  z-index: 2;
-  margin-top: 100vh;
-}
+@media (max-width: 768px) {
+  .layout {
+    width: 100%;
 
-.floatingButtons {
-  position: fixed;
-  bottom: calc(5% + 20px);
-  right: calc(5% + 20px);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 999;
-}
+    .floatingButtons {
+      bottom: calc(5% + 5px);
+      right: calc(5% + 5px);
 
-.floatingButtons button,
-.iconButton {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: none;
-  background-color: #fdf2ee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  transition: all 0.2s ease;
-}
+      .iconButton {
+        width: 35px;
+        height: 35px;
 
-.floatingButtons button:hover {
-  background-color: #f0f0f0;
+        .arrowIcon {
+          width: 15px;
+          height: 10px;
+        }
+
+        .gitIcon {
+          width: 20px;
+          height: 20px;
+        }
+
+        .mailIcon {
+          width: 18px;
+          height: 15px;
+        }
+      }
+    }
+  }
 }

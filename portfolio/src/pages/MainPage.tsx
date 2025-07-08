@@ -53,7 +53,14 @@ const MainPage = () => {
           aria-label="맨 위로 이동"
           className={styles.iconButton}
         >
-          <img src={arrow} alt="" aria-hidden="true" width={20} height={15} />
+          <img
+            src={arrow}
+            className={styles.arrowIcon}
+            alt=""
+            aria-hidden="true"
+            width={20}
+            height={15}
+          />
         </button>
 
         <a
@@ -65,6 +72,7 @@ const MainPage = () => {
         >
           <img
             src={githubIcon}
+            className={styles.gitIcon}
             alt=""
             aria-hidden="true"
             width={30}
@@ -77,7 +85,14 @@ const MainPage = () => {
           aria-label="이메일 주소 복사"
           className={styles.iconButton}
         >
-          <img src={mail} alt="" aria-hidden="true" width={25} height={20} />
+          <img
+            src={mail}
+            className={styles.mailIcon}
+            alt=""
+            aria-hidden="true"
+            width={25}
+            height={20}
+          />
         </button>
       </div>
     </div>

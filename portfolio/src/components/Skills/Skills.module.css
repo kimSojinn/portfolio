@@ -20,7 +20,6 @@
     flex-wrap: wrap;
     gap: 10px;
     padding: 0;
-    margin: 30px 0 0 0;
     align-self: flex-start;
 
     .iconBox {
@@ -55,6 +54,60 @@
 
         &.slackIcon {
           height: 33px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .skillsSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    .subTitle {
+      font-size: 24px;
+      align-self: center;
+    }
+
+    .skillsList {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      align-self: center;
+
+      .iconBox {
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+
+        img {
+          &.iconImg {
+            width: 20px;
+            height: 20px;
+          }
+          &.cssIcon {
+            width: 13px;
+            height: 18px;
+          }
+
+          &.reactIcon {
+            width: 35px;
+            height: 20px;
+          }
+
+          &.gitIcon {
+            width: 50px;
+            height: 20px;
+          }
+
+          &.slackIcon {
+            height: 33px;
+          }
         }
       }
     }

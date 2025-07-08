@@ -1,4 +1,5 @@
 import CareerCard from "./CareerCard";
+
 import styles from "./Career.module.css";
 
 const Career = () => {

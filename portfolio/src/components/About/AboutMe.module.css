@@ -157,3 +157,52 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .mainSection {
+    padding: 20px;
+
+    .title {
+      margin: 15px 0;
+      font-size: 30px;
+      align-self: center;
+    }
+
+    .imageWrapper {
+      width: 250px;
+      height: 250px;
+    }
+
+    .descBox {
+      .desc {
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .role {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 50px;
+      }
+
+      .memo {
+        text-align: center;
+        font-size: 12px;
+      }
+
+      .questionBox {
+        width: 300px;
+        padding: 20px;
+        font-size: 16px;
+        box-sizing: border-box;
+        margin-bottom: 30px;
+
+        .answer {
+          font-size: 14px;
+          margin-left: 0;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}

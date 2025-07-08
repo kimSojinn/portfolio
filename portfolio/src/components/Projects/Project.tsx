@@ -15,7 +15,13 @@ const cardList = [
     role: "Team | 공통 컴포넌트 개발, Splash Screen 애니메이션 제작, 로그인 기능개발 ",
     stack: ["React", "styled-components", "Recoil"],
     link: "https://github.com/kimSojinn/final-07-show-in-seoul",
-    content: <img src={thumbnail} alt="Show in Seoul 웹앱 화면" />,
+    content: (
+      <img
+        src={thumbnail}
+        className={styles.screenshot}
+        alt="Show in Seoul 웹앱 화면"
+      />
+    ),
   },
   {
     period: "2023.04 - 2023.06",
@@ -30,13 +36,26 @@ const cardList = [
     stack: ["Notion", "Figma", "RIDI"],
     link: "https://ridibooks.com/books/2773000071?_s=instant&_q=%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C&_rdt_sid=search_instant&_rdt_idx=2&_rdt_arg=%ED%94%84%EB%25",
     content: (
-      <div style={{ display: "flex", gap: "12px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "12px",
+          width: "100%",
+        }}
+      >
         <img
           src={bookCover}
           alt="프론트엔드 개발자를 위한 SEO 가이드 책 표지"
           style={{ width: "200px" }}
+          className={styles.bookCoverImg}
         />
-        <img src={review} alt="실제 리뷰" style={{ width: "270px" }} />
+        <img
+          src={review}
+          alt="실제 리뷰"
+          className={styles.reviewImage}
+          style={{ width: "270px" }}
+        />
       </div>
     ),
   },

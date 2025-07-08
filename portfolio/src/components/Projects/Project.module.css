@@ -41,3 +41,24 @@
     transition-delay: 0.9s;
   }
 }
+
+@media (max-width: 768px) {
+  .projectSection {
+    padding: 20px;
+
+    .title {
+      font-size: 30px;
+      text-align: center;
+    }
+
+    .cardGrid {
+      display: flex;
+
+      .reviewImage,
+      .bookCoverImg,
+      .screenshot {
+        display: none;
+      }
+    }
+  }
+}
