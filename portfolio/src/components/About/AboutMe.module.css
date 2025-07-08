@@ -89,19 +89,23 @@
 
     .memo {
       text-align: left;
-      margin-bottom: 15px;
     }
 
     .questionBox {
       width: 800px;
       background-color: #423c60;
-      padding: 20px;
+      padding: 40px;
       border-radius: 25px;
       color: white;
-      line-height: 2.5;
+      line-height: 2;
       font-size: 22px;
       text-align: left;
       margin-bottom: 50px;
+
+      .answer {
+        font-size: 18px;
+        margin-top: 5px;
+      }
     }
   }
 

@@ -1,0 +1,53 @@
+.footer {
+  background: linear-gradient(135deg, #82c78a 0%, #f4b860 40%, #f4a6b3 80%);
+  padding: 60px 0 10px 0;
+
+  .footerInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+  }
+
+  .visualHeading {
+    font-size: 120px;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.05);
+    line-height: 1;
+    margin-bottom: -38px;
+  }
+
+  .message {
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .description {
+    font-size: 18px;
+    color: white;
+    margin-top: 40px;
+    line-height: 1.6;
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .copyright {
+    margin-top: auto;
+    font-size: 14px;
+    color: #999;
+    padding-top: 60px;
+  }
+
+  .visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}

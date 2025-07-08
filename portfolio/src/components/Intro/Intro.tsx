@@ -11,9 +11,13 @@ const Intro = () => {
         <div className={styles.leftLine} aria-hidden="true"></div>
 
         <div className={styles.rightCircle}>
-          <div className={styles.info}>
-            <span>김 소 진</span>
-            <h1>Portfolio</h1>
+          <div
+            className={styles.info}
+            role="group"
+            aria-label="이름과 포트폴리오 제목"
+          >
+            <p className={styles.name}>김 소 진</p>
+            <h1 className={styles.title}>Portfolio</h1>
           </div>
         </div>
 

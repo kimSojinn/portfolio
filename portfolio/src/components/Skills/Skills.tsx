@@ -16,29 +16,29 @@ const Skills = () => {
         Skills & Tools
       </h3>
       <ul className={styles.skillsList}>
-        <li className={styles.iconBox}>
-          <img src={html} alt="HTML 로고" className={styles.iconImg} />
+        <li className={styles.iconBox} aria-label="HTML">
+          <img src={html} alt="" className={styles.iconImg} />
         </li>
-        <li className={styles.iconBox}>
-          <img src={css} alt="CSS 로고" className={styles.cssIcon} />
+        <li className={styles.iconBox} aria-label="CSS">
+          <img src={css} alt="" className={styles.cssIcon} />
         </li>
-        <li className={styles.iconBox}>
-          <img src={js} alt="JavaScript 로고" className={styles.iconImg} />
+        <li className={styles.iconBox} aria-label="JavaScript">
+          <img src={js} alt="" className={styles.iconImg} />
         </li>
-        <li className={styles.iconBox}>
-          <img src={react} alt="React 로고" className={styles.reactIcon} />
+        <li className={styles.iconBox} aria-label="React">
+          <img src={react} alt="" className={styles.reactIcon} />
         </li>
-        <li className={styles.iconBox}>
-          <img src={ts} alt="TypeScript 로고" className={styles.iconImg} />
+        <li className={styles.iconBox} aria-label="TypeScript">
+          <img src={ts} alt="" className={styles.iconImg} />
         </li>
-        <li className={styles.iconBox}>
-          <img src={gitLogo} alt="Git 로고" className={styles.gitIcon} />
+        <li className={styles.iconBox} aria-label="Git">
+          <img src={gitLogo} alt="" className={styles.gitIcon} />
         </li>
-        <li className={styles.iconBox}>
-          <img src={figma} alt="Figma 로고" className={styles.iconImg} />
+        <li className={styles.iconBox} aria-label="Figma">
+          <img src={figma} alt="" className={styles.iconImg} />
         </li>
-        <li className={styles.iconBox}>
-          <img src={slack} alt="Slack 로고" className={styles.iconImg} />
+        <li className={styles.iconBox} aria-label="Slack">
+          <img src={slack} alt="" className={styles.iconImg} />
         </li>
       </ul>
     </section>

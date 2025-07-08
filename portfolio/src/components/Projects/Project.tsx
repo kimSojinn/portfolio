@@ -26,7 +26,7 @@ const cardList = [
         구성했으며, <br /> SEO의 개념과 등장 배경 파트 집필 참여
       </>
     ),
-    role: "Team | 부분 집필 및 표지 디자인 참여",
+    role: "Team | 집필 참여 및 표지 디자인 참여",
     stack: ["Notion", "Figma", "RIDI"],
     link: "https://ridibooks.com/books/2773000071?_s=instant&_q=%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C&_rdt_sid=search_instant&_rdt_idx=2&_rdt_arg=%ED%94%84%EB%25",
     content: (

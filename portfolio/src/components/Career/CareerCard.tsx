@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { useState } from "react";
 import styles from "./CareerCard.module.css";
 
 interface ExperienceItem {
@@ -35,12 +34,7 @@ const CareerCard = ({
 
       <div className={styles.content}>
         {experiences.map((item, index) => (
-          <ExperienceItemBlock
-            key={index}
-            item={item}
-            index={index}
-            company={company}
-          />
+          <ExperienceItemBlock key={index} item={item} />
         ))}
       </div>
     </section>
@@ -49,43 +43,21 @@ const CareerCard = ({
 
 interface ExperienceItemBlockProps {
   item: ExperienceItem;
-  index: number;
-  company: string;
 }
 
-const ExperienceItemBlock = ({
-  item,
-  index,
-  company,
-}: ExperienceItemBlockProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleId = `${company}-desc-${index}`;
-
+const ExperienceItemBlock = ({ item }: ExperienceItemBlockProps) => {
   return (
     <div className={styles.experienceItem}>
       <p className={styles.description}>{item.description}</p>
 
       {item.subDescription && item.subDescription.length > 0 && (
-        <div className={styles.toggleRow}>
-          <button
-            className={styles.toggleButton}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-expanded={isOpen}
-            aria-controls={toggleId}
-          >
-            {isOpen ? "▲" : "▼"}
-          </button>
-
-          {isOpen && (
-            <div id={toggleId} className={styles.inlineSubDescriptionBlock}>
-              {item.subDescription.map((line, i) => (
-                <span key={i} className={styles.inlineSubDescription}>
-                  {line}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
+        <ul className={styles.inlineSubDescriptionBlock}>
+          {item.subDescription.map((line, i) => (
+            <li key={i} className={styles.inlineSubDescription}>
+              {line}
+            </li>
+          ))}
+        </ul>
       )}
 
       {item.stack && item.stack.length > 0 && (

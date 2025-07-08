@@ -1,24 +1,29 @@
+import { useState } from "react";
 import AboutMe from "../components/About/AboutMe";
 import Career from "../components/Career/Career";
 import Intro from "../components/Intro/Intro";
 import githubIcon from "../assets/images/git.png";
 import mail from "../assets/images/mail.png";
 import arrow from "../assets/images/arrow.png";
-
-import styles from "./MainPage.module.css";
 import Skills from "../components/Skills/Skills";
 import Project from "../components/Projects/Project";
+import Footer from "../components/Footer/Footer";
+
+import styles from "./MainPage.module.css";
 
 const MainPage = () => {
   const email = "ksjinn9545@gmail.com";
+  const [copyMessage, setCopyMessage] = useState("");
 
   const handleCopyEmail = async () => {
     try {
       await navigator.clipboard.writeText(email);
-      alert("이메일이 복사되었습니다!");
+      alert("이메일이 복사되었습니다 :)");
+      setCopyMessage("이메일이 복사되었습니다 :)");
+      setTimeout(() => setCopyMessage(""), 3000);
     } catch (err) {
       console.log(err);
-      alert("이메일 복사에 실패했습니다.");
+      setCopyMessage("이메일 복사에 실패했습니다.");
     }
   };
 
@@ -37,23 +42,42 @@ const MainPage = () => {
         <Career />
         <Project />
         <Skills />
+        <Footer />
       </div>
 
+      <div aria-live="polite">{copyMessage}</div>
+
       <div className={styles.floatingButtons}>
-        <button onClick={handleScrollToTop}>
-          <img src={arrow} alt="arrow icon" width={20} height={15} />
+        <button
+          onClick={handleScrollToTop}
+          aria-label="맨 위로 이동"
+          className={styles.iconButton}
+        >
+          <img src={arrow} alt="" aria-hidden="true" width={20} height={15} />
         </button>
-        <button>
-          <a
-            href="https://github.com/kimSojinn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src={githubIcon} alt="GitHub logo" width={30} height={30} />
-          </a>
-        </button>
-        <button onClick={handleCopyEmail}>
-          <img src={mail} alt="mail icon" width={25} height={20} />
+
+        <a
+          href="https://github.com/kimSojinn"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub 페이지 새 창에서 열기"
+          className={styles.iconButton}
+        >
+          <img
+            src={githubIcon}
+            alt=""
+            aria-hidden="true"
+            width={30}
+            height={30}
+          />
+        </a>
+
+        <button
+          onClick={handleCopyEmail}
+          aria-label="이메일 주소 복사"
+          className={styles.iconButton}
+        >
+          <img src={mail} alt="" aria-hidden="true" width={25} height={20} />
         </button>
       </div>
     </div>
