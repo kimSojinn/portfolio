@@ -22,91 +22,85 @@
     width: 400px;
     height: 400px;
     margin-bottom: 20px;
+  }
 
-    .image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.3s ease;
-      border-radius: 10px;
-    }
+  .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+    border-radius: 10px;
+  }
 
-    .default {
-      z-index: 1;
-      opacity: 1;
-    }
+  .default {
+    z-index: 1;
+    opacity: 1;
+  }
 
-    .hover {
-      z-index: 2;
-      opacity: 0;
-    }
+  .hover {
+    z-index: 2;
+    opacity: 0;
+  }
 
-    &:hover {
-      .hover {
-        opacity: 1;
-      }
-
-      .default {
-        opacity: 0;
-      }
-    }
+  .imageWrapper:hover .hover {
+    opacity: 1;
+  }
+  .imageWrapper:hover .default {
+    opacity: 0;
   }
 
   .descBox {
     display: flex;
     flex-direction: column;
+  }
 
-    .desc,
-    .role {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
+  .desc,
+  .role {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 
-    .animate {
-      animation: slideDownFade 0.8s ease-out forwards;
-    }
+  .animate {
+    animation: slideDownFade 0.8s ease-out forwards;
+  }
 
-    .animateDelay {
-      animation: slideDownFade 0.8s ease-out 0.8s forwards;
-    }
+  .animateDelay {
+    animation: slideDownFade 0.8s ease-out 0.8s forwards;
+  }
 
-    .desc {
-      font-size: 26px;
-      line-height: 1.5;
-      animation: slideDownFade 0.8s ease-out forwards;
-    }
+  .desc {
+    font-size: 26px;
+    line-height: 1.5;
+  }
 
-    .role {
-      font-size: 26px;
-      line-height: 1.5;
-      animation: slideDownFade 0.8s ease-out forwards;
-      animation-delay: 0.2s;
-      margin-bottom: 100px;
-    }
+  .role {
+    font-size: 26px;
+    line-height: 1.5;
+    margin-bottom: 100px;
+  }
 
-    .memo {
-      text-align: left;
-    }
+  .memo {
+    text-align: left;
+  }
 
-    .questionBox {
-      width: 800px;
-      background-color: #423c60;
-      padding: 40px;
-      border-radius: 25px;
-      color: white;
-      line-height: 2;
-      font-size: 22px;
-      text-align: left;
-      margin-bottom: 50px;
+  .questionBox {
+    width: 800px;
+    background-color: #423c60;
+    padding: 40px;
+    border-radius: 25px;
+    color: white;
+    line-height: 2;
+    font-size: 22px;
+    text-align: left;
+    margin-bottom: 50px;
+  }
 
-      .answer {
-        font-size: 18px;
-        margin-top: 5px;
-      }
-    }
+  .answer {
+    font-size: 18px;
+    margin-top: 5px;
   }
 
   .subTitle {
@@ -120,37 +114,36 @@
     display: flex;
     gap: 10px;
     align-self: flex-start;
+  }
 
-    .iconBox {
-      align-self: flex-start;
-      background-color: #423c60;
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  .iconBox {
+    background-color: #423c60;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-      .iconImg {
-        width: 40px;
-        height: 40px;
-      }
+  .iconImg {
+    width: 40px;
+    height: 40px;
+  }
 
-      .cssIcon {
-        width: 25px;
-        height: 40px;
-      }
+  .cssIcon {
+    width: 25px;
+    height: 40px;
+  }
 
-      .reactIcon {
-        width: 50px;
-        height: 40px;
-      }
+  .reactIcon {
+    width: 50px;
+    height: 40px;
+  }
 
-      .gitIcon {
-        width: 70px;
-        height: 40px;
-      }
-    }
+  .gitIcon {
+    width: 70px;
+    height: 40px;
   }
 }
 
