@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import thumbnail from "../../assets/images/thumbnail.png";
 import bookCover from "../../assets/images/bookCover.webp";
@@ -40,38 +40,47 @@ const cardList = [
       </div>
     ),
   },
-  //   {
-  //     period: "2023.02 - 2023.06",
-  //     organization: "멋쟁이사자처럼 프론드엔드 스쿨",
-  //     description: (
-  //       <>
-  //         HTML/CSS, JavaScript, TypeScript, Git, React 등 다양한 기술 스택을
-  //         <br />
-  //         학습하며 프론트엔드 전반에 대한 실무 역량을 키웠고, 스터디 및 팀
-  //         프로젝트를 통해 협업과 문제 해결 능력을 함께 향상
-  //       </>
-  //     ),
-  //   },
 ];
 
 const Project = () => {
+  const sectionRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, [hasAnimated]);
+
   return (
-    <section className={styles.projectSection}>
+    <section className={styles.projectSection} ref={sectionRef}>
       <h2 className={styles.title}>Project & Education</h2>
 
       <div className={styles.cardGrid}>
         {cardList.map((card, index) => (
-          <motion.div
+          <div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: index * 0.15,
-            }}
+            className={`${styles.cardWrapper} ${
+              hasAnimated ? styles.fadeInUp : ""
+            } ${hasAnimated ? styles[`delay${index}`] : ""}`}
           >
             <ProjectCard {...card} />
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>
