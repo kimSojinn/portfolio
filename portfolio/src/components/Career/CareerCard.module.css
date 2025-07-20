@@ -3,11 +3,10 @@
   color: white;
   padding: 40px;
   border-radius: 16px;
-  width: 100%;
+  width: 800px;
   margin-bottom: 40px;
   box-shadow: 0 4px 12px rgba(66, 60, 96, 0.15);
   transition: transform 0.5s ease;
-  box-sizing: border-box;
 
   &:hover {
     transform: translateY(-8px) scale(1);
@@ -30,7 +29,7 @@
     }
 
     .role {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
       margin-top: 15px;
     }
@@ -46,20 +45,21 @@
       .description {
         margin: 0.25rem 0;
         font-size: 18px;
-        font-weight: 500;
+        font-weight: 700;
+        color: #423c60;
       }
 
       .inlineSubDescriptionBlock {
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
-        margin-top: 0.5rem;
+        margin-top: 0.7rem;
         padding-left: 0;
 
         .inlineSubDescription {
-          font-size: 16px;
-          color: #555;
-          line-height: 1.4;
+          font-size: 15px;
+          color: white;
+          line-height: 1.7;
           list-style: none;
           padding-left: 0;
         }
@@ -75,9 +75,9 @@
 
         .stackItem {
           background-color: rgba(255, 255, 255, 0.15);
-          padding: 6px 12px;
+          padding: 4px 8px;
           border-radius: 8px;
-          font-size: 14px;
+          font-size: 12px;
           font-weight: 500;
         }
       }

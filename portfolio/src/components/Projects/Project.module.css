@@ -1,19 +1,18 @@
 .projectSection {
   width: 100%;
-  padding: 60px;
+  padding: 60px 60px 120px 60px;
   color: #423c60;
   background-color: #fdf2ee;
   box-sizing: border-box;
 
   .title {
     font-size: 50px;
-    text-decoration: underline;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
   }
 
   .cardGrid {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
     gap: 24px;
   }
 
@@ -44,7 +43,7 @@
 
 @media (max-width: 768px) {
   .projectSection {
-    padding: 20px;
+    padding: 20px 20px 80px 20px;
 
     .title {
       font-size: 30px;
@@ -53,6 +52,7 @@
 
     .cardGrid {
       display: flex;
+      flex-direction: column;
 
       .reviewImage,
       .bookCoverImg,

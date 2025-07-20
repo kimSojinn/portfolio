@@ -12,7 +12,7 @@ const cardList = [
     organization: "Show in Seoul",
     description:
       "서울시 공공 API를 사용하여 문화 행사 정보를 한눈에 볼 수 있는 웹앱 서비스",
-    role: "Team | 공통 컴포넌트 개발, Splash Screen 애니메이션 제작, 로그인 기능개발 ",
+    role: "Team | 공통 컴포넌트 개발, Splash Screen 애니메이션 제작, 로그인 화면 및 기능개발 ",
     stack: ["React", "styled-components", "Recoil"],
     link: "https://github.com/kimSojinn/final-07-show-in-seoul",
     content: (

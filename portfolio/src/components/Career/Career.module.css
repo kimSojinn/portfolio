@@ -7,10 +7,16 @@
 
   .title {
     margin: 0;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     font-weight: 700;
     font-size: 50px;
-    text-decoration: underline;
+  }
+
+  .centerBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 

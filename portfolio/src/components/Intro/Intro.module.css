@@ -97,7 +97,6 @@
       text-align: center;
       color: rgba(255, 255, 255, 0.95);
       animation: fadeInUp 1.5s ease-out both;
-      font-family: "Pretendard", sans-serif;
       line-height: 1.5;
 
       .line1,
@@ -162,11 +161,12 @@
 
       .centerMessage {
         .line1 {
-          font-size: 20px;
+          font-size: 18px;
         }
 
         .line2 {
-          font-size: 22px;
+          font-size: 20px;
+          white-space: nowrap;
         }
       }
     }

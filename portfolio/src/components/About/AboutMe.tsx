@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import memoji1 from "../../assets/images/memoji1.png";
-import memoji2 from "../../assets/images/memoji2.png";
+import profileImg from "../../assets/images/profileImg.png";
+// import memoji2 from "../../assets/images/memoji2.png";
 
 import styles from "./AboutMe.module.css";
 
@@ -49,12 +50,17 @@ const AboutMe = () => {
 
       <div className={styles.imageWrapper}>
         <img
+          src={profileImg}
+          alt="김소진 프로필"
+          className={styles.profileImg}
+        />
+        {/* <img
           src={memoji1}
           alt="프론트엔드 개발자 김소진의 미모지 이미지"
           className={`${styles.image} ${styles.default}`}
-        />
+        /> */}
         <img
-          src={memoji2}
+          src={memoji1}
           alt=""
           aria-hidden="true"
           className={`${styles.image} ${styles.hover}`}
@@ -92,8 +98,12 @@ const AboutMe = () => {
             <br /> 결론적으로, 웹 접근성은 다양한 상황에 처한 사용자 누구나 웹을
             동등하게 이용할 수 있도록 보장하는 것입니다. 단순히 일부의 불편을
             줄이는 수준을 넘어 웹의 정보와 서비스를 제약 없이 활용할 수 있도록
-            합니다. 웹 접근성은 특정 사용자만을 위한 선택이 아니라 모두를 위한
-            기본 가치로 자리잡아야 합니다.
+            합니다.
+            <br />
+            <strong>
+              웹 접근성은 특정 사용자만을 위한 선택이 아니라 모두를 위한 기본
+              가치로 자리잡아야 합니다.
+            </strong>
           </dd>
         </dl>
 
@@ -103,10 +113,10 @@ const AboutMe = () => {
             주세요.
           </dt>
           <dd className={styles.answer}>
-            웹 접근성을 고려한 마크업의 첫 번째 핵심은{" "}
+            • 웹 접근성을 고려한 마크업의 첫 번째 핵심은{" "}
             <strong>시맨틱한 HTML 태그 작성</strong>입니다.
             <br />
-            단순히 보여지게 만드는 구조가 아니라, 각 영역의 의미를 태그로 명확히
+            단순한 시각적 구성을 우선하기 보다는, 각 영역의 의미를 태그로 명확히
             표현해야 합니다. <br /> 예를 들어 페이지의 주 콘텐츠는 &lt;main&gt;,
             내비게이션 영역은 &lt;nav&gt;, 반복되는 카드형 콘텐츠는
             &lt;article&gt;, 클릭 가능한 요소는 &lt;button&gt;으로 구성하는 것이
@@ -119,7 +129,7 @@ const AboutMe = () => {
             레이아웃만을 고려한 마크업에서 벗어나, 의미 중심의 설계가 이루어져야
             한다고 생각합니다.
             <br />
-            <br />두 번째는{" "}
+            <br />• 두 번째는{" "}
             <strong>이미지에 대체 텍스트(alt 속성)를 제공하는 것</strong>입니다.
             <br />
             이미지는 웹에서 시각적으로 많은 정보를 전달하지만, 시각장애인에게는
@@ -134,8 +144,7 @@ const AboutMe = () => {
             보이지만, 사용자 입장에서는 콘텐츠를 이해할 수 있는 핵심 도구이기
             때문에 상황에 맞게 작성하는 것이 중요합니다.
             <br />
-            <br />
-            마지막으로 {""}
+            <br />• 마지막으로 {""}
             <strong>키보드 접근성과 포커스 순서를 고려한</strong> 마크업이
             중요합니다.
             <br /> 마우스를 사용할 수 없는 키보드 기반 환경에서는 웹의 모든
