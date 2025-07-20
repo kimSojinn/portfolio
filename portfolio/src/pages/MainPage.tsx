@@ -5,7 +5,6 @@ import Intro from "../components/Intro/Intro";
 import githubIcon from "../assets/images/git.png";
 import mail from "../assets/images/mail.png";
 import arrow from "../assets/images/arrow.png";
-import Skills from "../components/Skills/Skills";
 import Project from "../components/Projects/Project";
 import Footer from "../components/Footer/Footer";
 
@@ -41,7 +40,6 @@ const MainPage = () => {
         <AboutMe />
         <Career />
         <Project />
-        <Skills />
         <Footer />
       </div>
 
