@@ -4,7 +4,7 @@ export default function FooterSection() {
             <div className="max-w-7xl mx-auto">
                 <div className="grid md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16">
                     <div className="md:col-span-2">
-                        <h3 className="text-xl md:text-2xl tracking-tight mb-3 md:mb-4">
+                        <h3 className="text-lg md:text-xl tracking-tight mb-3 md:mb-4">
                             KIM SOJIN
                         </h3>
                     </div>
@@ -15,19 +15,19 @@ export default function FooterSection() {
                         <div className="space-y-2">
                             <a
                                 href="#work"
-                                className="block text-sm md:text-base text-neutral-600 hover:text-black transition-colors"
+                                className="block text-sm text-neutral-600 hover:text-black transition-colors"
                             >
                                 Cases
                             </a>
                             <a
                                 href="#about"
-                                className="block text-sm md:text-base text-neutral-600 hover:text-black transition-colors"
+                                className="block text-sm text-neutral-600 hover:text-black transition-colors"
                             >
                                 About
                             </a>
                             <a
                                 href="#contact"
-                                className="block text-sm md:text-base text-neutral-600 hover:text-black transition-colors"
+                                className="block text-sm text-neutral-600 hover:text-black transition-colors"
                             >
                                 Contact
                             </a>
@@ -40,20 +40,20 @@ export default function FooterSection() {
                         <div className="space-y-2">
                             <a
                                 href="mailto:ksjinn9545@gmail.com"
-                                className="block text-sm md:text-base text-neutral-600 hover:text-black transition-colors"
+                                className="block text-sm text-neutral-600 hover:text-black transition-colors"
                             >
                                 Email
                             </a>
                             <a
                                 href="tel:01066579545"
-                                className="block text-sm md:text-base text-neutral-600 hover:text-black transition-colors"
+                                className="block text-sm text-neutral-600 hover:text-black transition-colors"
                             >
                                 Phone
                             </a>
                             <a
                                 href="/김소진_이력서.pdf"
                                 download
-                                className="block text-sm md:text-base text-neutral-600 hover:text-black transition-colors"
+                                className="block text-sm text-neutral-600 hover:text-black transition-colors"
                             >
                                 Download Resume
                             </a>

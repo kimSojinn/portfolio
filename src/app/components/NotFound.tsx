@@ -15,14 +15,14 @@ export default function NotFound() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-[120px] md:text-[200px] leading-none tracking-tighter mb-6 md:mb-8 text-neutral-200"
+          className="text-[96px] md:text-[160px] leading-none tracking-tighter mb-6 md:mb-8 text-neutral-200"
         >
           404
         </motion.div>
 
-        <h1 className="text-3xl md:text-5xl tracking-tight mb-4 md:mb-6">Page Not Found</h1>
+        <h1 className="text-2xl md:text-4xl tracking-tight mb-4 md:mb-6">Page Not Found</h1>
 
-        <p className="text-base md:text-xl text-neutral-600 mb-10 md:mb-12 px-4">
+        <p className="text-sm md:text-lg text-neutral-600 mb-10 md:mb-12 px-4">
           죄송합니다. 요청하신 페이지를 찾을 수 없습니다.
         </p>
 

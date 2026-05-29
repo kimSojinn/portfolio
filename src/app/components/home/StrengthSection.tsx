@@ -11,7 +11,7 @@ export default function StrengthSection() {
                             PERSPECTIVE
                         </h2>
                         <div className="w-16 h-px bg-black mb-6"></div>
-                        <p className="text-2xl md:text-[34px] lg:text-[40px] tracking-tight leading-[1.25] max-w-[560px]">
+                        <p className="text-xl md:text-[28px] lg:text-[34px] tracking-tight leading-[1.3] max-w-[560px]">
                             화면 앞의 고객을 공감하고
                             <br className="hidden md:block" />
                             화면 뒤의 흐름을 읽습니다.
@@ -35,7 +35,7 @@ export default function StrengthSection() {
                             <div className="text-sm text-neutral-400 mb-5">
                                 0{index + 1}
                             </div>
-                            <h3 className="text-xl md:text-2xl tracking-tight mb-4">
+                            <h3 className="text-lg md:text-xl tracking-tight mb-4">
                                 {strength.title}
                             </h3>
                             <p className="text-neutral-600 leading-relaxed">

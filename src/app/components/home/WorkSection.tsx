@@ -69,37 +69,12 @@ export default function WorkSection({
                                 ></div>
                                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 md:gap-8 relative z-10">
                                     <div className="flex-1">
-                                        <div className="hidden md:flex items-center gap-3 mb-4">
-                                            {project.tags.map((tag) => (
-                                                <span
-                                                    key={tag}
-                                                    className="text-xs tracking-wide text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <h3 className="text-3xl md:text-4xl lg:text-5xl tracking-tight mb-2 md:mb-3 group-hover:translate-x-2 transition-transform">
+                                        <h3 className="text-xl md:text-2xl lg:text-3xl tracking-tight mb-2 md:mb-3 group-hover:translate-x-2 transition-transform">
                                             {project.title}
                                         </h3>
-                                        <p className="text-neutral-500 text-base md:text-lg mb-3 md:mb-4">
+                                        <p className="text-neutral-500 text-sm md:text-base mb-3 md:mb-4">
                                             {project.description}
                                         </p>
-
-                                        <div className="flex gap-6 text-xs md:hidden text-neutral-400 mb-3">
-                                            <div>
-                                                <div className="mb-1 text-neutral-300">
-                                                    Year
-                                                </div>
-                                                <div>{project.year}</div>
-                                            </div>
-                                            <div>
-                                                <div className="mb-1 text-neutral-300">
-                                                    Role
-                                                </div>
-                                                <div>{project.role}</div>
-                                            </div>
-                                        </div>
 
                                         <div className="flex items-center gap-2 text-sm text-neutral-400">
                                             <span className="opacity-0 group-hover:opacity-100 transition-opacity">
@@ -109,23 +84,6 @@ export default function WorkSection({
                                                 className="opacity-0 group-hover:opacity-100 transition-opacity"
                                                 size={16}
                                             />
-                                        </div>
-                                    </div>
-
-                                    <div className="hidden md:flex items-start gap-16 text-sm text-neutral-400">
-                                        <div>
-                                            <div className="mb-1 text-neutral-300">
-                                                Year
-                                            </div>
-                                            <div>{project.year}</div>
-                                        </div>
-                                        <div>
-                                            <div className="mb-1 text-neutral-300">
-                                                Role
-                                            </div>
-                                            <div className="text-right">
-                                                {project.role}
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -7,8 +7,6 @@ import FooterSection from "./home/FooterSection";
 import HeroSection from "./home/HeroSection";
 import { projects, type ProjectCategory } from "./home/homeData";
 import Navigation from "./home/Navigation";
-import StatsSection from "./home/StatsSection";
-import StrengthSection from "./home/StrengthSection";
 import WorkSection from "./home/WorkSection";
 
 export default function Home() {
@@ -54,8 +52,6 @@ export default function Home() {
                     opacity={opacity}
                     scale={scale}
                 />
-                <StatsSection />
-                <StrengthSection />
                 <WorkSection
                     selectedCategory={selectedCategory}
                     onSelectCategory={setSelectedCategory}

@@ -35,7 +35,7 @@ export default function ContactSection() {
                     viewport={{ once: true }}
                     transition={{ duration: 1 }}
                 >
-                    <h2 className="text-5xl md:text-7xl lg:text-8xl tracking-tighter mb-12 md:mb-16">
+                    <h2 className="text-4xl md:text-6xl lg:text-7xl tracking-tighter mb-12 md:mb-16">
                         Contact
                     </h2>
                     <div className="flex justify-center gap-8 md:gap-12 mb-12 md:mb-16">
@@ -69,7 +69,7 @@ export default function ContactSection() {
                     </div>
                     <a
                         href="mailto:ksjinn9545@gmail.com"
-                        className="inline-block text-base md:text-xl tracking-tight border-b-2 border-black pb-1 hover:border-neutral-300 transition-colors"
+                        className="inline-block text-sm md:text-lg tracking-tight border-b-2 border-black pb-1 hover:border-neutral-300 transition-colors"
                     >
                         ksjinn9545@gmail.com
                     </a>

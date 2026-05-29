@@ -40,7 +40,7 @@ export default function HeroSection({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
-                    className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-[1.02] tracking-tight mb-8 md:mb-10"
+                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight mb-7 md:mb-9"
                 >
                     <span className="bg-gradient-to-br from-black via-neutral-800 to-neutral-600 bg-clip-text text-transparent">
                         I Find the Friction
@@ -54,7 +54,7 @@ export default function HeroSection({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.6 }}
-                    className="text-base md:text-xl text-neutral-600 mb-2 max-w-2xl mx-auto px-4"
+                    className="text-sm md:text-lg text-neutral-600 mb-2 max-w-2xl mx-auto px-4"
                 >
                     화면 앞의 고객을 공감하고 화면 뒤의 흐름을 읽습니다.
                 </motion.p>
@@ -62,7 +62,7 @@ export default function HeroSection({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 0.7 }}
-                    className="text-sm md:text-base text-neutral-500 mb-4 max-w-2xl mx-auto px-4 leading-relaxed"
+                    className="text-sm md:text-[15px] text-neutral-500 mb-4 max-w-2xl mx-auto px-4 leading-relaxed"
                 >
                     유저의 피드백에서 불편이 시작된 곳을 찾고, 더 나은 서비스
                     방향을 제안합니다.

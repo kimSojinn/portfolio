@@ -49,7 +49,7 @@ export default function StatsSection() {
                                         className="text-white md:w-6 md:h-6"
                                     />
                                 </div>
-                                <div className="text-4xl md:text-5xl tracking-tight mb-2 md:mb-3 bg-gradient-to-br from-black to-neutral-600 bg-clip-text text-transparent">
+                                <div className="text-3xl md:text-4xl tracking-tight mb-2 md:mb-3 bg-gradient-to-br from-black to-neutral-600 bg-clip-text text-transparent">
                                     {stat.value}
                                 </div>
                                 <div className="text-xs md:text-sm tracking-wide text-neutral-500">
