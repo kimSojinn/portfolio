@@ -17,15 +17,14 @@ export default function AboutSection() {
                     </h2>
                     <div className="max-w-3xl">
                         <p className="text-xl md:text-2xl lg:text-3xl leading-relaxed tracking-tight">
-                            화면 앞의 고객을 이해하고, 화면 뒤의 흐름을
-                            읽습니다.
+                            문제를 발견하고 개선으로 연결해왔습니다.
                         </p>
                         <p className="mt-5 md:mt-6 text-sm md:text-base leading-relaxed text-neutral-400">
-                            프론트엔드 개발자로 근무한 경험을 바탕으로 관리자
-                            화면 개선, 온보딩 체계 구축, 예약 플로우 설계, QA
-                            검증 경험을 쌓았습니다. 기술적 이해를 바탕으로
-                            고객의 목소리를 서비스 개선으로 연결하는 CX 직무를
-                            지향합니다.
+                            프론트엔드 개발 경험을 바탕으로 고객과 운영자가
+                            마주하는 문제를 해결해왔습니다.
+                            <br />
+                            반복적인 업무를 줄이고 사용자 경험을 개선하며 서비스
+                            품질을 높였습니다.
                         </p>
                     </div>
                 </div>

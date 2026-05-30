@@ -30,7 +30,7 @@ export const projects: Project[] = [
   },
   {
     id: "seomse-reservation-cx",
-    title: "상담 품질을 높이기 위한 예약 플로우 설계",
+    title: "정보 전달부터 로딩 속도까지 개선한 예약 경험 설계",
     description:
       "고객이 필요한 정보를 충분히 전달할 수 있도록 예약·상담 흐름을 설계하고 성능을 개선한 MVP",
     year: "2025",
@@ -39,9 +39,9 @@ export const projects: Project[] = [
   },
   {
     id: "service-flow-qa",
-    title: "운영 관점에서 화면 완성도를 높인 QA 검증",
+    title: "운영 관점에서 서비스 품질을 점검한 경험",
     description:
-      "기획서 검토부터 예외 케이스 점검까지, 운영 관점에서 서비스 품질을 확인한 경험",
+      "기획 의도부터 예외 케이스까지, 실제 사용 흐름을 기준으로 요구사항을 검토한 경험",
     year: "2023-2026",
     category: "QA",
     gradient: "from-rose-500/10 to-pink-500/10",
@@ -52,12 +52,12 @@ export const categories: ProjectCategory[] = ["All", "CX", "Operations", "QA"];
 
 export const strengths = [
   {
-    title: "운영 흐름을 이해합니다",
+    title: "운영 과정의 비효율을 찾습니다",
     description:
-      "관리자 페이지와 내부 운영 프로세스를 직접 설계·개선하며 반복 작업과 운영 비효율이 발생하는 지점을 찾아 개선해왔습니다.",
+      "관리자 페이지와 내부 운영 프로세스를 직접 개선하며 반복 작업과 운영 비효율이 발생하는 지점을 찾아 해결해왔습니다.",
   },
     {
-        title: "원인을 먼저 확인합니다",
+        title: "문제의 원인을 좁혀갑니다",
         description:
             "고객 제보나 이슈를 그대로 전달하기보다 발생 조건과 영향 범위를 파악하며 문제의 원인을 좁혀갑니다.",
     },
