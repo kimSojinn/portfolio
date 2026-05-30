@@ -17,7 +17,7 @@ const contactLinks = [
     {
         icon: Download,
         label: "Resume",
-        href: "/김소진_이력서.pdf",
+        href: "/resume.pdf",
         gradient: "from-violet-500 to-purple-500",
     },
 ];
@@ -47,7 +47,7 @@ export default function ContactSection() {
                                     href={social.href}
                                     download={
                                         social.label === "Resume"
-                                            ? true
+                                            ? "김소진_CS_CX_이력서.pdf"
                                             : undefined
                                     }
                                     className="group flex flex-col items-center gap-2 md:gap-3"

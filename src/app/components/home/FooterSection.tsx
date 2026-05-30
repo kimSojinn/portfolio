@@ -51,8 +51,8 @@ export default function FooterSection() {
                                 Phone
                             </a>
                             <a
-                                href="/김소진_이력서.pdf"
-                                download
+                                href="/resume.pdf"
+                                download="김소진_CS_CX_이력서.pdf"
                                 className="block text-sm text-neutral-600 hover:text-black transition-colors"
                             >
                                 Download Resume

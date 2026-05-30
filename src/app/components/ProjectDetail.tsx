@@ -8,16 +8,16 @@ import lighthouseBeforeImage from "../../assets/img/before.png";
 
 const projectData = {
   "admin-ops-automation": {
-    title: "반복 작업을 줄인 운영 프로세스 개선",
+    title: "반복 작업을 줄여 운영 프로세스 개선",
     subtitle:
-      "운영자가 수동으로 관리하던 항목을 데이터 기반 자동 반영 구조로 개선",
+      "신규 항목을 더 빠르고 정확하게 반영할 수 있도록 관리 방식을 개선한 경험",
     year: "2023-2026",
     role: "CX / QA",
     client: "Union Contents",
     duration: "Frontend Developer",
     team: ["Service Operation", "Planning", "Development"],
     overview:
-      "운영 중인 서비스에서는 약 80여 개의 선택 항목을 수동으로 관리하고 있었습니다. 항목이 추가되거나 변경될 때마다 반복적인 수정 작업이 필요했고, 관리 포인트가 많아질수록 업무 부담이 커지고 반영 오류가 발생하기 쉬운 구조였습니다.\n\n이를 데이터 기반 구조로 개선하여 신규 항목이 자동으로 반영되도록 구현했습니다. 담당자는 별도의 화면 수정 없이 최신 항목을 유지할 수 있게 되었고, 반복적으로 발생하던 관리 작업을 크게 줄일 수 있었습니다.",
+      "서비스에서는 국가별 항목을 관리하고 있었으며, 신규 국가가 추가될 때마다 여러 위치를 함께 확인하고 수정해야 했습니다. 이 과정에서 반영 시간이 길어지고 일부 항목이 누락될 가능성이 있었습니다.\n\n이러한 비효율을 줄이기 위해 항목 관리 방식을 개선하고 관리 기준을 정비해 반복적으로 수행하던 작업을 최소화했습니다. 신규 국가 추가 시 필요한 수정 범위를 줄일 수 있는 운영 체계를 구축했으며, 그 결과 운영 요청 이후 실제 적용까지 걸리는 시간을 크게 단축할 수 있었습니다.",
     challenge:
       "신규 항목이 생길 때마다 수동 입력과 배포가 필요했습니다. 운영자의 반복 업무도 문제였지만, 더 큰 리스크는 사용자가 오래된 선택지나 누락된 항목을 보게 되는 상황이었습니다.",
     solution:
@@ -81,13 +81,13 @@ const projectData = {
       "EJS",
     ],
     metrics: [
-      { value: "80+", label: "자동 반영 항목" },
-      { value: "90%+", label: "반영 시간 단축" },
+      { value: "80 → 10", label: "관리 포인트 감소" },
+      { value: "90%+", label: "신규 항목 반영 시간 단축" },
     ],
     results: [
       "신규 항목 반영 시간을 90% 이상 단축",
-      "수동 반영 과정에서 발생할 수 있는 누락 가능성 감소",
-      "반복적인 수정 없이 신규 항목을 반영할 수 있는 구조 구축",
+      "수정 과정에서 발생할 수 있는 누락 및 오류 가능성 감소",
+      "반복 작업을 줄여 운영 요청 처리 효율 향상",
     ],
     nextProject: "onboarding-qa-system",
   },
@@ -166,7 +166,7 @@ const projectData = {
       "과제 수행 → 리뷰 → 피드백 반영으로 이어지는 온보딩 프로세스 정립",
       "반복적으로 전달되던 안내와 피드백을 체계화하여 온보딩 운영 효율 향상",
     ],
-    nextProject: "seomse-reservation-cx",
+    nextProject: "service-flow-qa",
   },
   "seomse-reservation-cx": {
     title: "정보 전달부터 로딩 속도까지 개선한 예약 경험 설계",
@@ -269,19 +269,19 @@ const projectData = {
       "학생창업유망팀 U300 본선 진출을 통해 서비스 아이디어를 실제 MVP로 구현",
       "이미지 용량을 13MB에서 1.4MB로 줄이고 Lighthouse 성능 점수를 77점에서 89점으로 개선",
     ],
-    nextProject: "service-flow-qa",
+    nextProject: "admin-ops-automation",
   },
   "service-flow-qa": {
-    title: "운영 관점에서 서비스 품질을 점검한 경험",
+    title: "운영 관점에서 서비스 품질을 검증한 경험",
     subtitle:
-      "기획 의도부터 예외 케이스까지, 실제 사용 흐름을 기준으로 요구사항을 검토한 경험",
+      "기획 의도부터 엣지 케이스까지 실제 사용 환경을 기준으로 요구사항을 검토한 경험",
     year: "2023-2026",
     role: "QA / Issue Triage",
     client: "Union Contents",
     duration: "Frontend Developer",
     team: ["Planning", "Development", "Client Communication"],
     overview:
-      "서비스 화면과 관리자 기능을 개발하며 기획서 기준으로 요구사항과 화면 흐름을 함께 검토했습니다. 기능 구현 과정에서 단순히 화면을 개발하는 데 그치지 않고, 다국어 번역 누락, 권한별 메뉴 노출 조건, 필수 입력값 검증 등 실제 사용 과정에서 발생할 수 있는 예외 케이스를 확인했습니다.\n\n또한 요구사항이 의도한 대로 반영되었는지 점검하며 화면 흐름과 사용성을 함께 검토했습니다. 이를 통해 기능 구현뿐 아니라 서비스 품질 관점에서 문제를 확인하고 개선하는 경험을 쌓았습니다.",
+      "서비스 화면 및 관리자 기능을 개발하며 기획서를 기반으로 요구사항과 화면 흐름을 함께 검토했습니다. 기능 구현 과정에서는 다국어 번역 누락, 권한별 메뉴 노출 조건, 필수 입력값 검증 등 품질과 관련된 요소를 함께 확인했습니다.\n\n또한 정상 시나리오뿐 아니라 권한이 없는 사용자의 접근, 필수값 누락, 빈 데이터 상태, 최대 입력 길이 초과, 예외 응답 발생 등 실제 서비스 이용 과정에서 발생할 수 있는 다양한 상황을 검증했습니다.\n\n기획 의도와 실제 동작 간 차이를 확인하고, 요구사항이 실제 사용 환경에서도 의도한 대로 동작하는지 살펴보며 서비스 완성도를 높이는 데 기여했습니다.",
     challenge:
       "기획서에는 기능 단위 요구사항이 정리되어 있어도 실제 사용자는 여러 화면을 이어서 사용합니다. 특히 관리자 페이지와 다국어 페이지는 입력, 저장, 조회, 언어 전환, 권한별 정보 노출처럼 연결된 조건이 많아 단일 화면만 확인하면 문제를 놓칠 수 있습니다.",
     solution:
@@ -343,9 +343,9 @@ const projectData = {
     metrics: [],
     results: [
       "기획서 기반 화면 흐름과 요구사항을 검토하며 기능 누락 가능성 최소화",
-      "다국어 번역 누락, 권한별 메뉴 노출, 필수 입력값 검증 등 예외 케이스 점검",
+      "다국어 번역 누락, 권한별 메뉴 노출, 필수 입력값 검증 등 다양한 엣지 케이스 검증",
     ],
-    nextProject: "admin-ops-automation",
+    nextProject: "seomse-reservation-cx",
   },
   "seo-accessibility-quality": {
     title: "웹 접근성 및 SEO 개선",
@@ -484,7 +484,7 @@ export default function ProjectDetail() {
               <h1 className="text-2xl md:text-4xl lg:text-5xl tracking-tighter mb-4 md:mb-6 leading-tight">
                 {project.title}
               </h1>
-              <p className="text-base md:text-xl text-neutral-600 max-w-3xl">
+              <p className="text-base md:text-xl leading-[1.75] text-neutral-600 max-w-3xl">
                 {project.subtitle}
               </p>
             </motion.div>
@@ -525,7 +525,7 @@ export default function ProjectDetail() {
             <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
               SUMMARY
             </h2>
-            <p className="whitespace-pre-line text-base md:text-xl leading-relaxed text-neutral-700">
+            <p className="whitespace-pre-line max-w-3xl text-base md:text-xl leading-[1.85] text-neutral-700">
               {project.overview}
             </p>
           </div>
@@ -577,7 +577,7 @@ export default function ProjectDetail() {
                   </motion.figure>
                 ))}
               </div>
-              <p className="mt-4 md:mt-5 text-sm md:text-base text-neutral-500 leading-relaxed">
+              <p className="mt-4 md:mt-5 max-w-3xl text-sm md:text-base text-neutral-500 leading-[1.8]">
                 WebP 변환 및 이미지 최적화를 통해 이미지 용량을 13MB에서 1.4MB로
                 줄이고 Lighthouse 성능 점수를 77점에서 89점으로 개선
               </p>
@@ -603,7 +603,7 @@ export default function ProjectDetail() {
                   <span className="text-sm text-neutral-400 mt-1">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-base md:text-xl leading-relaxed">
+                  <p className="max-w-4xl text-base md:text-xl leading-[1.8]">
                     {result}
                   </p>
                 </motion.div>
