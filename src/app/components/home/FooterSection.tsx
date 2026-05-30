@@ -1,3 +1,5 @@
+import { downloadResume } from "../../utils/downloadResume";
+
 export default function FooterSection() {
     return (
         <footer className="py-12 md:py-16 px-6 md:px-8 border-t border-neutral-200">
@@ -52,7 +54,10 @@ export default function FooterSection() {
                             </a>
                             <a
                                 href="/resume.pdf"
-                                download="김소진_CS_CX_이력서.pdf"
+                                onClick={(event) => {
+                                    event.preventDefault();
+                                    void downloadResume();
+                                }}
                                 className="block text-sm text-neutral-600 hover:text-black transition-colors"
                             >
                                 Download Resume

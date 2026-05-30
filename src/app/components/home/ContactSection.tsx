@@ -1,5 +1,6 @@
 import { Download, Mail, Phone } from "lucide-react";
 import { motion } from "motion/react";
+import { downloadResume } from "../../utils/downloadResume";
 
 const contactLinks = [
     {
@@ -45,11 +46,14 @@ export default function ContactSection() {
                                 <a
                                     key={social.label}
                                     href={social.href}
-                                    download={
-                                        social.label === "Resume"
-                                            ? "김소진_CS_CX_이력서.pdf"
-                                            : undefined
-                                    }
+                                    onClick={(event) => {
+                                        if (social.label !== "Resume") {
+                                            return;
+                                        }
+
+                                        event.preventDefault();
+                                        void downloadResume();
+                                    }}
                                     className="group flex flex-col items-center gap-2 md:gap-3"
                                 >
                                     <div
