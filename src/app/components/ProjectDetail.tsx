@@ -169,7 +169,7 @@ const projectData = {
     nextProject: "service-flow-qa",
   },
   "seomse-reservation-cx": {
-    title: "정보 전달부터 로딩 속도까지 개선한 예약 경험 설계",
+    title: "고객과 관리자 모두를 고려한 예약 프로세스 설계",
     subtitle:
       "고객이 필요한 정보를 충분히 전달할 수 있도록 예약·상담 흐름을 설계하고 성능을 개선한 MVP",
     year: "2025",
