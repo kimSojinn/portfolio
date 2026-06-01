@@ -5,7 +5,7 @@ export default function AboutSection() {
     return (
         <section
             id="about"
-            className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 text-white py-16 md:py-32 px-6 md:px-8 relative overflow-hidden"
+            className="min-h-screen md:min-h-0 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 text-white py-16 md:py-32 px-6 md:px-8 relative overflow-hidden"
         >
             <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-20 left-20 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl"></div>
@@ -29,7 +29,7 @@ export default function AboutSection() {
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8 border-t border-neutral-800 pt-16 md:pt-24 mb-16 md:mb-32">
+                <div className="grid md:grid-cols-3 gap-8 border-t border-neutral-800 pt-16 md:pt-24 mb-16 md:mb-0">
                     {strengths.map((strength, index) => (
                         <motion.div
                             key={strength.title}
