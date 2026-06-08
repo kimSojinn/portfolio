@@ -17,14 +17,14 @@ export default function AboutSection() {
                     </h2>
                     <div className="max-w-3xl">
                         <p className="text-xl md:text-2xl lg:text-3xl leading-relaxed tracking-tight">
-                            문제를 발견하고 개선으로 연결해왔습니다.
+                            사용자의 흐름을 기준으로 품질을 검증합니다.
                         </p>
                         <p className="mt-5 md:mt-6 text-sm md:text-base leading-relaxed text-neutral-400">
-                            프론트엔드 개발 경험을 바탕으로 고객과 운영자가
-                            마주하는 문제를 해결해왔습니다.
+                            프론트엔드 개발과 서비스 운영 경험을 바탕으로
+                            요구사항을 화면, 데이터, 예외 조건으로 나누어 확인합니다.
                             <br />
-                            반복적인 업무를 줄이고 사용자 경험을 개선하며 서비스
-                            품질을 높였습니다.
+                            발견한 문제는 재현 절차와 영향 범위를 명확히 정리하고,
+                            수정 이후에는 기존 흐름까지 다시 검증합니다.
                         </p>
                     </div>
                 </div>

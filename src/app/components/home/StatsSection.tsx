@@ -5,19 +5,19 @@ const stats = [
     {
         icon: MessageSquareText,
         value: "90%+",
-        label: "관리자 업데이트 작업 시간 90% 이상 절감",
+        label: "검증 후 관리자 데이터 반영 시간 90% 이상 절감",
         color: "from-blue-600 to-cyan-500",
     },
     {
         icon: ClipboardCheck,
         value: "80+",
-        label: "80개 이상의 드롭다운 항목 자동화",
+        label: "80개 이상의 데이터 반영 지점 영향 범위 확인",
         color: "from-violet-600 to-purple-500",
     },
     {
         icon: ShieldCheck,
         value: "5",
-        label: "5건의 CX / QA 개선 사례",
+        label: "5건의 QA 관점 품질 개선 사례",
         color: "from-amber-600 to-orange-500",
     },
 ];

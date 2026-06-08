@@ -12,9 +12,9 @@ export default function StrengthSection() {
                         </h2>
                         <div className="w-16 h-px bg-black mb-6"></div>
                         <p className="text-xl md:text-[28px] lg:text-[34px] tracking-tight leading-[1.3] max-w-[560px]">
-                            화면 앞의 고객을 공감하고
+                            요구사항을 테스트 조건으로 나누고
                             <br className="hidden md:block" />
-                            화면 뒤의 흐름을 읽습니다.
+                            예외 상황까지 확인합니다.
                         </p>
                     </div>
                 </div>
