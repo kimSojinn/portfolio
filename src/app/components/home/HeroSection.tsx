@@ -50,9 +50,9 @@ export default function HeroSection({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-sm md:text-lg text-neutral-600 mb-2 max-w-2xl mx-auto px-4"
+          className="text-sm md:text-lg text-neutral-600 mb-2 max-w-2xl mx-auto px-4 leading-relaxed"
         >
-          복잡한 흐름 속의 문제를 검증합니다
+          사용자가 서비스를 이용하는 흐름 속에서 문제를 찾습니다.
         </motion.p>
         <motion.p
           initial={{ opacity: 0 }}
@@ -60,8 +60,8 @@ export default function HeroSection({
           transition={{ duration: 1, delay: 0.7 }}
           className="text-sm md:text-[15px] text-neutral-500 mb-4 max-w-2xl mx-auto px-4 leading-relaxed"
         >
-          기능 단위 검증을 넘어 사용자와 운영자의 관점에서 서비스가 안정적으로
-          동작하는지 확인합니다.
+          테스트 케이스, API 검증, 버그 리포트를 통해 기능이 아닌 사용 경험의
+          품질을 검증합니다.
         </motion.p>
       </motion.div>
 

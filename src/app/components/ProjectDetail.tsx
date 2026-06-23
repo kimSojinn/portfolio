@@ -2,8 +2,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router";
-import lighthouseAfterImage from "../../assets/img/after.png";
-import lighthouseBeforeImage from "../../assets/img/before.png";
 import seomseAdminReservationImage from "../../assets/img/seomse-admin-reservation.png";
 import seomseMyReservationsImage from "../../assets/img/seomse-my-reservations.png";
 import seomseNormalReservationImage from "../../assets/img/seomse-normal-reservation.png";
@@ -20,7 +18,7 @@ const projectData = {
   "admin-ops-automation": {
     title: "관리자 데이터 반영 흐름 QA 및 누락 리스크 개선",
     subtitle:
-      "수동 반영 과정에서 발생 가능한 누락 조건을 확인하고 데이터 기반 구조 전환 후 기존 흐름을 다시 검증한 사례",
+      "수동 반영 과정에서 발생 가능한 누락 조건을 확인하고 데이터 기반 구조 전환 후 기존 흐름을 다시 검증",
     year: "2023-2026",
     role: "Admin Flow QA",
     client: "Union Contents",
@@ -99,12 +97,12 @@ const projectData = {
       "관리 포인트를 80개에서 10개로 줄여 누락 및 오류 가능성 감소",
       "신규 항목 반영 시간을 90% 이상 단축",
     ],
-    nextProject: "seomse-reservation-cx",
+    nextProject: "seomse-reservation-qa",
   },
   "onboarding-qa-system": {
     title: "검증 기준을 문서화한 온보딩 QA 체계",
     subtitle:
-      "반복되는 리뷰 항목을 체크리스트로 정리하고 일관된 기준으로 결과를 확인할 수 있게 만든 사례",
+      "반복되는 리뷰 항목을 체크리스트로 정리하고 일관된 기준으로 결과를 확인할 수 있게 구성",
     year: "2023-2026",
     role: "Internal Ops / SOP",
     client: "Union Contents",
@@ -178,17 +176,17 @@ const projectData = {
     ],
     nextProject: "service-flow-qa",
   },
-  "seomse-reservation-cx": {
-    title: "SEOMSE 예약 기능 QA 및 성능 검증",
+  "seomse-reservation-qa": {
+    title: "SEOMSE 예약 기능 테스트 케이스 설계 및 품질 검증",
     subtitle:
-      "일반 예약과 섬세 예약의 핵심 흐름을 테스트 케이스로 검증하고 사용자 경험에 영향을 주는 결함을 정리한 사례",
+      "예약 생성부터 관리자 조회까지의 핵심 사용자 플로우를 검증한 QA 프로젝트",
     year: "2025",
     role: "Product QA / Frontend",
     client: "SEOMSE",
     duration: "Side Project",
-        team: ["Frontend", "Planning", "Beauty Domain", "QA"],
-        overview:
-            "SEOMSE는 기존 미용실 예약 서비스가 시술명과 일정 위주로 예약을 진행해 상담에 필요한 정보가 충분히 전달되지 않는 문제를 개선하고자 기획된 미용실 예약 서비스입니다. 사용자는 예약 과정에서 두피 타입, 모발 상태, 시술 이력, 요청사항, 참고 이미지를 함께 전달할 수 있으며, 관리자는 이를 바탕으로 고객 정보를 보다 상세하게 확인하고 상담 및 예약을 관리할 수 있습니다.\n\n본 QA는 예약 생성부터 예약 조회까지 이어지는 핵심 사용자 플로우를 대상으로 진행했습니다. 매장 목록 조회, 매장 상세, 일반 예약, 섬세 예약, 일정 선택, 예약 완료, 마이페이지 예약 조회, 관리자 예약 조회 기능을 중심으로 정상·예외 시나리오를 검증했습니다.\n\n총 32개의 테스트 케이스를 작성하고 5개의 주요 버그를 도출했으며, API 연동 결과와 데이터 반영 여부를 함께 확인하여 기능 동작과 사용자 흐름을 검증했습니다.",
+    team: ["Frontend", "Planning", "Beauty Domain", "QA"],
+    overview:
+      "SEOMSE는 기존 미용실 예약 과정에서 부족했던 상담 정보를 예약 단계에서 함께 전달할 수 있도록 기획된 예약 서비스입니다. 사용자는 두피 타입, 모발 상태, 시술 이력, 요청사항, 참고 이미지를 등록할 수 있으며 관리자는 이를 바탕으로 예약 및 상담을 관리할 수 있습니다.\n\n본 QA 프로젝트에서는 일반 예약과 섬세 예약을 포함한 핵심 예약 플로우를 대상으로 정상·예외 시나리오를 검증했습니다.\n\n총 31개의 테스트 케이스를 작성해 4개의 주요 버그를 발견했습니다. 이후 백엔드 서버 중단으로 실제 API 응답을 사용할 수 없는 상황에서도 검증을 이어가기 위해 Playwright Network Mocking을 적용했습니다. 이를 통해 예약 관련 API 응답을 고정하고, 핵심 예약 플로우 6개 시나리오를 자동화해 반복 검증이 가능한 환경을 구축했습니다.",
     challenge:
       "예약 서비스는 화면 이동이 정상이어도 날짜, 시간, 매장, 디자이너, 사용자 정보가 함께 맞물리지 않으면 실제 예약 경험이 깨질 수 있습니다. 특히 미래 날짜 시간 슬롯, 디자이너 표시, 실패 피드백, 필수값 처리처럼 사용자가 예약 가능 여부를 판단하는 조건은 오픈 전 우선 검증이 필요했습니다.",
     solution:
@@ -219,12 +217,22 @@ const projectData = {
         description:
           "WebP 전환, Lazy Loading, 이미지 정리로 Lighthouse 성능 점수 개선",
       },
+      {
+        phase: "Automate",
+        description:
+          "샵 목록·상세·일반 예약 제출을 Network Mocking으로 고정해 Playwright 예약 자동화 케이스 작성",
+      },
     ],
     features: [
       {
         title: "예약 시나리오 QA",
         description:
           "매장 목록, 매장 상세, 일반 예약, 섬세 예약, 예약 완료, 마이페이지 조회를 사용자 흐름 기준으로 검증했습니다.",
+      },
+      {
+        title: "예약 자동화 테스트",
+        description:
+          "샵 목록 렌더링부터 일반 예약 확정, 실패·지연 응답까지 6개 핵심 케이스를 Playwright로 자동화했습니다.",
       },
       {
         title: "섬세 예약 정보 검증",
@@ -246,6 +254,8 @@ const projectData = {
       "React",
       "TypeScript",
       "Manual QA",
+      "Playwright",
+      "Network Mocking",
       "Test Case",
       "Bug Report",
       "API Response Check",
@@ -254,6 +264,7 @@ const projectData = {
       "WebP",
     ],
     metrics: [
+      { value: "6 / 6", label: "예약 자동화 테스트 6건 통과" },
       { value: "13MB → 1.4MB", label: "이미지 리소스 최적화" },
       { value: "77 → 89", label: "Lighthouse 성능 개선" },
     ],
@@ -279,27 +290,27 @@ const projectData = {
       note: "WebP 변환 및 이미지 최적화를 통해 이미지 용량을 13MB에서 1.4MB로 줄이고 Lighthouse 성능 점수를 77점에서 89점으로 개선",
     },
     results: [
-      "예약 생성부터 관리자 조회까지 이어지는 핵심 플로우를 UI 기반 시나리오로 검증",
-      "미래 날짜 시간 슬롯, 디자이너 정보 표시, 실패 피드백 부재 등 주요 결함 도출",
-      "Lazy Loading과 WebP 적용으로 이미지 리소스와 Lighthouse 성능 지표 개선",
+      "예약 생성부터 관리자 조회까지 핵심 사용자 플로우를 정상·예외 시나리오 기준으로 검증",
+      "샵 목록 조회, 예약 생성, 실패·지연 응답 시나리오를 Playwright Network Mocking으로 자동화",
+      "미래 날짜 시간 슬롯 오류, 디자이너 정보 표시 오류, 실패 피드백 부재 등 주요 결함 4건을 우선순위와 함께 리포트",
+      "WebP 변환 및 이미지 최적화로 리소스 용량을 13MB → 1.4MB로 줄이고 Lighthouse 성능 점수를 77 → 89로 개선",
     ],
     nextProject: "service-flow-qa",
   },
   "service-flow-qa": {
     title: "다국어·권한별 서비스 플로우 회귀 검증",
-    subtitle:
-      "B2B 관리자 페이지를 대상으로 권한, 다국어, CRUD 흐름을 회귀 검증한 사례",
+    subtitle: "관리자 페이지를 대상으로 권한, 다국어, CRUD 흐름 회귀 검증",
     year: "2023-2026",
     role: "QA / Issue Triage",
     client: "Union Contents",
     duration: "Frontend Developer",
     team: ["Planning", "Development", "Client Communication"],
     overview:
-      "B2B 관리자 페이지 개발 과정에서 다국어 환경(i18n)과 권한 기반 접근 제어 기능을 대상으로 회귀 검증을 수행했습니다.\n\n신규 기능 추가 및 화면 개선 이후에도 기존 기능이 정상적으로 동작하는지 확인하기 위해 관리자 계정 유형별 접근 권한, 메뉴 노출 조건, 데이터 등록·수정·삭제 기능을 중심으로 검증했습니다. 또한 한·영 언어 전환 시 번역 누락, UI 깨짐, 데이터 표시 오류가 발생하지 않는지 점검했습니다.\n\n기획서와 실제 구현 결과를 비교하며 테스트를 진행했고, 정상 시나리오뿐 아니라 권한이 없는 사용자의 접근, 필수 입력값 누락, 빈 데이터 상태, 최대 입력 길이 초과, API 예외 응답 상황 등을 함께 검증했습니다.\n\n특히 기능 수정 이후 등록·수정·삭제 기능이 기존과 동일하게 동작하는지, 언어 변경 및 권한 변경에 따라 화면 노출 조건이 의도한 대로 유지되는지 확인하며 회귀 테스트를 수행했습니다.",
+      "관리자 페이지는 운영 과정에서 기능 추가와 수정이 자주 발생했습니다. 하지만 기능 변경 이후 영향 범위를 파악해 어떤 화면과 기능을 다시 확인해야 하는지에 대한 기준이 없어, 검증 대상이 담당자마다 달라질 수 있는 상황이었습니다.\n\n그래서 권한별 메뉴 노출, 접근 제한, 게시물 CRUD, 다국어(i18n) 전환을 중심으로 회귀 테스트 케이스를 작성하고 검증을 수행했습니다. 한·영 언어 전환 시 주요 화면뿐 아니라 상세 정보 모달, 알림·안내 문구, 빈 데이터 화면까지 함께 확인했으며, 이 과정에서 일부 번역 누락과 예외 상황 처리 이슈를 발견했습니다. 또한 권한이 없는 사용자의 접근, 필수 입력값 누락, API 실패 응답 등 예외 시나리오를 점검해 기능 수정 이후에도 기존 사용자 흐름이 유지되는지 확인했습니다.",
     challenge:
       "기획서에는 기능 단위 요구사항이 정리되어 있어도 실제 사용자는 로그인, 메뉴 접근, 데이터 입력, 저장, 조회, 언어 전환을 연속된 흐름으로 사용합니다. 관리자 페이지와 다국어 페이지는 권한, 데이터 상태, 언어 상태가 함께 바뀌기 때문에 단일 화면만 확인하면 기존 기능 영향도를 놓칠 수 있습니다.",
     solution:
-      "관리자 계정 유형, 메뉴 노출 조건, 등록·수정·삭제 흐름, 한·영 언어 전환을 테스트 축으로 나누고 기능 변경 후 기존 동작이 유지되는지 반복 확인했습니다. 발견한 차이는 조건, 기대 결과, 실제 결과, 영향 범위로 정리해 수정 범위와 회귀 확인 대상을 명확히 했습니다.",
+      "관리자 계정 유형, 메뉴 노출 조건, 등록·수정·삭제 흐름, 한·영 언어 전환을 테스트 축으로 나누고 기능 변경 후 기존 동작이 유지되는지 반복 확인했습니다. 언어 전환 후에는 주요 메뉴에서 끝내지 않고 상세 정보 모달과 부가 화면까지 이동하며 숨은 번역 누락을 찾았고, 발견한 차이는 조건, 기대 결과, 실제 결과, 영향 범위로 정리해 수정 범위와 회귀 확인 대상을 명확히 했습니다.",
     process: [
       {
         phase: "Read Requirements",
@@ -313,7 +324,7 @@ const projectData = {
       {
         phase: "Check Conditions",
         description:
-          "권한 없음, 필수값 누락, 빈 데이터, 최대 입력 길이, API 예외 응답 조건 확인",
+          "권한 없음, 필수값 누락, 빈 데이터, 상세 정보 모달, API 예외 응답 조건 확인",
       },
       {
         phase: "Report Gap",
@@ -334,7 +345,7 @@ const projectData = {
       {
         title: "다국어 회귀 검증",
         description:
-          "한·영 전환 후 번역 누락, UI 깨짐, 데이터 표시 오류가 발생하지 않는지 반복 확인했습니다.",
+          "한·영 전환 후 주요 화면과 상세 정보 모달을 함께 탐색하며 번역 누락, UI 깨짐, 데이터 표시 오류를 확인했습니다.",
       },
       {
         title: "CRUD 흐름 검증",
@@ -358,21 +369,180 @@ const projectData = {
     metrics: [
       { value: "18", label: "회귀 테스트 케이스" },
       { value: "3", label: "검증 영역" },
-      { value: "2", label: "언어 전환 범위" },
+      { value: "3", label: "발견 이슈" },
     ],
     results: [
       "관리자 계정 유형별 메뉴 노출과 접근 제한 조건을 기준으로 권한 기반 회귀 검증 수행",
-      "게시물 등록·수정·삭제 이후 목록, 상세, 사용자 노출 화면에 데이터가 정상 반영되는지 확인",
-      "한·영 언어 전환 시 번역 누락, 레이아웃 깨짐, 데이터 표시 오류가 없는지 검증",
-      "필수 입력값 누락, 빈 데이터 상태, 최대 입력 길이 초과, API 예외 응답 등 예외 조건 확인",
-      "기능 수정 이후 권한 변경과 언어 변경 상태에서도 기존 CRUD 흐름이 유지되는지 재검증",
+      "게시물 등록·수정·삭제 이후 목록, 상세, 사용자 화면까지 데이터 반영 여부 확인",
+      "정상 플로우 밖의 상세 정보 모달까지 탐색해 일부 문구가 한국어로 노출되는 번역 누락을 발견하고, 재현 조건과 함께 공유해 수정으로 반영",
+      "API 실패 응답과 번역 누락 등 사용자 경험에 영향을 줄 수 있는 예외 상황 확인",
+      "기능 수정 이후에도 권한 및 다국어 환경에서 기존 CRUD 흐름이 유지되는지 재검증",
     ],
-    nextProject: "seomse-reservation-cx",
+    insight:
+      "영문 환경 검증 과정에서 주요 화면은 모두 정상적으로 보였지만, 상세 정보 모달을 확인하는 과정에서 번역 누락을 발견했습니다. 이를 통해 회귀 테스트는 변경된 기능만 확인하는 것이 아니라 사용자가 실제로 접근 가능한 화면을 끝까지 탐색하는 과정이라는 점을 확인했습니다.\n\n또한 권한 변경, 다국어 전환, 데이터 수정처럼 서로 다른 조건이 결합될 때 예상하지 못한 문제가 발생할 수 있어, 기능 단위보다 사용자 흐름 단위로 검증 범위를 설정하는 것이 중요하다는 점을 정리했습니다.",
+    nextProject: "seomse-reservation-qa",
+  },
+  "operations-e2e-smoke": {
+    title: "사내 운영 서비스 로그인·인증 플로우 Smoke Test 자동화",
+    subtitle:
+      "배포 후 실유저 진입 전, 로그인·인증 플로우를 운영 도메인에서 직접 검증한 E2E 자동화",
+    year: "2025",
+    role: "QA Automation",
+    client: "Union Contents",
+    duration: "Side Project",
+    team: ["Backend", "QA"],
+    overview:
+      "사내 운영 서비스는 B2B 특성상 특정 시간대에 사용자가 집중 접속하는 구조였습니다. 배포 직후 로그인이나 인증 흐름에 문제가 발생하면 다수의 사용자가 서비스에 진입하지 못할 수 있었지만, 이를 빠르게 확인할 수 있는 Smoke Test 체계는 마련되어 있지 않았습니다.\n\n이를 개선하기 위해 운영 도메인의 핵심 인증 흐름을 검증하는 E2E 자동화를 구축했습니다. 로그인, 보호 페이지 접근 제어, 리다이렉트 등 주요 진입 경로를 대상으로 7개의 테스트 시나리오를 작성해 반복 검증이 가능하도록 했습니다.\n\n테스트 과정에서는 로그인 API가 문서와 다르게 201 상태 코드를 반환하는 스펙 불일치를 발견했습니다. 이를 통해 배포 전 핵심 인증 흐름을 안정적으로 검증할 수 있는 환경을 마련하고, 코드 리뷰만으로 발견하기 어려운 문제를 자동화 테스트로 확인할 수 있었습니다.",
+    challenge:
+      "운영 도메인에 직접 테스트 트래픽을 보내야 하므로 rate limiting·계정 잠금·IDS 알람을 유발하지 않아야 했습니다. 동시에 메인 앱의 의존성과 CI 파이프라인을 오염시키지 않는 독립 구조가 필요했습니다.",
+    solution:
+      "playwright-tests/ 를 별도 package.json / tsconfig 로 완전히 분리하고, BASE_URL 필수화와 자격증명 skip 메커니즘으로 환경 혼용·자격증명 노출 사고를 방지했습니다. 운영 부담을 유발할 수 있는 케이스는 Out of Scope로 명시해 제외했습니다.",
+    process: [
+      {
+        phase: "Define Scope",
+        description:
+          "운영 부담 없이 검증 가능한 7개 시나리오 선정, 제외 케이스 명시",
+      },
+      {
+        phase: "Independent Setup",
+        description:
+          "메인 앱과 분리된 playwright-tests/ 독립 프로젝트 구조 설계",
+      },
+      {
+        phase: "Env Design",
+        description: "BASE_URL 필수화 · 자격증명 skip · .env .gitignore 처리",
+      },
+      {
+        phase: "Write Specs",
+        description:
+          "로그인 렌더링부터 보호 페이지 접근 제어 리다이렉트까지 7개 케이스 구현",
+      },
+      {
+        phase: "Verify & Document",
+        description: "201 응답 코드 발견 및 스펙 반영, README 작성",
+      },
+    ],
+    features: [
+      {
+        title: "독립 프로젝트 구조",
+        description:
+          "메인 앱 의존성과 CI를 오염시키지 않고 별도 job으로 분리 실행 가능한 구조를 갖췄습니다.",
+      },
+      {
+        title: "BASE_URL 필수화",
+        description:
+          ".env 미설정 시 즉시 throw해 운영·스테이징·로컬 환경 혼용 사고를 방지했습니다.",
+      },
+      {
+        title: "자격증명 skip 메커니즘",
+        description:
+          "TEST_USER_ID/PW 미설정 시 인증 시나리오를 자동 skip해 자격증명 없이도 나머지 케이스를 실행합니다.",
+      },
+      {
+        title: "운영 부담 회피",
+        description:
+          "rate limiting·계정 잠금·IDS 알람 유발 가능 케이스를 의도적으로 제외하고 retain-on-failure로 평시 부담을 최소화했습니다.",
+      },
+    ],
+    tech: [
+      "Playwright",
+      "TypeScript",
+      "dotenv",
+      "Node.js",
+      "NestJS",
+      "Smoke Test",
+    ],
+    metrics: [],
+    results: [
+      "로그인 페이지 진입부터 인증 여부에 따른 화면 이동까지 핵심 인증 흐름 7개 시나리오 자동화",
+      "POST /auth/login 응답 코드와 API 문서 간 스펙 불일치 발견 및 공유",
+      "배포 후 로그인·인증 흐름을 반복 검증할 수 있는 Smoke Test 체계 구축",
+    ],
+    nextProject: "seomse-reservation-qa",
+  },
+  "seomse-login-e2e": {
+    title: "섬세 로그인 E2E 자동화 테스트",
+    subtitle:
+      "백엔드 없이 page.route()로 6개 시나리오를 검증한 Playwright 기반 로그인 자동화",
+    year: "2025",
+    role: "QA Automation",
+    client: "SEOMSE",
+    duration: "Side Project",
+    team: ["Frontend", "QA"],
+    overview:
+      "SEOMSE 로그인 기능을 대상으로 Playwright와 TypeScript 기반의 E2E 자동화 테스트를 구성했습니다. 백엔드 API 서버가 없는 상황에서 실제 API 경로와 DOM 셀렉터를 활용해 page.route()로 응답을 모킹하고, POM 패턴으로 선택자와 액션을 분리했습니다.\n\n로그인 성공부터 401·403·500 오류, 네트워크 장애, 응답 지연까지 6개 시나리오를 설계해 모두 PASS로 검증했으며 전체 실행 시간은 8.6초입니다. GitHub Actions와 연동해 반복 실행 가능한 자동화 체계를 갖췄습니다.",
+    challenge:
+      "실제 백엔드 API가 없는 환경에서 로그인 오류 케이스를 안정적으로 재현하는 것이 과제였습니다. 또한 UI 선택자가 바뀔 때마다 여러 테스트 파일을 수정해야 하는 유지보수 부담을 줄여야 했습니다.",
+    solution:
+      "Playwright의 page.route()로 실제 API 경로를 가로채 401·403·500·지연 응답을 직접 주입해 오류 케이스를 안정적으로 재현했습니다. Page Object Model로 선택자를 LoginPage에 모아 UI 변경 시 수정 범위를 최소화했습니다.",
+    process: [
+      {
+        phase: "Define Scope",
+        description:
+          "로그인 성공, 인증 오류, 권한 오류, 서버 오류, 네트워크 장애, 응답 지연을 테스트 범위로 정의",
+      },
+      {
+        phase: "Build POM",
+        description: "LoginPage 클래스로 선택자와 사용자 액션 캡슐화",
+      },
+      {
+        phase: "Write Mocks",
+        description: "auth.mock.ts에 시나리오별 page.route() 응답 모킹 구현",
+      },
+      {
+        phase: "Write Specs",
+        description: "6개 테스트 케이스 작성, dialog.ts로 alert 검증 헬퍼 추가",
+      },
+      {
+        phase: "CI Integration",
+        description: "GitHub Actions로 자동화 실행 파이프라인 구성",
+      },
+    ],
+    features: [
+      {
+        title: "Network Mocking",
+        description:
+          "page.route()로 실제 API 경로를 가로채 401·403·500·지연 응답을 주입해 백엔드 없이 오류 케이스를 재현했습니다.",
+      },
+      {
+        title: "Page Object Model",
+        description:
+          "LoginPage 클래스로 선택자와 액션을 분리해 UI 변경 시 수정 포인트를 단일화했습니다.",
+      },
+      {
+        title: "다양한 오류 시나리오",
+        description:
+          "정상 흐름뿐 아니라 401·403·500·네트워크 장애·응답 지연까지 6개 시나리오를 모두 자동화했습니다.",
+      },
+      {
+        title: "CI 파이프라인",
+        description:
+          "GitHub Actions와 연동해 반복 실행 가능한 자동화 체계를 갖췄습니다.",
+      },
+    ],
+    tech: [
+      "Playwright",
+      "TypeScript",
+      "POM",
+      "Network Mocking",
+      "GitHub Actions",
+    ],
+    metrics: [
+      { value: "6 / 6", label: "시나리오 PASS" },
+      { value: "8.6s", label: "전체 실행 시간" },
+    ],
+    results: [
+      "page.route()로 백엔드 없이 401·403·500·네트워크 장애·응답 지연 케이스를 안정적으로 검증",
+      "Page Object Model로 선택자를 분리해 UI 변경 시 수정 범위 최소화",
+      "6개 시나리오 100% PASS, 8.6초 이내 전체 실행",
+      "GitHub Actions로 반복 실행 가능한 자동화 파이프라인 구성",
+    ],
+    nextProject: "seomse-reservation-qa",
   },
   "seo-accessibility-quality": {
     title: "웹 접근성 및 SEO 품질 점검",
     subtitle:
-      "검색 노출, 정보 구조, 색상 대비를 기준으로 사용자가 정보를 탐색하는 흐름을 확인한 사례",
+      "검색 노출, 정보 구조, 색상 대비를 기준으로 사용자가 정보를 탐색하는 흐름 확인",
     year: "2023-2026",
     role: "Quality Improvement",
     client: "Union Contents / SEO Guide",
@@ -450,54 +620,51 @@ const projectData = {
   },
 };
 
+const seomsePriorityColor: Record<string, string> = {
+  P1: "bg-rose-500",
+  P2: "bg-amber-500",
+  P3: "bg-neutral-400",
+};
+
 const seomseKeyIssues = [
   {
     priority: "P1",
     title: "미래 날짜 시간 슬롯 오류",
     impact:
-      "내일 또는 미래 날짜를 선택해도 현재 시각 기준으로 시간이 필터링되어 예약 가능한 시간이 사라질 수 있음",
+      "미래 날짜를 선택해도 현재 시각 기준으로 시간이 필터링되어 예약 가능한 시간 슬롯이 누락될 수 있음",
   },
   {
     priority: "P1",
     title: "디자이너 닉네임 필드 불일치",
     impact:
-      "API 타입은 nickName, 화면 참조는 nickname으로 달라 실제 이름 대신 기본 문구가 표시될 수 있음",
+      "API 응답(nickName)과 화면 참조값(nickname)이 달라 디자이너 이름이 정상 표시되지 않을 수 있음",
   },
   {
     priority: "P2",
     title: "예약 실패 피드백 부재",
     impact:
-      "서버 오류나 네트워크 오류 발생 시 사용자에게 실패 사유가 보이지 않아 예약 성공 여부를 판단하기 어려움",
-  },
-  {
-    priority: "P2",
-    title: "필수값 미선택 상태 표현 부족",
-    impact:
-      "서비스 미선택 시 이동은 막히지만 버튼이 활성처럼 보여 사용자가 화면 오류로 오해할 수 있음",
+      "서버·네트워크 오류 발생 시 실패 사유가 표시되지 않아 예약 성공 여부를 판단하기 어려움",
   },
   {
     priority: "P2",
     title: "매장 정렬/필터 탭 미동작",
     impact:
-      "리뷰순, 평점순, 가격 낮은순 탭을 눌러도 목록 결과가 바뀌지 않아 탐색 편의성이 낮아짐",
+      "리뷰순·평점순·가격순 탭을 눌러도 목록이 바뀌지 않아 탐색 편의성이 낮아짐",
   },
 ];
 
 const seomseArtifacts = [
   {
-    title: "Test Case (32건)",
-    description:
-      "예약 생성·조회·관리 플로우에 대한 정상 및 예외 시나리오 검증",
+    title: "Test Cases (31건)",
+    description: "예약 생성·조회·관리 플로우에 대한 정상 및 예외 시나리오 검증",
   },
   {
-    title: "Bug Report (5건)",
-    description:
-      "재현 절차, 기대 결과, 실제 결과, 영향도 및 개선 방향 정리",
+    title: "Bug Reports (4건)",
+    description: "재현 절차, 기대 결과, 실제 결과, 영향도 및 개선 방향 정리",
   },
   {
-    title: "API 확인 근거",
-    description:
-      "필드명 불일치와 실패 응답 등 버그 원인 분석에 활용한 API 응답 확인",
+    title: "API Validation",
+    description: "주요 이슈 분석에 활용한 API 요청·응답 및 데이터 검증 결과",
   },
   {
     title: "QA Summary",
@@ -506,22 +673,40 @@ const seomseArtifacts = [
 ];
 
 const seomseResultSummary = [
-  { label: "PASS", value: 23, color: "bg-emerald-500" },
-  { label: "FAIL", value: 8, color: "bg-rose-500" },
+  { label: "PASS", value: 24, color: "bg-emerald-500" },
+  { label: "FAIL", value: 6, color: "bg-rose-500" },
   { label: "BLOCKED", value: 1, color: "bg-amber-500" },
 ];
 
 const seomseIssueSummary = [
-  { label: "P1", value: 2, width: "40%", color: "bg-rose-500" },
-  { label: "P2", value: 3, width: "60%", color: "bg-amber-500" },
-  { label: "P3", value: 3, width: "60%", color: "bg-neutral-400" },
+  {
+    label: "P1",
+    value: 2,
+    width: "40%",
+    color: "bg-rose-500",
+    desc: "예약 경험에 직접 영향을 주는 결함",
+  },
+  {
+    label: "P2",
+    value: 3,
+    width: "60%",
+    color: "bg-amber-500",
+    desc: "사용자 이용에 불편을 주는 결함",
+  },
+  {
+    label: "P3",
+    value: 1,
+    width: "20%",
+    color: "bg-neutral-400",
+    desc: "기능은 동작하지만 개선이 필요한 결함",
+  },
 ];
 
 const seomseScreenshots = [
   {
     step: "01",
-    title: "예약 화면 진입",
-    description: "API 기반 매장 카드 노출",
+    title: "매장 목록 조회",
+    description: "매장 목록 API 응답 및 카드 노출 확인",
     qaPoint: "RES-01",
     status: "PASS",
     src: seomseShopListImage,
@@ -529,8 +714,8 @@ const seomseScreenshots = [
   },
   {
     step: "02",
-    title: "매장 상세 확인",
-    description: "상세 API 조회 후 BottomSheet 표시",
+    title: "매장 상세 조회",
+    description: "상세 API 응답 및 BottomSheet 노출 확인",
     qaPoint: "RES-03",
     status: "PASS",
     src: seomseShopDetailImage,
@@ -538,8 +723,8 @@ const seomseScreenshots = [
   },
   {
     step: "03",
-    title: "일반 예약 진입",
-    description: "서비스/디자이너 선택 화면 이동",
+    title: "서비스·디자이너 선택",
+    description: "예약 정보 선택 및 데이터 표시 검증",
     qaPoint: "RES-07 / RES-09",
     status: "FAIL",
     src: seomseNormalReservationImage,
@@ -547,8 +732,8 @@ const seomseScreenshots = [
   },
   {
     step: "04",
-    title: "일정 선택",
-    description: "날짜 선택과 시간 슬롯 조건 확인",
+    title: "예약 일정 선택",
+    description: "날짜 및 시간 선택 조건 검증",
     qaPoint: "RES-16",
     status: "FAIL",
     src: seomseScheduleImage,
@@ -556,8 +741,8 @@ const seomseScreenshots = [
   },
   {
     step: "05",
-    title: "섬세 예약 필터 1",
-    description: "두피 타입과 모발 유형 필수 선택",
+    title: "두피·모발 정보 입력",
+    description: "필수 선택 항목 검증",
     qaPoint: "RES-20 / RES-21",
     status: "PASS",
     src: seomseSpecialFilterImage,
@@ -565,8 +750,8 @@ const seomseScreenshots = [
   },
   {
     step: "06",
-    title: "섬세 예약 필터 2",
-    description: "모발 길이와 시술 이력 전달",
+    title: "모발 정보 입력",
+    description: "모발 길이 및 시술 이력 전달 확인",
     qaPoint: "RES-22 / RES-23",
     status: "PASS",
     src: seomseSpecialFilterImage2,
@@ -575,8 +760,8 @@ const seomseScreenshots = [
   {
     step: "07",
     title: "요청사항 입력",
-    description: "고객 요청사항 텍스트 입력",
-    qaPoint: "Special flow",
+    description: "고객 요청사항 저장 및 전달 확인",
+    qaPoint: "RES-24",
     status: "PASS",
     src: seomseRequestImage,
     alt: "SEOMSE 요청사항 입력 화면",
@@ -584,7 +769,7 @@ const seomseScreenshots = [
   {
     step: "08",
     title: "참고 이미지 첨부",
-    description: "첨부 이미지 미리보기 표시",
+    description: "이미지 업로드 및 미리보기 확인",
     qaPoint: "RES-24",
     status: "PASS",
     src: seomseRequestImage2,
@@ -592,8 +777,8 @@ const seomseScreenshots = [
   },
   {
     step: "09",
-    title: "사용자 예약 조회",
-    description: "예약 목록과 예약 분류 표시",
+    title: "예약 내역 조회",
+    description: "예약 목록 및 상태 분류 확인",
     qaPoint: "RES-28 / RES-29",
     status: "PASS",
     src: seomseMyReservationsImage,
@@ -601,8 +786,8 @@ const seomseScreenshots = [
   },
   {
     step: "10",
-    title: "관리자 예약 확인",
-    description: "고객 입력 정보의 관리자 상세 전달",
+    title: "예약 상세 확인",
+    description: "고객 입력 정보 및 예약 데이터 전달 확인",
     qaPoint: "RES-30 / RES-31",
     status: "PASS",
     src: seomseAdminReservationImage,
@@ -617,6 +802,7 @@ const serviceFlowRegressionCases = [
     target: "관리자 계정 로그인",
     viewpoint: "권한별 초기 진입",
     expected: "계정 유형에 맞는 관리자 홈과 기본 메뉴가 표시됨",
+    actual: "계정 유형별로 다른 관리자 홈·메뉴가 노출됨",
     result: "PASS",
   },
   {
@@ -625,6 +811,7 @@ const serviceFlowRegressionCases = [
     target: "권한별 메뉴 노출",
     viewpoint: "메뉴 접근 제어",
     expected: "권한 없는 메뉴는 숨김 또는 접근 제한 처리됨",
+    actual: "권한 없는 메뉴가 목록에 노출되지 않음",
     result: "PASS",
   },
   {
@@ -633,6 +820,7 @@ const serviceFlowRegressionCases = [
     target: "직접 URL 접근",
     viewpoint: "비정상 접근",
     expected: "권한 없는 사용자가 직접 URL 접근 시 차단됨",
+    actual: "권한 없는 URL 직접 접근 시 접근 제한 화면으로 차단됨",
     result: "PASS",
   },
   {
@@ -641,6 +829,7 @@ const serviceFlowRegressionCases = [
     target: "게시물 등록",
     viewpoint: "신규 데이터 생성",
     expected: "필수값 입력 후 저장 시 목록과 상세에 신규 데이터가 표시됨",
+    actual: "저장 직후 목록·상세에 신규 데이터가 표시됨",
     result: "PASS",
   },
   {
@@ -649,6 +838,7 @@ const serviceFlowRegressionCases = [
     target: "게시물 수정",
     viewpoint: "기존 데이터 변경",
     expected: "수정 저장 후 목록, 상세, 사용자 화면에 변경 내용이 반영됨",
+    actual: "수정 값이 목록·상세·사용자 화면에 반영됨",
     result: "PASS",
   },
   {
@@ -657,6 +847,7 @@ const serviceFlowRegressionCases = [
     target: "게시물 삭제",
     viewpoint: "데이터 제거",
     expected: "삭제 후 목록에서 제거되고 상세 URL 접근 시 예외 화면이 표시됨",
+    actual: "삭제 후 목록에서 제거되고 상세 접근 시 예외 화면이 표시됨",
     result: "PASS",
   },
   {
@@ -665,6 +856,7 @@ const serviceFlowRegressionCases = [
     target: "필수값 누락",
     viewpoint: "Validation",
     expected: "저장 요청 전 필수 입력 안내가 표시되고 저장이 차단됨",
+    actual: "필수값 누락 시 안내가 표시되고 저장이 차단됨",
     result: "PASS",
   },
   {
@@ -673,6 +865,7 @@ const serviceFlowRegressionCases = [
     target: "최대 입력 길이 초과",
     viewpoint: "Boundary",
     expected: "정책 기준을 초과한 입력은 제한되거나 안내 문구가 표시됨",
+    actual: "길이 초과 입력이 제한되고 안내 문구가 표시됨",
     result: "PASS",
   },
   {
@@ -681,15 +874,18 @@ const serviceFlowRegressionCases = [
     target: "목록 데이터 없음",
     viewpoint: "Empty State",
     expected: "빈 목록 상태에서 안내 문구와 기본 액션이 표시됨",
+    actual: "데이터 없을 때 빈 상태 안내 문구가 표시됨",
     result: "PASS",
   },
   {
     id: "REG-010",
     area: "다국어",
-    target: "한국어에서 영어 전환",
-    viewpoint: "i18n 전환",
-    expected: "메뉴, 버튼, 안내 문구가 영어로 전환되고 레이아웃이 깨지지 않음",
-    result: "PASS",
+    target: "상세 정보 모달",
+    viewpoint: "탐색 기반 확인",
+    expected:
+      "언어 전환 후 상세 정보 모달의 문구까지 영어로 표시되고 한국어 문구가 남지 않음",
+    actual: "영어 전환 후에도 상세 정보 모달 일부 문구가 한국어로 노출됨",
+    result: "FAIL",
   },
   {
     id: "REG-011",
@@ -697,6 +893,7 @@ const serviceFlowRegressionCases = [
     target: "영어에서 한국어 전환",
     viewpoint: "i18n 복귀",
     expected: "언어 복귀 후 기존 화면 상태와 데이터 표시가 유지됨",
+    actual: "언어 복귀 후 화면 상태와 데이터 표시가 유지됨",
     result: "PASS",
   },
   {
@@ -705,6 +902,7 @@ const serviceFlowRegressionCases = [
     target: "긴 영어 문구 표시",
     viewpoint: "UI 깨짐",
     expected: "긴 번역 문구가 버튼, 테이블, 카드 영역을 침범하지 않음",
+    actual: "긴 영어 문구가 버튼·테이블 영역 내에서 줄바꿈 처리됨",
     result: "PASS",
   },
   {
@@ -713,6 +911,7 @@ const serviceFlowRegressionCases = [
     target: "관리자 등록 데이터 노출",
     viewpoint: "Admin to User",
     expected: "관리자에서 등록한 데이터가 사용자 서비스 소개 페이지에 표시됨",
+    actual: "관리자 등록 항목이 사용자 소개 페이지에 노출됨",
     result: "PASS",
   },
   {
@@ -722,6 +921,7 @@ const serviceFlowRegressionCases = [
     viewpoint: "Data Sync",
     expected:
       "관리자 수정 후 사용자 화면의 텍스트와 이미지가 최신 상태로 표시됨",
+    actual: "관리자 수정 내용이 사용자 화면에 최신 상태로 반영됨",
     result: "PASS",
   },
   {
@@ -730,7 +930,8 @@ const serviceFlowRegressionCases = [
     target: "목록 조회 실패",
     viewpoint: "Exception",
     expected: "API 실패 시 빈 화면이 아닌 오류 안내 또는 재시도 상태가 표시됨",
-    result: "CHECK",
+    actual: "목록 조회 실패 시 오류 안내 없이 빈 화면만 노출됨",
+    result: "FAIL",
   },
   {
     id: "REG-016",
@@ -738,7 +939,8 @@ const serviceFlowRegressionCases = [
     target: "저장 실패",
     viewpoint: "Exception",
     expected: "저장 실패 시 사용자가 실패 여부를 알 수 있는 안내가 표시됨",
-    result: "CHECK",
+    actual: "저장 실패 시 실패 여부를 알리는 안내가 표시되지 않음",
+    result: "FAIL",
   },
   {
     id: "REG-017",
@@ -746,6 +948,7 @@ const serviceFlowRegressionCases = [
     target: "신규 기능 추가 후 기존 등록 흐름",
     viewpoint: "Regression",
     expected: "기능 추가 이후에도 기존 등록, 수정, 삭제 흐름이 유지됨",
+    actual: "기능 추가 이후에도 기존 등록·수정·삭제 흐름이 유지됨",
     result: "PASS",
   },
   {
@@ -755,6 +958,7 @@ const serviceFlowRegressionCases = [
     viewpoint: "Regression",
     expected:
       "권한 변경과 언어 전환을 반복해도 메뉴 노출과 화면 상태가 의도대로 유지됨",
+    actual: "권한·언어 변경을 반복해도 메뉴 노출과 화면 상태가 유지됨",
     result: "PASS",
   },
 ];
@@ -778,21 +982,24 @@ const adminDataQaCases = [
     id: "ADM-003",
     area: "사용자 화면",
     target: "신규 항목 사용자 노출",
-    expected: "관리자에서 추가된 항목이 사용자 화면의 선택지에도 동일하게 반영됨",
+    expected:
+      "관리자에서 추가된 항목이 사용자 화면의 선택지에도 동일하게 반영됨",
     result: "PASS",
   },
   {
     id: "ADM-004",
     area: "기존 데이터",
     target: "기존 선택값 유지",
-    expected: "데이터 구조 전환 후에도 기존 저장값이 초기화되거나 다른 값으로 변경되지 않음",
+    expected:
+      "데이터 구조 전환 후에도 기존 저장값이 초기화되거나 다른 값으로 변경되지 않음",
     result: "PASS",
   },
   {
     id: "ADM-005",
     area: "빈 데이터",
     target: "항목 없음 상태",
-    expected: "데이터가 비어 있을 때 깨진 UI 대신 빈 상태 또는 기본 안내가 표시됨",
+    expected:
+      "데이터가 비어 있을 때 깨진 UI 대신 빈 상태 또는 기본 안내가 표시됨",
     result: "PASS",
   },
   {
@@ -820,7 +1027,8 @@ const adminDataQaCases = [
     id: "ADM-009",
     area: "운영 리스크",
     target: "관리 포인트 감소",
-    expected: "항목 수정 시 여러 파일을 반복 수정하지 않고 단일 관리 지점에서 반영됨",
+    expected:
+      "항목 수정 시 여러 파일을 반복 수정하지 않고 단일 관리 지점에서 반영됨",
     result: "PASS",
   },
   {
@@ -828,13 +1036,20 @@ const adminDataQaCases = [
     area: "예외",
     target: "알 수 없는 항목 코드",
     expected: "정의되지 않은 코드가 들어와도 화면이 깨지지 않고 대체 표시됨",
-    result: "CHECK",
+    result: "FAIL",
   },
 ];
 
+const hiddenProjectIds = new Set([
+  "seomse-login-e2e",
+]);
+
 export default function ProjectDetail() {
   const { id } = useParams();
-  const project = id ? projectData[id as keyof typeof projectData] : null;
+  const project =
+    id && !hiddenProjectIds.has(id)
+      ? projectData[id as keyof typeof projectData]
+      : null;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -939,25 +1154,80 @@ export default function ProjectDetail() {
           </div>
         </section>
 
-        {id === "seomse-reservation-cx" && (
+        {id === "seomse-reservation-qa" && (
           <section className="px-6 md:px-8 mb-16 md:mb-24">
             <div className="max-w-6xl mx-auto">
               <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-5 md:p-6">
                 <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                   <div>
                     <p className="mb-2 text-xs tracking-[0.18em] text-neutral-400">
-                      FULL QA DOCUMENT
+                      QA DOCUMENT
                     </p>
-                    <h2 className="text-xl tracking-tight md:text-2xl">
-                      테스트 케이스와 버그 리포트를 문서로 정리했습니다.
-                    </h2>
-                    <p className="mt-3 max-w-3xl text-sm leading-[1.8] text-neutral-600">
-                      32개 테스트 케이스, 5개 주요 버그, 원인 분석 근거와 QA
-                      회고를 한 페이지에서 확인할 수 있습니다.
+                    <p className="max-w-3xl text-base leading-[1.8] tracking-tight text-neutral-700 md:text-lg">
+                      31개의 테스트 케이스와 4개의 주요 버그를 바탕으로 검증
+                      과정, 원인 분석, 개선 사항, QA 회고를 정리했습니다.
                     </p>
                   </div>
                   <Link
                     to="/qa/seomse-reservation"
+                    className="inline-flex shrink-0 justify-center rounded-full bg-neutral-900 px-5 py-2.5 text-sm text-white transition-opacity hover:opacity-80"
+                  >
+                    QA 문서 보기
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {id === "operations-e2e-smoke" && (
+          <section className="px-6 md:px-8 mb-16 md:mb-24">
+            <div className="max-w-6xl mx-auto">
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-5 md:p-6">
+                <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <p className="mb-2 text-xs tracking-[0.18em] text-neutral-400">
+                      QA DOCUMENT
+                    </p>
+                    <h2 className="text-xl tracking-tight md:text-2xl">
+                      Smoke Test 구축 과정과 검증 결과를 문서로 정리했습니다.
+                    </h2>
+                    <p className="mt-3 max-w-3xl text-sm leading-[1.8] text-neutral-600">
+                      7개 자동화 시나리오, 운영 환경 테스트 전략, API 스펙 불일치
+                      발견 사례를 확인할 수 있습니다.
+                    </p>
+                  </div>
+                  <Link
+                    to="/qa/operations-e2e-smoke"
+                    className="inline-flex shrink-0 justify-center rounded-full bg-neutral-900 px-5 py-2.5 text-sm text-white transition-opacity hover:opacity-80"
+                  >
+                    QA 문서 보기
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {id === "seomse-login-e2e" && (
+          <section className="px-6 md:px-8 mb-16 md:mb-24">
+            <div className="max-w-6xl mx-auto">
+              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-5 md:p-6">
+                <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <p className="mb-2 text-xs tracking-[0.18em] text-neutral-400">
+                      QA DOCUMENT
+                    </p>
+                    <h2 className="text-xl tracking-tight md:text-2xl">
+                      자동화 코드와 전체 시나리오를 문서로 정리했습니다.
+                    </h2>
+                    <p className="mt-3 max-w-3xl text-sm leading-[1.8] text-neutral-600">
+                      POM 코드, Network Mock 구현, 6개 시나리오 결과와 QA
+                      인사이트를 한 페이지에서 확인할 수 있습니다.
+                    </p>
+                  </div>
+                  <Link
+                    to="/qa/seomse-login-e2e"
                     className="inline-flex shrink-0 justify-center rounded-full bg-neutral-900 px-5 py-2.5 text-sm text-white transition-opacity hover:opacity-80"
                   >
                     QA 문서 보기
@@ -1012,17 +1282,13 @@ export default function ProjectDetail() {
                 <table className="w-full min-w-[980px] text-left text-sm">
                   <thead className="bg-neutral-50 text-xs text-neutral-500">
                     <tr>
-                      {[
-                        "TC ID",
-                        "영역",
-                        "대상",
-                        "기대 결과",
-                        "판정",
-                      ].map((head) => (
-                        <th key={head} className="p-4">
-                          {head}
-                        </th>
-                      ))}
+                      {["TC ID", "영역", "대상", "기대 결과", "판정"].map(
+                        (head) => (
+                          <th key={head} className="p-4">
+                            {head}
+                          </th>
+                        ),
+                      )}
                     </tr>
                   </thead>
                   <tbody>
@@ -1039,7 +1305,9 @@ export default function ProjectDetail() {
                             className={`rounded-full px-2.5 py-1 text-xs ${
                               tc.result === "PASS"
                                 ? "bg-emerald-50 text-emerald-700"
-                                : "bg-amber-50 text-amber-700"
+                                : tc.result === "FAIL"
+                                  ? "bg-rose-50 text-rose-700"
+                                  : "bg-amber-50 text-amber-700"
                             }`}
                           >
                             {tc.result}
@@ -1075,7 +1343,7 @@ export default function ProjectDetail() {
                   {
                     title: "다국어 회귀",
                     value: "KO / EN",
-                    note: "언어 전환 후 번역 누락, UI 깨짐, 데이터 표시 오류 확인",
+                    note: "언어 전환 후 주요 화면과 상세 정보 모달의 번역 누락, UI 깨짐 확인",
                   },
                 ].map((item) => (
                   <div
@@ -1095,17 +1363,18 @@ export default function ProjectDetail() {
                 ))}
               </div>
               <div className="overflow-x-auto rounded-lg border border-neutral-200 bg-white">
-                <table className="w-full min-w-[1080px] text-left text-sm">
+                <table className="w-full min-w-[1280px] text-left text-sm">
                   <thead className="bg-neutral-50 text-xs text-neutral-500">
                     <tr>
                       {[
                         "TC ID",
-                                                "영역",
-                                                "대상 기능",
-                                                "검증 관점",
-                                                "기대 결과",
-                                                "판정",
-                                            ].map((head) => (
+                        "영역",
+                        "대상 기능",
+                        "검증 관점",
+                        "기대 결과",
+                        "실제 결과",
+                        "판정",
+                      ].map((head) => (
                         <th key={head} className="p-4">
                           {head}
                         </th>
@@ -1119,15 +1388,20 @@ export default function ProjectDetail() {
                         <td className="p-4">{tc.area}</td>
                         <td className="p-4">{tc.target}</td>
                         <td className="p-4 text-neutral-600">{tc.viewpoint}</td>
-                        <td className="max-w-[360px] p-4 leading-[1.7] text-neutral-600">
+                        <td className="max-w-[320px] p-4 leading-[1.7] text-neutral-600">
                           {tc.expected}
+                        </td>
+                        <td className="max-w-[320px] p-4 leading-[1.7] text-neutral-600">
+                          {tc.actual}
                         </td>
                         <td className="p-4">
                           <span
                             className={`rounded-full px-2.5 py-1 text-xs ${
                               tc.result === "PASS"
                                 ? "bg-emerald-50 text-emerald-700"
-                                : "bg-amber-50 text-amber-700"
+                                : tc.result === "FAIL"
+                                  ? "bg-rose-50 text-rose-700"
+                                  : "bg-amber-50 text-amber-700"
                             }`}
                           >
                             {tc.result}
@@ -1142,16 +1416,16 @@ export default function ProjectDetail() {
           </section>
         )}
 
-        {id === "seomse-reservation-cx" && (
+        {id === "seomse-reservation-qa" && (
           <section className="px-6 md:px-8 mb-16 md:mb-24">
             <div className="max-w-6xl mx-auto">
               <div className="mb-6 md:mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
                 <h2 className="text-xs md:text-sm tracking-widest text-neutral-400">
-                  FLOW-BASED QA EVIDENCE
+                  USER FLOW VALIDATION
                 </h2>
                 <p className="max-w-2xl text-sm leading-[1.7] text-neutral-500">
-                  예약 생성부터 관리자 확인까지의 주요 흐름을 화면 단위로
-                  나누고, 단계별 검증 포인트와 테스트 결과를 정리했습니다.
+                  핵심 사용자 플로우를 기준으로 검증 포인트와 테스트 결과를
+                  정리했습니다.
                 </p>
               </div>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
@@ -1207,25 +1481,27 @@ export default function ProjectDetail() {
           </section>
         )}
 
-        {id === "seomse-reservation-cx" && (
+        {id === "seomse-reservation-qa" && (
           <section className="px-6 md:px-8 mb-16 md:mb-24">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-                QA RESULT SUMMARY
+                TEST RESULT SUMMARY
               </h2>
               <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-                <div className="flex rounded-lg border border-neutral-200 p-5 md:p-6">
-                  <div className="flex w-full items-center justify-center gap-6">
+                <div className="flex flex-col rounded-lg border border-neutral-200 p-5 md:p-6">
+                  <div className="flex w-full flex-1 items-center justify-center gap-6">
                     <div
                       className="relative h-32 w-32 shrink-0 rounded-full"
                       style={{
                         background:
-                          "conic-gradient(#10b981 0 71.875%, #f43f5e 71.875% 96.875%, #f59e0b 96.875% 100%)",
+                          "conic-gradient(#10b981 0 77.419%, #f43f5e 77.419% 96.774%, #f59e0b 96.774% 100%)",
                       }}
                     >
                       <div className="absolute inset-5 flex flex-col items-center justify-center rounded-full bg-white">
-                        <span className="text-2xl tracking-tight">32</span>
-                        <span className="text-xs text-neutral-400">TC</span>
+                        <span className="text-2xl tracking-tight">31</span>
+                        <span className="text-[11px] text-neutral-400">
+                          Test Cases
+                        </span>
                       </div>
                     </div>
                     <div className="w-full space-y-3">
@@ -1245,20 +1521,29 @@ export default function ProjectDetail() {
                       ))}
                     </div>
                   </div>
+                  <p className="mt-5 text-xs leading-[1.7] text-neutral-400">
+                    * FAIL 6건은 테스트 케이스 기준 결과입니다.
+                  </p>
                 </div>
                 <div className="rounded-lg border border-neutral-200 p-5 md:p-6">
-                  <div className="mb-5 flex items-center justify-between">
-                    <h3 className="text-base tracking-tight">결함 우선순위</h3>
-                    <span className="rounded-full bg-neutral-900 px-3 py-1 text-xs text-white">
-                      부분 통과
-                    </span>
+                  <div className="mb-5">
+                    <h3 className="text-xs tracking-widest text-neutral-400">
+                      DEFECT PRIORITY
+                    </h3>
                   </div>
                   <div className="space-y-4">
                     {seomseIssueSummary.map((item) => (
                       <div key={item.label}>
-                        <div className="mb-2 flex justify-between text-sm text-neutral-500">
-                          <span>{item.label}</span>
-                          <span>{item.value}건</span>
+                        <div className="mb-2 flex items-baseline justify-between gap-3 text-sm text-neutral-500">
+                          <span>
+                            <span className="text-neutral-700">
+                              {item.label}
+                            </span>
+                            <span className="ml-2 text-xs text-neutral-400">
+                              {item.desc}
+                            </span>
+                          </span>
+                          <span className="shrink-0">{item.value}건</span>
                         </div>
                         <div className="h-2 rounded-full bg-neutral-100">
                           <div
@@ -1277,7 +1562,7 @@ export default function ProjectDetail() {
           </section>
         )}
 
-        {id === "seomse-reservation-cx" && (
+        {id === "seomse-reservation-qa" && (
           <section className="px-6 md:px-8 mb-16 md:mb-24">
             <div className="max-w-6xl mx-auto grid lg:grid-cols-[1.2fr_0.8fr] gap-8 md:gap-12">
               <div>
@@ -1290,7 +1575,12 @@ export default function ProjectDetail() {
                       key={issue.title}
                       className="grid md:grid-cols-[72px_1fr] gap-3 md:gap-5 border-b border-neutral-200 py-5 md:py-6"
                     >
-                      <span className="w-fit h-fit px-3 py-1 rounded-full bg-neutral-900 text-white text-xs tracking-widest">
+                      <span
+                        className={`w-fit h-fit px-3 py-1 rounded-full text-white text-xs tracking-widest ${
+                          seomsePriorityColor[issue.priority] ??
+                          "bg-neutral-900"
+                        }`}
+                      >
                         {issue.priority}
                       </span>
                       <div>
@@ -1307,16 +1597,13 @@ export default function ProjectDetail() {
               </div>
               <div>
                 <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-                  ARTIFACTS
+                  QA DOCUMENTS
                 </h2>
                 <div className="border border-neutral-200 rounded-lg p-5 md:p-6">
-                  <div className="text-3xl md:text-4xl tracking-tight mb-2">
-                    조건부 통과
-                  </div>
                   <p className="text-sm md:text-base leading-[1.8] text-neutral-500 mb-6">
-                    예약 생성 및 조회 플로우는 정상 동작했으나, 일부 시간 선택
-                    로직과 관리자 상태 표시 영역에서 예외 처리 및 UX 개선이
-                    필요한 항목을 확인했습니다.
+                    예약 기능 검증 과정에서 작성한 주요 산출물입니다. <br />
+                    테스트 케이스, 버그 리포트, API 검증 결과, QA 요약을 확인할
+                    수 있습니다.
                   </p>
                   <div className="space-y-4">
                     {seomseArtifacts.map((artifact) => (
@@ -1342,66 +1629,6 @@ export default function ProjectDetail() {
           </section>
         )}
 
-        {id === "seomse-reservation-cx" && (
-          <section className="px-6 md:px-8 mb-16 md:mb-24">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-                LIGHTHOUSE BEFORE / AFTER
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                {[
-                  {
-                    label: "BEFORE",
-                    score: "77",
-                    src: lighthouseBeforeImage,
-                    alt: "Lighthouse 개선 전 성능 점수 77점 리포트",
-                  },
-                  {
-                    label: "AFTER",
-                    score: "89",
-                    src: lighthouseAfterImage,
-                    alt: "Lighthouse 개선 후 성능 점수 89점 리포트",
-                  },
-                ].map((image, index) => (
-                  <motion.figure
-                    key={image.label}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.5,
-                      delay: index * 0.1,
-                    }}
-                    className="border border-neutral-200 rounded-lg overflow-hidden bg-white"
-                  >
-                    <div className="flex items-center justify-between px-4 md:px-5 py-3 border-b border-neutral-200">
-                      <figcaption className="text-xs md:text-sm tracking-widest text-neutral-400">
-                        {image.label}
-                      </figcaption>
-                      <span className="text-sm md:text-base text-neutral-600">
-                        Performance {image.score}
-                      </span>
-                    </div>
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      loading="lazy"
-                      className="w-full aspect-[4/3] object-contain bg-neutral-50"
-                    />
-                  </motion.figure>
-                ))}
-              </div>
-              <p className="mt-4 md:mt-5 text-sm md:text-base text-neutral-500 leading-[1.8]">
-                WebP 변환 및 이미지 최적화를 통해 이미지 용량을 13MB에서 1.4MB로
-                줄이고 Lighthouse 성능 점수를
-                <span className="whitespace-nowrap">
-                  77점에서 89점으로 개선
-                </span>
-              </p>
-            </div>
-          </section>
-        )}
-
         <section className="px-6 md:px-8 mb-16 md:mb-24">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
@@ -1423,14 +1650,25 @@ export default function ProjectDetail() {
                   <span className="text-sm text-neutral-400 mt-1">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <p className="max-w-4xl text-base md:text-xl leading-[1.8]">
-                    {result}
-                  </p>
+                  <p className="text-base md:text-xl leading-[1.8]">{result}</p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
+
+        {(project as { insight?: string }).insight && (
+          <section className="px-6 md:px-8 mb-16 md:mb-24">
+            <div className="max-w-6xl mx-auto grid md:grid-cols-[0.7fr_1.3fr] gap-8 md:gap-16">
+              <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
+                INSIGHT
+              </h2>
+              <p className="whitespace-pre-line max-w-5xl text-base md:text-xl leading-[1.85] text-neutral-700">
+                {(project as { insight?: string }).insight}
+              </p>
+            </div>
+          </section>
+        )}
 
         {/* Next Case */}
         <section className="px-6 md:px-8 py-16 md:py-32 border-t border-neutral-200">

@@ -1,4 +1,4 @@
-import { downloadResume } from "../../utils/downloadResume";
+// import { downloadResume } from "../../utils/downloadResume";
 
 export default function FooterSection() {
   return (
@@ -9,7 +9,10 @@ export default function FooterSection() {
             <h3 className="text-lg md:text-xl tracking-tight mb-3 md:mb-4">
               KIM SOJIN
             </h3>
-            <p className="text-sm text-neutral-500">QA Portfolio</p>
+            <div className="space-y-1.5">
+              <p className="text-sm text-neutral-500">ksjinn9545@gmail.com</p>
+              <p className="text-sm text-neutral-500">010-6657-9545</p>
+            </div>
           </div>
           <div>
             <h4 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-3 md:mb-4">
@@ -53,7 +56,7 @@ export default function FooterSection() {
               >
                 Phone
               </a>
-              <a
+              {/* <a
                 href="/resume.pdf"
                 onClick={(event) => {
                   event.preventDefault();
@@ -62,7 +65,7 @@ export default function FooterSection() {
                 className="block text-sm text-neutral-600 hover:text-black transition-colors"
               >
                 Download Resume
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

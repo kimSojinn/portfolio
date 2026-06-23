@@ -1,6 +1,6 @@
-import { Download, Mail, Phone } from "lucide-react";
+import { /* Download, */ Mail, Phone } from "lucide-react";
 import { motion } from "motion/react";
-import { downloadResume } from "../../utils/downloadResume";
+// import { downloadResume } from "../../utils/downloadResume";
 
 const contactLinks = [
     {
@@ -15,12 +15,12 @@ const contactLinks = [
         href: "tel:01066579545",
         gradient: "from-neutral-700 to-neutral-900",
     },
-    {
-        icon: Download,
-        label: "Resume",
-        href: "/resume.pdf",
-        gradient: "from-violet-500 to-purple-500",
-    },
+    // {
+    //     icon: Download,
+    //     label: "Resume",
+    //     href: "/resume.pdf",
+    //     gradient: "from-violet-500 to-purple-500",
+    // },
 ];
 
 export default function ContactSection() {
@@ -46,14 +46,6 @@ export default function ContactSection() {
                                 <a
                                     key={social.label}
                                     href={social.href}
-                                    onClick={(event) => {
-                                        if (social.label !== "Resume") {
-                                            return;
-                                        }
-
-                                        event.preventDefault();
-                                        void downloadResume();
-                                    }}
                                     className="group flex flex-col items-center gap-2 md:gap-3"
                                 >
                                     <div

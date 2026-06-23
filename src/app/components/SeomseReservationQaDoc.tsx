@@ -82,7 +82,7 @@ const requirements = [
   ],
   [
     "디자이너 선택",
-    "API에서 전달된 디자이너 식별자와 닉네임이 화면에 정확히 표시되어야 한다",
+    "API에서 전달된 디자이너 정보와 닉네임이 화면에 정확히 표시되어야 한다",
   ],
   [
     "날짜 선택",
@@ -185,14 +185,6 @@ const testCases: [string, string, string, string, string, Status][] = [
     "FAIL",
   ],
   [
-    "RES-06",
-    "영업 상태",
-    "매장별 영업 상태 표시",
-    "매장별 영업시간 기준 표시",
-    "모든 매장이 매장별 데이터와 무관하게 11:00~18:00 고정 기준으로 표시됨",
-    "FAIL",
-  ],
-  [
     "RES-07",
     "일반 예약",
     "그냥 예약하기 클릭",
@@ -219,10 +211,10 @@ const testCases: [string, string, string, string, string, Status][] = [
   [
     "RES-10",
     "서비스 선택",
-    "서비스 미선택 후 다음",
-    "이동 불가 및 비활성 UI",
-    "이동은 차단되지만 버튼이 활성 상태처럼 보여 클릭 가능한 UI로 인식될 수 있음",
-    "FAIL",
+    "서비스 선택 화면 진입",
+    "필수값 기본 선택 상태 확인",
+    "첫 서비스가 기본 선택되어 미선택 상태 없이 진입",
+    "PASS",
   ],
   [
     "RES-11",
@@ -384,9 +376,7 @@ const testCases: [string, string, string, string, string, Status][] = [
 const testCaseSeverity: Record<string, Severity> = {
   "RES-02": "Low",
   "RES-05": "Medium",
-  "RES-06": "Low",
   "RES-09": "High",
-  "RES-10": "Medium",
   "RES-16": "High",
   "RES-19": "Medium",
   "RES-25": "Medium",
@@ -420,17 +410,6 @@ const bugs: BugReport[] = [
   },
   {
     id: "BUG-003",
-    title: "필수 서비스 미선택 상태가 비활성 UI로 제공되지 않음",
-    severity: "Medium",
-    steps: "서비스 선택 화면 진입 -> 서비스 선택하지 않고 다음 버튼 확인",
-    actual: "버튼이 활성 상태처럼 보이지만 클릭해도 이동하지 않음",
-    expected: "필수값 미선택 시 버튼이 비활성 상태로 표시되어야 함",
-    impact: "사용자가 화면이 멈춘 것으로 오해할 수 있음",
-    cause:
-      "이동 차단 로직은 있으나 버튼 disabled 상태와 비활성 스타일이 함께 적용되지 않은 것으로 추정",
-  },
-  {
-    id: "BUG-004",
     title: "예약 실패 시 사용자에게 오류 메시지가 표시되지 않음",
     severity: "Medium",
     steps: "예약 API 실패 상황 발생 -> 예약 제출",
@@ -443,7 +422,7 @@ const bugs: BugReport[] = [
       "예약 생성 실패 상황에서 오류 응답은 발생하지만 화면 toast, modal, inline message로 연결되지 않음을 확인",
   },
   {
-    id: "BUG-005",
+    id: "BUG-004",
     title: "매장 정렬/필터 요구사항이 목록 결과에 반영되지 않음",
     severity: "Medium",
     steps: "예약 화면 진입 -> 리뷰순/평점순/가격 낮은순 탭 클릭",
@@ -456,12 +435,55 @@ const bugs: BugReport[] = [
 ];
 
 const improvements = [
-  "선택 날짜를 기준으로 예약 가능 시간이 계산되도록 시간 슬롯 검증 기준 재정의",
-  "필수값 미입력 상태를 사용자가 명확히 인지할 수 있도록 버튼 상태와 안내 기준 정리",
-  "예약 실패 상황에서 실패 사유와 재시도 가능 여부를 안내하는 사용자 피드백 정책 추가",
-  "디자이너 정보가 정상 표시되도록 API-프론트 필드 매핑 규칙 정리",
-  "동일 시간대 중복 예약 가능성을 검증할 수 있도록 동시성 테스트 시나리오 추가",
-  "예약 취소 가능 조건, 확인 단계, 취소 후 슬롯 상태를 포함한 예약 관리 정책 정의",
+  "선택 날짜를 기준으로 예약 가능 시간이 계산되도록 시간 슬롯 로직 보완",
+  "예약 실패 시 원인과 재시도 가능 여부를 안내하는 사용자 피드백 제공",
+  "디자이너 정보가 정상 표시되도록 API 응답 필드와 화면 매핑 규칙 정리",
+  "매장 정렬·필터 선택이 실제 목록 결과에 반영되도록 기능 연결",
+];
+
+const automationCases: [string, string, string, string, Status][] = [
+  [
+    "AUTO-R01",
+    "샵 목록 렌더",
+    "GET /shops?type=HAIR_SALON",
+    "예약 화면 진입 시 Mock 응답 기준으로 샵 카드가 노출됨",
+    "PASS",
+  ],
+  [
+    "AUTO-R02",
+    "매장 상세 시트 오픈",
+    "GET /shops/{shopId}",
+    "매장 카드 클릭 후 매장명, 섬세한 예약하기, 그냥 예약하기가 표시됨",
+    "PASS",
+  ],
+  [
+    "AUTO-R03",
+    "다음 버튼 활성화 규칙",
+    "UI 상태 검증",
+    "시간 미선택 상태에서는 비활성, 시간 선택 후 다음 단계 이동 가능",
+    "PASS",
+  ],
+  [
+    "AUTO-R04",
+    "일반 예약 전체 여정",
+    "POST /interaction/appointments/normal 201",
+    "서비스 선택부터 일정 선택, 예약 완료 화면의 주요 정보 표시까지 검증",
+    "PASS",
+  ],
+  [
+    "AUTO-R05",
+    "예약 제출 실패",
+    "POST /interaction/appointments/normal 500",
+    "실패 응답 시 사용자 피드백이 제공되지 않는 현재 동작 검증",
+    "PASS",
+  ],
+  [
+    "AUTO-R06",
+    "응답 지연 중 중복 제출 방지",
+    "POST 1.5s delay",
+    "제출 중 다음 버튼 비활성화 후 성공 시 확정 시트 표시",
+    "PASS",
+  ],
 ];
 
 function StatusBadge({ status }: { status: Status }) {
@@ -530,6 +552,9 @@ export default function SeomseReservationQaDoc() {
   const passCount = testCases.filter((tc) => tc[5] === "PASS").length;
   const failCount = testCases.filter((tc) => tc[5] === "FAIL").length;
   const blockedCount = testCases.filter((tc) => tc[5] === "BLOCKED").length;
+  const automationPassCount = automationCases.filter(
+    (tc) => tc[4] === "PASS",
+  ).length;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -541,7 +566,7 @@ export default function SeomseReservationQaDoc() {
         <nav className="fixed top-0 z-50 w-full border-b border-neutral-200 bg-white">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-8">
             <Link
-              to="/project/seomse-reservation-cx"
+              to="/project/seomse-reservation-qa"
               className="flex items-center gap-2 text-sm transition-opacity hover:opacity-50"
             >
               <ArrowLeft size={18} />
@@ -564,19 +589,20 @@ export default function SeomseReservationQaDoc() {
             </h1>
             <p className="mt-5 text-base leading-8 text-neutral-600 md:text-lg">
               예약 생성부터 관리자 조회까지의 주요 시나리오를 대상으로 테스트
-              케이스를 작성하고, 기능 검증과 API 응답 확인을 통해 발견한
-              버그와 원인 분석 결과를 담았습니다.
+              케이스를 작성하고, 기능 검증과 API 응답 확인을 통해 발견한 버그와
+              원인 분석 결과를 담았습니다.
             </p>
           </div>
         </header>
 
         <Section number="01" title="QA Result">
-          <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
             {[
               ["Test Cases", String(testCases.length)],
               ["Bugs Found", String(bugs.length)],
               ["PASS", String(passCount)],
               ["FAIL", String(failCount)],
+              ["BLOCKED", String(blockedCount)],
             ].map(([label, value]) => (
               <div
                 key={label}
@@ -587,31 +613,19 @@ export default function SeomseReservationQaDoc() {
               </div>
             ))}
           </div>
-          <div className="rounded-lg bg-neutral-50 p-5 md:p-6">
-            <div className="mb-3 inline-flex rounded-full bg-neutral-900 px-3 py-1 text-xs text-white">
-              조건부 통과
-            </div>
-            <p className="text-base leading-8 text-neutral-700 md:text-lg">
-              예약 생성·조회 플로우는 정상 동작했으나, 시간 선택 및 예외 처리
-              로직에서 개선이 필요한 항목을 확인했습니다.
-            </p>
-          </div>
         </Section>
 
         <Section number="02" title="예약 플로우 분석 및 검증 범위">
           <p className="mb-8 text-base leading-8 text-neutral-600">
-            SEOMSE는 예약 전 상담에 필요한 정보를 충분히 전달할 수 있도록 설계된
-            미용실 예약 서비스입니다. <br />
-            일반 예약과 섬세 예약 두 가지 예약 방식을 제공하며, 섬세 예약에서는
-            두피 타입, 모발 상태, 시술 이력, 참고 이미지 등을 함께 전달할 수
-            있습니다. <br /> 본 QA는 예약 생성부터 예약 조회, 관리자 확인까지
-            이어지는 핵심 예약 플로우를 대상으로 진행했습니다.
+            SEOMSE는 예약 전 상담 정보를 함께 전달할 수 있도록 설계된 헤어 예약
+            서비스입니다. <br />본 QA는 일반 예약과 섬세 예약을 대상으로 예약
+            생성, 조회, 관리자 확인까지의 핵심 사용자 플로우를 검증했습니다.
           </p>
           <div className="grid gap-4 md:grid-cols-2">
             {flows.map((flow) => (
               <div
                 key={flow.title}
-                className="rounded-lg border border-neutral-200 p-5 md:p-6"
+                className="flex flex-col rounded-lg border border-neutral-200 p-5 md:p-6"
               >
                 <h3 className="mb-5 text-lg">{flow.title}</h3>
                 {Boolean(flow.points?.length) && (
@@ -631,7 +645,7 @@ export default function SeomseReservationQaDoc() {
                     </div>
                   </div>
                 )}
-                <ol className="space-y-3">
+                <ol className="flex flex-1 flex-col justify-between gap-3">
                   {flow.steps.map((step, index) => (
                     <li key={step.label} className="flex items-center gap-3">
                       <span
@@ -681,9 +695,9 @@ export default function SeomseReservationQaDoc() {
                 </tbody>
               </table>
             </Table>
-            <div className="rounded-lg border border-neutral-200 p-5 md:p-6">
+            <div className="flex flex-col rounded-lg border border-neutral-200 p-5 md:p-6">
               <h3 className="mb-5 text-lg">검증 우선순위 항목</h3>
-              <div className="space-y-4">
+              <div className="flex flex-1 flex-col justify-between gap-4">
                 {risks.map((risk) => (
                   <div
                     key={risk.title}
@@ -761,18 +775,112 @@ export default function SeomseReservationQaDoc() {
               결과 분석
             </p>
             <p className="text-sm leading-7 text-neutral-600">
-              총 32건의 테스트를 수행한 결과, 예약 생성 및 조회를 포함한 핵심
-              플로우는 정상적으로 동작했습니다. 다만 예약 가능 시간 계산,
-              디자이너 정보 표시, 실패 피드백 제공 과정에서 일부 결함을
-              확인했으며, 예외 상황 처리와 사용자 안내 측면의 보완이 필요하다고
-              판단했습니다.
+              총 31건의 테스트를 수행한 결과, 24건은 PASS, 6건은 FAIL, 1건은
+              BLOCKED로 확인되었습니다.
+              <br /> 주요 이슈는 예약 가능 시간 계산, 디자이너 정보 표시, 예약
+              실패 피드백 영역에서 발견되었습니다. FAIL 6건 중 동일 원인으로
+              발생한 케이스는 하나의 결함으로 통합해 관리했으며, 사용자 영향도를
+              기준으로 총 4건의 주요 결함을 정리했습니다.
             </p>
           </div>
         </Section>
 
-        <Section number="05" title="버그 리포트">
+        <Section number="05" title="Playwright 예약 자동화">
+          <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-3">
+            {[
+              ["자동화 시나리오", String(automationCases.length)],
+              ["PASS", String(automationPassCount)],
+              ["Playwright", "Network Mocking"],
+            ].map(([label, value]) => (
+              <div
+                key={label}
+                className="rounded-lg border border-neutral-200 p-5 md:p-6"
+              >
+                <p className="text-xs text-neutral-400">{label}</p>
+                <p className="mt-3 text-2xl tracking-tight">{value}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mb-8 rounded-lg bg-neutral-50 p-5 md:p-6">
+            <p className="text-base leading-8 text-neutral-700">
+              예약 플로우는 샵 목록, 샵 상세, 예약 제출이 모두 API 응답에
+              의존하기 때문에 Playwright Network Mocking을 적용했습니다.
+              <br /> 백엔드 서버 없이도 동일한 조건에서 검증할 수 있도록 API
+              응답을 고정했으며, 인증 상태와 테스트 시각을 일정하게 유지해 반복
+              실행 시에도 동일한 결과를 확인할 수 있도록 구성했습니다.
+            </p>
+          </div>
+
+          <div className="mb-8 rounded-lg border border-neutral-200 p-5 md:p-6">
+            <h3 className="mb-5 text-lg">자동화 설계 포인트</h3>
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                [
+                  "화면 구조 분리",
+                  "예약, 서비스 선택, 일정 선택 화면별 액션과 선택자를 분리해 유지보수성을 높임",
+                ],
+                [
+                  "응답 고정",
+                  "실시간 API 대신 샵 목록·상세·예약 제출 응답을 테스트 데이터로 고정",
+                ],
+                [
+                  "오류 재현",
+                  "POST 500 응답과 지연 응답을 자동화해 실패 피드백 부재와 중복 제출 방지 동작 검증",
+                ],
+              ].map(([title, body]) => (
+                <div
+                  key={title}
+                  className="border-t pt-4 md:border-t-0 md:pt-0"
+                >
+                  <p className="mb-2 text-sm font-medium">{title}</p>
+                  <p className="text-sm leading-7 text-neutral-500">{body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Table>
+            <table className="w-full min-w-[960px] text-left text-sm">
+              <thead className="bg-neutral-50 text-xs text-neutral-500">
+                <tr>
+                  {[
+                    "TC ID",
+                    "테스트 케이스",
+                    "Mock",
+                    "검증 포인트",
+                    "판정",
+                  ].map((head) => (
+                    <th key={head} className="p-4">
+                      {head}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {automationCases.map((tc) => (
+                  <tr key={tc[0]} className="border-t">
+                    <td className="p-4 font-medium">{tc[0]}</td>
+                    <td className="p-4">{tc[1]}</td>
+                    <td className="p-4 font-mono text-xs text-neutral-600">
+                      {tc[2]}
+                    </td>
+                    <td className="max-w-[420px] p-4 leading-7 text-neutral-600">
+                      {tc[3]}
+                    </td>
+                    <td className="p-4">
+                      <StatusBadge status={tc[4]} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Table>
+        </Section>
+
+        <Section number="06" title="버그 리포트">
           <p className="mb-8 text-base leading-8 text-neutral-600">
-            총 5건의 주요 이슈를 도출했으며, 예약 가능 시간 계산 오류와 사용자
+            총 4건의 주요 이슈를 도출했으며, 예약 가능 시간 계산 오류와 사용자
             피드백 부재를 우선 수정이 필요한 항목으로 판단했습니다.
           </p>
           <div className="mb-8">
@@ -833,7 +941,7 @@ export default function SeomseReservationQaDoc() {
             <h3 className="mb-4 text-xs tracking-[0.18em] text-neutral-400">
               Medium Severity
             </h3>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-2">
               {bugs
                 .filter((bug) => bug.severity === "Medium")
                 .map((bug) => (
@@ -884,7 +992,7 @@ export default function SeomseReservationQaDoc() {
           </div>
         </Section>
 
-        <Section number="06" title="개선 제안">
+        <Section number="07" title="Recommendations">
           <div className="space-y-3">
             {improvements.map((item, index) => (
               <div
@@ -900,27 +1008,26 @@ export default function SeomseReservationQaDoc() {
           </div>
         </Section>
 
-        <Section number="07" title="QA 회고">
+        <Section number="08" title="QA 회고">
           <div className="rounded-lg bg-neutral-50 p-6 md:p-8">
             <p className="text-base leading-8 text-neutral-700">
-              이번 QA를 진행하며 기능이 동작하는 것과 사용자가 문제없이 서비스를
-              이용할 수 있는 것은 다른 문제라는 점을 확인했습니다. 예약 생성
-              자체는 가능했지만, 예약 가능 시간 계산 오류나 실패 피드백 부재처럼
-              사용자의 예약 경험에 직접 영향을 주는 문제들을 발견할 수
-              있었습니다.
+              이번 QA를 진행하며 예약 기능이 정상적으로 동작하더라도 사용자
+              경험에는 문제가 발생할 수 있다는 점을 확인했습니다. 실제로 예약
+              생성 자체는 가능했지만, 미래 날짜 시간 계산 오류나 예약 실패
+              피드백 부재처럼 사용자의 예약 과정에 직접 영향을 주는 이슈를
+              발견할 수 있었습니다.
             </p>
             <p className="mt-5 text-base leading-8 text-neutral-700">
-              또한 요구사항을 기준으로 테스트 케이스를 작성하는 과정에서 정상
-              시나리오뿐 아니라 예외 상황과 경계 조건을 함께 검토하는 것이
-              중요하다는 점을 경험했습니다. 특히 API 응답 데이터와 화면 표시
-              정보가 일치하는지, 실패 상황에서도 사용자가 현재 상태를 명확히
-              이해할 수 있는지와 같은 항목은 기능 구현 과정에서 놓치기 쉬운
-              부분이라는 점을 확인할 수 있었습니다.
+              또한 테스트 케이스를 작성하는 과정에서 정상 시나리오뿐 아니라 예외
+              상황과 경계 조건을 함께 검토하는 것이 중요하다는 점을
+              경험했습니다. 특히 API 응답 데이터와 화면 표시 정보가 일치하는지,
+              실패 상황에서도 사용자가 현재 상태를 명확하게 인지할 수 있는지는
+              기능 구현 과정에서 놓치기 쉬운 검증 포인트임을 확인했습니다.
             </p>
             <p className="mt-5 text-base leading-8 text-neutral-700">
-              이번 프로젝트를 통해 테스트 케이스 작성, 버그 리포트 작성, API
-              검증 과정을 수행하며 기능 단위보다 사용자 흐름과 데이터 흐름을
-              중심으로 서비스를 검증하는 관점을 갖게 되었습니다.
+              이번 프로젝트를 통해 테스트 케이스 설계, 버그 리포트 작성, API
+              검증 과정을 경험하며 기능 단위보다 사용자 흐름과 데이터 흐름을
+              기준으로 서비스를 검증하는 관점을 정리할 수 있었습니다.
             </p>
           </div>
         </Section>
