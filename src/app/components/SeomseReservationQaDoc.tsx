@@ -185,7 +185,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "FAIL",
   ],
   [
-    "RES-07",
+    "RES-06",
     "일반 예약",
     "그냥 예약하기 클릭",
     "normal 상태로 서비스 선택 이동",
@@ -193,7 +193,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-08",
+    "RES-07",
     "섬세 예약",
     "섬세한 예약하기 클릭",
     "special 상태로 서비스 선택 이동",
@@ -201,7 +201,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-09",
+    "RES-08",
     "디자이너",
     "상세 API 디자이너 표시",
     "API 닉네임 표시",
@@ -209,7 +209,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "FAIL",
   ],
   [
-    "RES-10",
+    "RES-09",
     "서비스 선택",
     "서비스 선택 화면 진입",
     "필수값 기본 선택 상태 확인",
@@ -217,7 +217,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-11",
+    "RES-10",
     "서비스 선택",
     "서비스 선택 후 다음",
     "일정 선택 화면 이동",
@@ -225,7 +225,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-12",
+    "RES-11",
     "날짜 선택",
     "일정 화면 진입",
     "오늘 날짜 기본 선택",
@@ -233,16 +233,16 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-13",
+    "RES-12",
     "날짜 선택",
     "과거 날짜 클릭",
     "선택 불가",
     "disabled 및 클릭 차단",
     "PASS",
   ],
-  ["RES-14", "날짜 선택", "과거 월 이동", "이동 불가", "차단됨", "PASS"],
+  ["RES-13", "날짜 선택", "과거 월 이동", "이동 불가", "차단됨", "PASS"],
   [
-    "RES-15",
+    "RES-14",
     "시간 선택",
     "오늘 기준 지난 시간",
     "선택 불가",
@@ -250,7 +250,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-16",
+    "RES-15",
     "시간 선택",
     "미래 날짜 선택 후 시간 표시",
     "영업시간 전체 표시",
@@ -258,7 +258,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "FAIL",
   ],
   [
-    "RES-17",
+    "RES-16",
     "일반 예약",
     "날짜/시간 선택 후 다음",
     "normal POST",
@@ -266,7 +266,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-18",
+    "RES-17",
     "중복 클릭",
     "POST 중 다음 버튼",
     "중복 요청 방지",
@@ -274,25 +274,25 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-19",
+    "RES-18",
     "일반 예약",
     "POST 실패",
     "사용자에게 실패 안내",
     "예약 생성 실패 시 화면 안내 없이 오류 처리가 내부 로그 수준에 머무름",
     "FAIL",
   ],
-  ["RES-20", "섬세 필터1", "두피/모발 미선택", "다음 비활성", "구현됨", "PASS"],
+  ["RES-19", "섬세 필터1", "두피/모발 미선택", "다음 비활성", "구현됨", "PASS"],
   [
-    "RES-21",
+    "RES-20",
     "섬세 필터1",
     "두피/모발 선택",
     "enum 변환 후 다음 이동",
     "scaleType, hairType 전달",
     "PASS",
   ],
-  ["RES-22", "섬세 필터2", "길이/시술 미선택", "다음 비활성", "구현됨", "PASS"],
+  ["RES-21", "섬세 필터2", "길이/시술 미선택", "다음 비활성", "구현됨", "PASS"],
   [
-    "RES-23",
+    "RES-22",
     "섬세 필터2",
     "길이/시술 선택",
     "요청사항 이동",
@@ -300,7 +300,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-24",
+    "RES-23",
     "섬세 예약",
     "요청사항/이미지 제출",
     "multipart POST",
@@ -308,7 +308,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-25",
+    "RES-24",
     "섬세 예약",
     "special POST 실패",
     "사용자에게 실패 안내",
@@ -316,7 +316,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "FAIL",
   ],
   [
-    "RES-26",
+    "RES-25",
     "예약 완료",
     "예약 성공 후 이동",
     "매장/서비스/일시 표시",
@@ -324,7 +324,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-27",
+    "RES-26",
     "예약 완료",
     "확정 시트 닫기",
     "시트 닫고 state 제거",
@@ -332,7 +332,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-28",
+    "RES-27",
     "내 예약",
     "/my-page/reservations 조회",
     "예약 API 목록 표시",
@@ -340,7 +340,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-29",
+    "RES-28",
     "내 예약",
     "다가오는/지난 예약 탭",
     "날짜 기준 분리",
@@ -348,7 +348,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-30",
+    "RES-29",
     "관리자 예약",
     "/admin/reservations 조회",
     "실제 예약 목록 표시",
@@ -356,7 +356,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-31",
+    "RES-30",
     "관리자 예약 상세",
     "예약 카드 펼침",
     "상세 API 조회 및 요청사항 표시",
@@ -364,7 +364,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "PASS",
   ],
   [
-    "RES-32",
+    "RES-31",
     "예약 취소",
     "사용자 예약 취소",
     "취소 API 호출 및 목록 갱신",
@@ -376,11 +376,11 @@ const testCases: [string, string, string, string, string, Status][] = [
 const testCaseSeverity: Record<string, Severity> = {
   "RES-02": "Low",
   "RES-05": "Medium",
-  "RES-09": "High",
-  "RES-16": "High",
-  "RES-19": "Medium",
-  "RES-25": "Medium",
-  "RES-32": "Medium",
+  "RES-08": "High",
+  "RES-15": "High",
+  "RES-18": "Medium",
+  "RES-24": "Medium",
+  "RES-31": "Medium",
 };
 
 const bugs: BugReport[] = [
@@ -801,6 +801,11 @@ export default function SeomseReservationQaDoc() {
               </div>
             ))}
           </div>
+
+          <p className="mb-6 text-base leading-8 text-neutral-600">
+            전체 수동 검증 케이스 중 배포마다 반복 확인이 필요한 핵심 예약 경로
+            6개를 선별해 자동화했습니다.
+          </p>
 
           <div className="mb-8 rounded-lg bg-neutral-50 p-5 md:p-6">
             <p className="text-base leading-8 text-neutral-700">
