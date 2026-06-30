@@ -672,6 +672,21 @@ const seomseArtifacts = [
   },
 ];
 
+function ParagraphText({ text }: { text: string }) {
+  return (
+    <div className="max-w-5xl space-y-4 md:space-y-5">
+      {text.split("\n\n").map((paragraph) => (
+        <p
+          key={paragraph}
+          className="text-base md:text-xl leading-[1.75] text-neutral-700"
+        >
+          {paragraph}
+        </p>
+      ))}
+    </div>
+  );
+}
+
 const seomseResultSummary = [
   { label: "PASS", value: 24, color: "bg-emerald-500" },
   { label: "FAIL", value: 6, color: "bg-rose-500" },
@@ -682,23 +697,16 @@ const seomseIssueSummary = [
   {
     label: "P1",
     value: 2,
-    width: "40%",
+    width: "50%",
     color: "bg-rose-500",
     desc: "예약 경험에 직접 영향을 주는 결함",
   },
   {
     label: "P2",
-    value: 3,
-    width: "60%",
+    value: 2,
+    width: "50%",
     color: "bg-amber-500",
     desc: "사용자 이용에 불편을 주는 결함",
-  },
-  {
-    label: "P3",
-    value: 1,
-    width: "20%",
-    color: "bg-neutral-400",
-    desc: "기능은 동작하지만 개선이 필요한 결함",
   },
 ];
 
@@ -761,7 +769,7 @@ const seomseScreenshots = [
     step: "07",
     title: "요청사항 입력",
     description: "고객 요청사항 저장 및 전달 확인",
-    qaPoint: "RES-24",
+    qaPoint: "RES-23",
     status: "PASS",
     src: seomseRequestImage,
     alt: "SEOMSE 요청사항 입력 화면",
@@ -770,7 +778,7 @@ const seomseScreenshots = [
     step: "08",
     title: "참고 이미지 첨부",
     description: "이미지 업로드 및 미리보기 확인",
-    qaPoint: "RES-24",
+    qaPoint: "RES-23",
     status: "PASS",
     src: seomseRequestImage2,
     alt: "SEOMSE 이미지 첨부 화면",
@@ -788,7 +796,7 @@ const seomseScreenshots = [
     step: "10",
     title: "예약 상세 확인",
     description: "고객 입력 정보 및 예약 데이터 전달 확인",
-    qaPoint: "RES-30 / RES-31",
+    qaPoint: "RES-30",
     status: "PASS",
     src: seomseAdminReservationImage,
     alt: "SEOMSE 관리자 예약 상세 화면",
@@ -1148,9 +1156,7 @@ export default function ProjectDetail() {
             <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
               SUMMARY
             </h2>
-            <p className="whitespace-pre-line max-w-5xl text-base md:text-xl leading-[1.85] text-neutral-700">
-              {project.overview}
-            </p>
+            <ParagraphText text={project.overview} />
           </div>
         </section>
 
@@ -1663,9 +1669,7 @@ export default function ProjectDetail() {
               <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
                 INSIGHT
               </h2>
-              <p className="whitespace-pre-line max-w-5xl text-base md:text-xl leading-[1.85] text-neutral-700">
-                {(project as { insight?: string }).insight}
-              </p>
+              <ParagraphText text={(project as { insight: string }).insight} />
             </div>
           </section>
         )}

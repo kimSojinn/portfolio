@@ -589,8 +589,8 @@ export default function SeomseReservationQaDoc() {
             </h1>
             <p className="mt-5 text-base leading-8 text-neutral-600 md:text-lg">
               예약 생성부터 관리자 조회까지의 주요 시나리오를 대상으로 테스트
-              케이스를 작성하고, 기능 검증과 API 응답 확인을 통해 발견한 버그와
-              원인 분석 결과를 담았습니다.
+              케이스를 작성하고, <br /> 기능 검증과 API 응답 확인을 통해 발견한
+              버그와 원인 분석 결과를 담았습니다.
             </p>
           </div>
         </header>

@@ -52,36 +52,39 @@ export const categories: ProjectCategory[] = ["All", "Quality", "Regression"];
 
 export const strengths = [
   {
-    title: "요구사항을 검증 가능한 조건으로 나눕니다",
+    title: "테스트 시나리오 설계",
     description:
-      "정상 흐름뿐 아니라 예외 상황, 경계값, 권한, 상태 변화 등 놓치기 쉬운 조건을 구체화하여 검증합니다.",
+      "사용자 흐름과 예외 상황을 분석해 요구사항을 검증 가능한 테스트 케이스로 구체화합니다.",
   },
   {
-    title: "재현 가능한 형태로 문제를 전달합니다",
+    title: "API · UI 교차 검증",
     description:
-      "발생 환경과 재현 절차를 정리하고 기대 결과와 실제 결과를 구분하여 원인과 영향 범위를 명확하게 공유합니다.",
+      "API 응답과 화면 동작을 함께 확인하며 데이터 바인딩과 예외 처리까지 점검합니다.",
   },
   {
-    title: "수정 이후의 흐름까지 확인합니다",
+    title: "재현 가능한 Bug Report",
     description:
-      "결함 수정 여부만 확인하지 않습니다. 연결된 기능과 기존 사용자 흐름에 영향이 없는지 회귀 테스트를 진행합니다.",
+      "발생 환경, 재현 절차, 기대 결과와 실제 결과를 정리해 누구나 동일한 문제를 확인할 수 있도록 기록합니다.",
   },
 ];
 
-export const experience = [
+export const careers = [
   {
     year: "2023 - Present",
     company: "Union Contents",
-    role: "서비스 플로우 QA · 회귀 검증 · B2B 관리자 페이지 품질 개선",
+    summary: "웹 서비스와 B2B 관리자 페이지의 운영 흐름 개발·검증",
+    details: [
+      "권한, 다국어(i18n), CRUD, 데이터 반영 흐름 회귀 검증",
+      "로그인·인증 플로우 E2E Smoke Test 구축",
+    ],
   },
   {
     year: "2025",
     company: "SEOMSE",
-    role: "예약 플로우 QA · 성능 품질 점검 · MVP 개발",
-  },
-  {
-    year: "2023",
-    company: "SEO Guide Book",
-    role: "SEO · 웹 접근성 품질 기준 정리 · 가이드 공동 집필",
+    summary: "예약 서비스의 핵심 사용자 플로우 QA",
+    details: [
+      "예약 생성부터 관리자 조회까지 31건의 테스트 케이스 작성",
+      "API 검증, Bug Report, Playwright E2E 테스트 수행",
+    ],
   },
 ];

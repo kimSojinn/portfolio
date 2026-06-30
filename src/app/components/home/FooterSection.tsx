@@ -41,7 +41,7 @@ export default function FooterSection() {
           </div>
           <div>
             <h4 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-3 md:mb-4">
-              CONNECT
+              CONTACT
             </h4>
             <div className="space-y-2">
               <a
