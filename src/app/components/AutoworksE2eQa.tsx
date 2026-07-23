@@ -1,5 +1,5 @@
-import { AlertCircle, ArrowLeft, FileText } from "lucide-react";
-import { useEffect } from "react";
+import { AlertCircle, ArrowLeft, FileText, XCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import crcLoginReportImage from "../../assets/img/crc-login-report.png";
 import PageTransition from "./PageTransition";
@@ -83,9 +83,22 @@ function Table({ children }: { children: React.ReactNode }) {
 }
 
 export default function AutoworksE2eQa() {
+  const [showExecutionImage, setShowExecutionImage] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (!showExecutionImage) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowExecutionImage(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [showExecutionImage]);
 
   return (
     <PageTransition>
@@ -97,7 +110,7 @@ export default function AutoworksE2eQa() {
               className="flex items-center gap-2 text-sm transition-opacity hover:opacity-50"
             >
               <ArrowLeft size={18} />
-              Back to Case
+              프로젝트로 돌아가기
             </Link>
             <span className="text-xs tracking-[0.2em] text-neutral-400">
               QA DOCUMENT
@@ -111,65 +124,34 @@ export default function AutoworksE2eQa() {
               <FileText size={17} />
               운영 서비스 E2E Smoke Test
             </div>
-            <h1 className="max-w-4xl text-3xl tracking-tight md:text-5xl">
+            <h1 className="text-3xl tracking-tight md:text-5xl">
               운영 도메인 Smoke Test QA 문서
             </h1>
             <p className="mt-5 text-base leading-8 text-neutral-600 md:text-lg">
-              서비스 배포 후 실사용자 진입 전, 로그인·인증 흐름이 운영 환경에서
-              정상 동작하는지 검증하기 위해
-              <br />
-              독립 Playwright 환경을 구축하고 7개 시나리오를 직접 실행한 내용을
-              담았습니다.
+              로그인 화면부터 접근 제어까지 7개 시나리오를 자동화하고, 실행
+              결과와 API 문서 불일치를 정리했습니다.
             </p>
           </div>
         </header>
 
-        <Section number="01" title="QA 요약">
-          <div className="mb-6 grid grid-cols-3 gap-3">
-            {[
-              ["7", "Smoke Test Scenarios"],
-              ["7", "PASS"],
-              ["1", "Spec Mismatch Found"],
-            ].map(([value, label]) => (
-              <div
-                key={label}
-                className="rounded-lg border border-neutral-200 p-5 md:p-6"
-              >
-                <p className="text-2xl tracking-tight md:text-3xl">{value}</p>
-                <p className="mt-2 text-xs text-neutral-400">{label}</p>
-              </div>
-            ))}
-          </div>
-          <div className="rounded-lg bg-neutral-50 p-5 md:p-6">
-            <p className="text-base leading-8 text-neutral-700">
-              로그인부터 인증 흐름까지 7개 시나리오를 운영 도메인에서 직접
-              검증했습니다. <br />
-              테스트 작성 과정에서 POST /auth/login 응답 코드가 일반적으로
-              예상한 200이 아닌 201을 반환하는 것을 확인했으며, 문서와 실제 동작
-              간의 스펙 불일치를 발견했습니다.
-            </p>
-          </div>
+        <Section number="01" title="테스트 결과 요약">
+          <dl className="border-t border-neutral-200">
+            <div className="grid gap-2 border-b border-neutral-200 py-5 md:grid-cols-[140px_1fr] md:items-baseline md:gap-8">
+              <dt className="text-sm font-medium leading-7">실행 결과</dt>
+              <dd className="text-sm leading-7 text-neutral-600 md:text-base">
+                운영 환경의 로그인 기능 테스트 7건을 실행하고 모두 통과
+              </dd>
+            </div>
+            <div className="grid gap-2 border-b border-neutral-200 py-5 md:grid-cols-[140px_1fr] md:items-baseline md:gap-8">
+              <dt className="text-sm font-medium leading-7">주요 확인 사항</dt>
+              <dd className="text-sm leading-7 text-neutral-600 md:text-base">
+                POST /auth/login 실제 응답 코드와 API 문서 간 불일치 1건 확인
+              </dd>
+            </div>
+          </dl>
         </Section>
 
-        <Section number="02" title="테스트 범위">
-          <p className="mb-6 text-base leading-8 text-neutral-600">
-            로그인 진입부터 인증 흐름까지 핵심 경로 7개 시나리오를 검증 대상으로
-            삼았으며, 운영 환경에 영향을 줄 수 있는 케이스는 검증 범위에서
-            제외했습니다.
-          </p>
-          <div className="rounded-lg border border-neutral-200 p-5 md:p-6">
-            <p className="mb-3 text-xs tracking-[0.18em] text-neutral-400">
-              Out of Scope
-            </p>
-            <p className="text-sm leading-7 text-neutral-600">
-              회원가입, 비밀번호 재설정, 다량 로그인 실패 시도 — 운영 환경에서
-              계정 잠금이나 Rate Limiting을 유발할 수 있는 시나리오는
-              제외했습니다.
-            </p>
-          </div>
-        </Section>
-
-        <Section number="03" title="테스트 시나리오">
+        <Section number="02" title="자동화 테스트 시나리오">
           <Table>
             <table className="w-full min-w-[680px] text-left text-sm">
               <thead className="bg-neutral-50 text-xs text-neutral-500">
@@ -177,7 +159,7 @@ export default function AutoworksE2eQa() {
                   <th className="p-4">ID</th>
                   <th className="p-4">시나리오</th>
                   <th className="p-4">검증 포인트</th>
-                  <th className="p-4">인증 필요</th>
+                  <th className="p-4">테스트 계정</th>
                 </tr>
               </thead>
               <tbody>
@@ -202,21 +184,27 @@ export default function AutoworksE2eQa() {
               </tbody>
             </table>
           </Table>
-          <figure className="mt-6 overflow-hidden rounded-lg border border-neutral-200 bg-white">
-            <img
-              src={crcLoginReportImage}
-              alt="Playwright 리포트에서 로그인 smoke test 7개 케이스가 모두 통과한 화면"
-              className="w-full"
-              loading="lazy"
-            />
-            <figcaption className="border-t border-neutral-200 px-5 py-4 text-sm leading-7 text-neutral-500">
-              Playwright HTML Report 기준 로그인 smoke test 7개 케이스가 모두
-              통과한 실행 결과입니다.
-            </figcaption>
-          </figure>
+          <p className="mt-4 text-xs leading-6 text-neutral-400">
+            운영 계정 보호를 위해 반복 실패·계정 잠금 시나리오는 제외했습니다.
+          </p>
+          <div className="mt-6 flex flex-col gap-3 border-y border-neutral-200 py-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-sm font-medium">Playwright 실행 결과</p>
+              <p className="mt-1 text-sm leading-6 text-neutral-500">
+                로그인 기능 자동화 테스트 7건 통과 화면
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowExecutionImage(true)}
+              className="w-fit shrink-0 cursor-pointer text-sm underline underline-offset-4 transition-opacity hover:opacity-50"
+            >
+              실행 결과 이미지 보기
+            </button>
+          </div>
         </Section>
 
-        <Section number="04" title="발견 사항">
+        <Section number="03" title="주요 확인 사항">
           <div className="space-y-4">
             <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-5 md:p-6">
               <div className="flex items-start gap-3">
@@ -230,9 +218,8 @@ export default function AutoworksE2eQa() {
                   </p>
                   <p className="mt-2 text-sm leading-7 text-neutral-700">
                     API 문서와 달리 실제 로그인 API가 201 응답을 반환하고 있음을
-                    확인했습니다. 자동화 테스트 작성 과정에서 발견한 스펙
-                    불일치로, 개발팀에 공유하고 API 문서와 실제 동작을 다시
-                    확인하는 계기가 되었습니다.
+                    확인했습니다. 문서와 구현 중 기준 확인이 필요한 불일치로
+                    기록했습니다.
                   </p>
                 </div>
               </div>
@@ -240,25 +227,42 @@ export default function AutoworksE2eQa() {
           </div>
         </Section>
 
-        <Section number="05" title="QA 회고">
-          <div className="space-y-5 rounded-lg bg-neutral-50 p-5 md:p-6">
-            <p className="text-base leading-8 text-neutral-700">
-              이번 프로젝트를 진행하며 운영 환경을 대상으로 테스트할 때는 검증
-              범위를 넓히는 것보다 서비스에 영향을 주지 않는 범위 안에서 핵심
-              시나리오를 선택하는 것이 중요하다는 점을 확인했습니다. 실제로 계정
-              잠금이나 Rate Limiting을 유발할 수 있는 시나리오는 제외하고, 로그인과
-              인증 흐름에 집중해 운영 환경에서도 안전하게 반복 검증할 수 있는 Smoke
-              Test를 구성했습니다.
-            </p>
-            <p className="text-base leading-8 text-neutral-700">
-              또한 자동화 테스트 작성 과정에서 API 문서와 실제 응답 코드가
-              일치하지 않는 사례를 발견했습니다. 이를 통해 자동화 테스트는 단순히
-              기능 동작 여부를 반복 확인하는 도구를 넘어, 문서화된 요구사항과 실제
-              서비스 동작 사이의 차이를 검증하는 수단이 될 수 있다는 점을 확인할 수
-              있었습니다.
-            </p>
+        {showExecutionImage && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Playwright 실행 결과"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 md:p-8"
+            onClick={() => setShowExecutionImage(false)}
+          >
+            <div
+              className="relative max-h-full w-full max-w-6xl overflow-auto rounded-lg bg-white"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="sticky top-0 z-10 flex items-center justify-between border-b border-neutral-200 bg-white px-5 py-4">
+                <div>
+                  <p className="text-sm font-medium">Playwright 실행 결과</p>
+                  <p className="mt-1 text-xs text-neutral-500">
+                    로그인 기능 자동화 테스트 7건 통과
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowExecutionImage(false)}
+                  aria-label="이미지 닫기"
+                  className="cursor-pointer rounded-full p-2 transition-colors hover:bg-neutral-100"
+                >
+                  <XCircle size={22} />
+                </button>
+              </div>
+              <img
+                src={crcLoginReportImage}
+                alt="Playwright 로그인 기능 자동화 테스트 7건 통과 결과 화면"
+                className="w-full"
+              />
+            </div>
           </div>
-        </Section>
+        )}
       </div>
     </PageTransition>
   );

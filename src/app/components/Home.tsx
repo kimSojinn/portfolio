@@ -12,7 +12,7 @@ import WorkSection from "./home/WorkSection";
 export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] =
-        useState<ProjectCategory>("All");
+        useState<ProjectCategory>("전체");
     const heroRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export default function Home() {
 
     const filteredProjects = useMemo(
         () =>
-            selectedCategory === "All"
+            selectedCategory === "전체"
                 ? projects
                 : projects.filter((project) => {
                       return project.category === selectedCategory;

@@ -26,12 +26,6 @@ export default function HeroSection({
         style={{ opacity, scale }}
         className="text-center w-full relative z-10"
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-xs md:text-sm tracking-widest mb-6 md:mb-8"
-        ></motion.div>
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -39,11 +33,7 @@ export default function HeroSection({
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight mb-7 md:mb-9"
         >
           <span className="bg-gradient-to-br from-black via-neutral-800 to-neutral-600 bg-clip-text text-transparent">
-            Beyond Features,
-          </span>
-          <br />
-          <span className="bg-gradient-to-br from-neutral-700 via-black to-neutral-800 bg-clip-text text-transparent">
-            I Verify the Flow.
+            QA Engineer
           </span>
         </motion.h1>
         <motion.p
@@ -52,16 +42,21 @@ export default function HeroSection({
           transition={{ duration: 1, delay: 0.6 }}
           className="text-sm md:text-lg text-neutral-600 mb-2 max-w-2xl mx-auto px-4 leading-relaxed"
         >
-          사용자가 서비스를 이용하는 흐름 속에서 문제를 찾습니다.
+          개발 경험을 바탕으로, 결함의 재현 조건과 영향 범위를 구체화합니다.
         </motion.p>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.7 }}
-          className="text-sm md:text-[15px] text-neutral-500 mb-4 max-w-2xl mx-auto px-4 leading-relaxed"
+          className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs md:text-sm text-neutral-500 mb-4 max-w-2xl mx-auto px-4 leading-relaxed"
         >
-          테스트 케이스, API 검증, 버그 리포트를 통해 기능이 아닌 사용 경험의
-          품질을 검증합니다.
+          <span>Test Case</span>
+          <span className="text-neutral-300">·</span>
+          <span>Bug Report</span>
+          <span className="text-neutral-300">·</span>
+          <span>API Test</span>
+          <span className="text-neutral-300">·</span>
+          <span>E2E</span>
         </motion.p>
       </motion.div>
 

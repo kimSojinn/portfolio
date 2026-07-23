@@ -73,9 +73,20 @@ export default function WorkSection({
                       {project.description}
                     </p>
 
+                    <div className="mb-3 flex flex-wrap gap-2 md:mb-4">
+                      {project.keywords.map((keyword) => (
+                        <span
+                          key={keyword}
+                          className="rounded-full border border-neutral-200 px-3 py-1 text-xs text-neutral-600"
+                        >
+                          {keyword}
+                        </span>
+                      ))}
+                    </div>
+
                     <div className="flex items-center gap-2 text-sm text-neutral-400">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity">
-                        View Case
+                        QA 사례 보기
                       </span>
                       <ArrowUpRight
                         className="opacity-0 group-hover:opacity-100 transition-opacity"

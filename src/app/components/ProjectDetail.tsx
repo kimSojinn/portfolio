@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import seomseAdminReservationImage from "../../assets/img/seomse-admin-reservation.png";
 import seomseMyReservationsImage from "../../assets/img/seomse-my-reservations.png";
@@ -32,26 +32,26 @@ const projectData = {
       "하드코딩된 UI를 데이터 기반 렌더링 방식으로 바꾸고, 항목 변경이 화면에 바로 반영되는 흐름을 만들었습니다. 운영 편의보다 먼저 사용자에게 정확한 선택지가 보이는지를 기준으로 검증했습니다.",
     process: [
       {
-        phase: "Find Friction",
+        phase: "문제 발견",
         description:
           "운영자가 반복 입력하는 항목과 변경 빈도가 높은 화면을 확인",
       },
       {
-        phase: "Map Impact",
+        phase: "영향 분석",
         description:
           "수동 반영 지연이 내부 업무와 사용자 정보 정확도에 미치는 영향 정리",
       },
       {
-        phase: "Redesign Logic",
+        phase: "구조 개선",
         description:
           "드롭다운 항목을 데이터 기준으로 자동 렌더링하는 구조 설계",
       },
       {
-        phase: "Verify",
+        phase: "검증",
         description: "신규 항목 추가 시 화면 반영 여부와 기존 선택 흐름을 검증",
       },
       {
-        phase: "Stabilize",
+        phase: "안정화",
         description:
           "운영 중 요구사항을 반영하며 관리 방식과 화면 사용성을 보완",
       },
@@ -116,25 +116,25 @@ const projectData = {
       "실제 업무 방식에 가까운 과제와 PR 리뷰 흐름을 만들었습니다. 자주 반복되던 설명은 과제 요구사항과 리뷰 기준 안에 넣어 다음 온보딩에도 재사용할 수 있게 했습니다.",
     process: [
       {
-        phase: "Define Standard",
+        phase: "기준 정의",
         description: "팀에서 중요하게 보는 코드 컨벤션과 화면 구현 기준 정리",
       },
       {
-        phase: "Design Task",
+        phase: "과제 설계",
         description:
           "사내 홈페이지 클론코딩 과제로 실무와 가까운 학습 흐름 설계",
       },
       {
-        phase: "Review",
+        phase: "검토",
         description:
           "PR 기반으로 코드 품질, 협업 방식, 업무 흐름에 대한 피드백 제공",
       },
       {
-        phase: "Improve Fit",
+        phase: "적응 지원",
         description: "신규 입사자가 막히는 지점을 확인하고 안내 방식을 보완",
       },
       {
-        phase: "Transfer Knowledge",
+        phase: "기준 공유",
         description: "반복되는 질문과 기준을 다음 온보딩에 활용할 수 있게 정리",
       },
     ],
@@ -179,48 +179,33 @@ const projectData = {
   "seomse-reservation-qa": {
     title: "SEOMSE 예약 기능 테스트 케이스 설계 및 품질 검증",
     subtitle:
-      "예약 생성부터 관리자 조회까지의 핵심 사용자 플로우를 검증한 QA 프로젝트",
+      "예약 생성부터 관리자 조회까지 정상·예외 조건 31건을 설계하고 검증했습니다.",
     year: "2025",
-    role: "Product QA / Frontend",
+    role: "Frontend / QA",
     client: "SEOMSE",
     duration: "Side Project",
     team: ["Frontend", "Planning", "Beauty Domain", "QA"],
     overview:
-      "SEOMSE는 기존 미용실 예약 과정에서 부족했던 상담 정보를 예약 단계에서 함께 전달할 수 있도록 기획된 예약 서비스입니다. 사용자는 두피 타입, 모발 상태, 시술 이력, 요청사항, 참고 이미지를 등록할 수 있으며 관리자는 이를 바탕으로 예약 및 상담을 관리할 수 있습니다.\n\n본 QA 프로젝트에서는 일반 예약과 섬세 예약을 포함한 핵심 예약 플로우를 대상으로 정상·예외 시나리오를 검증했습니다.\n\n총 31개의 테스트 케이스를 작성해 4개의 주요 버그를 발견했습니다. 이후 백엔드 서버 중단으로 실제 API 응답을 사용할 수 없는 상황에서도 검증을 이어가기 위해 Playwright Network Mocking을 적용했습니다. 이를 통해 예약 관련 API 응답을 고정하고, 핵심 예약 플로우 6개 시나리오를 자동화해 반복 검증이 가능한 환경을 구축했습니다.",
+      "상담 정보를 함께 전달하는 SEOMSE 예약 서비스에서 매장 선택부터 예약 생성·조회·관리자 확인까지 정상·예외 흐름을 검증했습니다. 31개 테스트 케이스로 주요 결함 4건을 찾았고, 서버 중단 이후에는 API 응답을 모킹해 핵심 시나리오 6개를 Playwright로 자동화했습니다.",
     challenge:
-      "예약 서비스는 화면 이동이 정상이어도 날짜, 시간, 매장, 디자이너, 사용자 정보가 함께 맞물리지 않으면 실제 예약 경험이 깨질 수 있습니다. 특히 미래 날짜 시간 슬롯, 디자이너 표시, 실패 피드백, 필수값 처리처럼 사용자가 예약 가능 여부를 판단하는 조건은 오픈 전 우선 검증이 필요했습니다.",
+      "화면 이동이 정상이어도 날짜·시간·매장·디자이너 데이터가 어긋나면 예약이 실패합니다. 따라서 예약 가능 여부를 좌우하는 데이터 연결과 실패 피드백을 우선 검증했습니다.",
     solution:
-      "사용자 예약 흐름을 일반 예약과 섬세 예약으로 나누고, 정상 시나리오와 필수값 누락, 서버 오류, 새로고침, 중복 클릭, 빈 데이터 같은 예외 조건을 함께 점검했습니다. 발견한 이슈는 재현 절차, 실제 결과, 기대 결과, 사용자 영향, 개선 방향으로 정리해 개발자가 바로 확인할 수 있는 형태로 문서화했습니다.",
+      "일반·섬세 예약 흐름에 필수값 누락, 서버 오류, 중복 클릭, 빈 데이터 조건을 결합했습니다. 결함은 재현 절차·기대/실제 결과·사용자 영향과 함께 기록하고, 반복 구간은 Network Mocking 기반 E2E로 전환했습니다.",
     process: [
       {
-        phase: "Analyze Flow",
+        phase: "검증 범위 정의",
         description:
-          "매장 선택부터 예약 완료, 마이페이지, 관리자 조회까지 사용자 행동 순서로 분해",
+          "매장 선택부터 관리자 조회까지 흐름과 정상·예외 조건을 31개 케이스로 설계",
       },
       {
-        phase: "Define Scope",
+        phase: "결함 분석·기록",
         description:
-          "일반 예약, 섬세 예약, 날짜/시간 선택, 예외 처리, 예약 조회를 In Scope로 정의",
+          "4개 주요 결함을 우선순위화하고 재현 조건·사용자 영향·개선 방향을 기록",
       },
       {
-        phase: "Design Cases",
+        phase: "반복 검증 자동화",
         description:
-          "정상 흐름, 입력값 검증, 비즈니스 규칙, 권한, 예외 상황, 동시성 리스크로 테스트 분류",
-      },
-      {
-        phase: "Report Issues",
-        description:
-          "P1/P2/P3 우선순위로 결함을 나누고 재현 조건과 개선 방향 작성",
-      },
-      {
-        phase: "Optimize",
-        description:
-          "WebP 전환, Lazy Loading, 이미지 정리로 Lighthouse 성능 점수 개선",
-      },
-      {
-        phase: "Automate",
-        description:
-          "샵 목록·상세·일반 예약 제출을 Network Mocking으로 고정해 Playwright 예약 자동화 케이스 작성",
+          "API 응답을 고정해 핵심 예약 흐름 7개를 Playwright로 자동화",
       },
     ],
     features: [
@@ -232,7 +217,7 @@ const projectData = {
       {
         title: "예약 자동화 테스트",
         description:
-          "샵 목록 렌더링부터 일반 예약 확정, 실패·지연 응답까지 6개 핵심 케이스를 Playwright로 자동화했습니다.",
+          "샵 목록 렌더링부터 일반 예약 확정, 실패·지연 응답까지 7개 핵심 케이스를 Playwright로 자동화했습니다.",
       },
       {
         title: "섬세 예약 정보 검증",
@@ -264,9 +249,9 @@ const projectData = {
       "WebP",
     ],
     metrics: [
-      { value: "6 / 6", label: "예약 자동화 테스트 6건 통과" },
-      { value: "13MB → 1.4MB", label: "이미지 리소스 최적화" },
-      { value: "77 → 89", label: "Lighthouse 성능 개선" },
+      { value: "31", label: "작성 테스트 케이스" },
+      { value: "4", label: "발견한 주요 결함" },
+      { value: "7 / 7", label: "Playwright 자동화 통과" },
     ],
     performanceAudit: {
       before: [
@@ -290,50 +275,40 @@ const projectData = {
       note: "WebP 변환 및 이미지 최적화를 통해 이미지 용량을 13MB에서 1.4MB로 줄이고 Lighthouse 성능 점수를 77점에서 89점으로 개선",
     },
     results: [
-      "예약 생성부터 관리자 조회까지 핵심 사용자 플로우를 정상·예외 시나리오 기준으로 검증",
-      "샵 목록 조회, 예약 생성, 실패·지연 응답 시나리오를 Playwright Network Mocking으로 자동화",
-      "미래 날짜 시간 슬롯 오류, 디자이너 정보 표시 오류, 실패 피드백 부재 등 주요 결함 4건을 우선순위와 함께 리포트",
-      "WebP 변환 및 이미지 최적화로 리소스 용량을 13MB → 1.4MB로 줄이고 Lighthouse 성능 점수를 77 → 89로 개선",
+      "FAIL 6건을 원인별로 분류해 예약 가능 시간·데이터 표시·실패 피드백 관련 결함 4건으로 정리",
+      "API 응답을 고정한 예약 자동화 시나리오 7건을 실행하고 모두 통과",
     ],
-    nextProject: "service-flow-qa",
+    nextProject: "operations-e2e-smoke",
   },
   "service-flow-qa": {
     title: "다국어·권한별 서비스 플로우 회귀 검증",
-    subtitle: "관리자 페이지를 대상으로 권한, 다국어, CRUD 흐름 회귀 검증",
+    subtitle:
+      "권한·CRUD·다국어 변경 후 기존 기능이 동일하게 동작하는지 확인하기 위해 18개 회귀 케이스를 작성했습니다.",
     year: "2023-2026",
-    role: "QA / Issue Triage",
+    role: "QA",
     client: "Union Contents",
     duration: "Frontend Developer",
     team: ["Planning", "Development", "Client Communication"],
     overview:
-      "관리자 페이지는 운영 과정에서 기능 추가와 수정이 자주 발생했습니다. 하지만 기능 변경 이후 영향 범위를 파악해 어떤 화면과 기능을 다시 확인해야 하는지에 대한 기준이 없어, 검증 대상이 담당자마다 달라질 수 있는 상황이었습니다.\n\n그래서 권한별 메뉴 노출, 접근 제한, 게시물 CRUD, 다국어(i18n) 전환을 중심으로 회귀 테스트 케이스를 작성하고 검증을 수행했습니다. 한·영 언어 전환 시 주요 화면뿐 아니라 상세 정보 모달, 알림·안내 문구, 빈 데이터 화면까지 함께 확인했으며, 이 과정에서 일부 번역 누락과 예외 상황 처리 이슈를 발견했습니다. 또한 권한이 없는 사용자의 접근, 필수 입력값 누락, API 실패 응답 등 예외 시나리오를 점검해 기능 수정 이후에도 기존 사용자 흐름이 유지되는지 확인했습니다.",
+      "관리자 페이지의 권한별 접근, 게시물 CRUD, 한·영 전환을 18개 회귀 케이스로 작성했습니다. 상세 모달·빈 데이터·API 실패 조건에서 이슈 3건을 확인했습니다.",
     challenge:
-      "기획서에는 기능 단위 요구사항이 정리되어 있어도 실제 사용자는 로그인, 메뉴 접근, 데이터 입력, 저장, 조회, 언어 전환을 연속된 흐름으로 사용합니다. 관리자 페이지와 다국어 페이지는 권한, 데이터 상태, 언어 상태가 함께 바뀌기 때문에 단일 화면만 확인하면 기존 기능 영향도를 놓칠 수 있습니다.",
+      "권한·데이터·언어 상태가 함께 바뀌면 메뉴 접근, 저장 결과, 화면 문구에 동시에 영향을 줄 수 있습니다. 단일 화면이 아닌 조건 조합별 확인 범위가 필요했습니다.",
     solution:
-      "관리자 계정 유형, 메뉴 노출 조건, 등록·수정·삭제 흐름, 한·영 언어 전환을 테스트 축으로 나누고 기능 변경 후 기존 동작이 유지되는지 반복 확인했습니다. 언어 전환 후에는 주요 메뉴에서 끝내지 않고 상세 정보 모달과 부가 화면까지 이동하며 숨은 번역 누락을 찾았고, 발견한 차이는 조건, 기대 결과, 실제 결과, 영향 범위로 정리해 수정 범위와 회귀 확인 대상을 명확히 했습니다.",
+      "권한, CRUD, 다국어를 검증 축으로 나눠 18개 회귀 케이스를 작성했습니다. 상세 모달, 빈 데이터, API 실패를 포함하고 각 케이스에 기대 결과와 실제 결과를 기록했습니다.",
     process: [
       {
-        phase: "Read Requirements",
-        description: "기획서와 요청사항을 기능, 화면, 데이터 조건으로 분해",
-      },
-      {
-        phase: "Map User Flow",
+        phase: "영향 범위 분석",
         description:
-          "관리자 로그인, 권한별 메뉴 접근, CRUD, 언어 전환 흐름을 사용자 행동 순서로 정리",
+          "변경 기능을 권한·CRUD·언어·데이터 조건과 연결해 회귀 범위 정의",
       },
       {
-        phase: "Check Conditions",
+        phase: "정상·예외 검증",
         description:
-          "권한 없음, 필수값 누락, 빈 데이터, 상세 정보 모달, API 예외 응답 조건 확인",
+          "18개 케이스로 주요 흐름과 상세 모달·빈 데이터·API 실패를 함께 확인",
       },
       {
-        phase: "Report Gap",
-        description: "요구사항과 실제 화면 사이의 차이를 재현 조건과 함께 공유",
-      },
-      {
-        phase: "Regression Review",
-        description:
-          "기능 수정 이후 등록·수정·삭제, 권한 변경, 언어 전환 동작이 유지되는지 재확인",
+        phase: "결과 기록",
+        description: "기대 결과와 다른 동작 3건의 조건과 실제 결과를 기록",
       },
     ],
     features: [
@@ -364,62 +339,48 @@ const projectData = {
       "Regression",
       "Admin QA",
       "i18n",
-      "Issue Triage",
     ],
     metrics: [
       { value: "18", label: "회귀 테스트 케이스" },
-      { value: "3", label: "검증 영역" },
-      { value: "3", label: "발견 이슈" },
+      { value: "3", label: "발견한 이슈" },
     ],
     results: [
-      "관리자 계정 유형별 메뉴 노출과 접근 제한 조건을 기준으로 권한 기반 회귀 검증 수행",
-      "게시물 등록·수정·삭제 이후 목록, 상세, 사용자 화면까지 데이터 반영 여부 확인",
-      "정상 플로우 밖의 상세 정보 모달까지 탐색해 일부 문구가 한국어로 노출되는 번역 누락을 발견하고, 재현 조건과 함께 공유해 수정으로 반영",
-      "API 실패 응답과 번역 누락 등 사용자 경험에 영향을 줄 수 있는 예외 상황 확인",
-      "기능 수정 이후에도 권한 및 다국어 환경에서 기존 CRUD 흐름이 유지되는지 재검증",
+      "18건 중 권한·CRUD 흐름 15건은 기대 결과와 일치",
+      "상세 모달 번역 누락, 목록 조회 실패 시 빈 화면, 저장 실패 안내 부재 등 3건은 기대 결과와 불일치",
     ],
     insight:
       "영문 환경 검증 과정에서 주요 화면은 모두 정상적으로 보였지만, 상세 정보 모달을 확인하는 과정에서 번역 누락을 발견했습니다. 이를 통해 회귀 테스트는 변경된 기능만 확인하는 것이 아니라 사용자가 실제로 접근 가능한 화면을 끝까지 탐색하는 과정이라는 점을 확인했습니다.\n\n또한 권한 변경, 다국어 전환, 데이터 수정처럼 서로 다른 조건이 결합될 때 예상하지 못한 문제가 발생할 수 있어, 기능 단위보다 사용자 흐름 단위로 검증 범위를 설정하는 것이 중요하다는 점을 정리했습니다.",
     nextProject: "seomse-reservation-qa",
   },
   "operations-e2e-smoke": {
-    title: "사내 운영 서비스 로그인·인증 플로우 Smoke Test 자동화",
+    title: "로그인 기능 Smoke Test 자동화",
     subtitle:
-      "배포 후 실유저 진입 전, 로그인·인증 플로우를 운영 도메인에서 직접 검증한 E2E 자동화",
+      "배포 후 핵심 인증 장애를 빠르게 확인하는 Playwright 테스트를 구축했습니다.",
     year: "2025",
-    role: "QA Automation",
+    role: "QA",
     client: "Union Contents",
     duration: "Side Project",
     team: ["Backend", "QA"],
     overview:
-      "사내 운영 서비스는 B2B 특성상 특정 시간대에 사용자가 집중 접속하는 구조였습니다. 배포 직후 로그인이나 인증 흐름에 문제가 발생하면 다수의 사용자가 서비스에 진입하지 못할 수 있었지만, 이를 빠르게 확인할 수 있는 Smoke Test 체계는 마련되어 있지 않았습니다.\n\n이를 개선하기 위해 운영 도메인의 핵심 인증 흐름을 검증하는 E2E 자동화를 구축했습니다. 로그인, 보호 페이지 접근 제어, 리다이렉트 등 주요 진입 경로를 대상으로 7개의 테스트 시나리오를 작성해 반복 검증이 가능하도록 했습니다.\n\n테스트 과정에서는 로그인 API가 문서와 다르게 201 상태 코드를 반환하는 스펙 불일치를 발견했습니다. 이를 통해 배포 전 핵심 인증 흐름을 안정적으로 검증할 수 있는 환경을 마련하고, 코드 리뷰만으로 발견하기 어려운 문제를 자동화 테스트로 확인할 수 있었습니다.",
+      "운영 서비스의 로그인 기능을 7개 시나리오로 나눠 Playwright E2E로 검증했습니다. 로그인 API의 실제 응답 코드와 문서가 다른 항목 1건을 확인했습니다.",
     challenge:
-      "운영 도메인에 직접 테스트 트래픽을 보내야 하므로 rate limiting·계정 잠금·IDS 알람을 유발하지 않아야 했습니다. 동시에 메인 앱의 의존성과 CI 파이프라인을 오염시키지 않는 독립 구조가 필요했습니다.",
+      "운영 환경에서 반복 로그인 실패 테스트는 계정 잠금이나 rate limiting을 유발할 수 있어 범위에서 제외했습니다. 테스트 의존성은 메인 앱과 분리할 필요가 있었습니다.",
     solution:
-      "playwright-tests/ 를 별도 package.json / tsconfig 로 완전히 분리하고, BASE_URL 필수화와 자격증명 skip 메커니즘으로 환경 혼용·자격증명 노출 사고를 방지했습니다. 운영 부담을 유발할 수 있는 케이스는 Out of Scope로 명시해 제외했습니다.",
+      "Playwright 테스트를 별도 프로젝트로 구성하고 BASE_URL을 필수값으로 지정했습니다. 자격증명이 없으면 인증 시나리오를 제외하고, 로그인·접근 제어·리다이렉트 7건만 실행했습니다.",
     process: [
       {
-        phase: "Define Scope",
+        phase: "운영 범위 정의",
         description:
           "운영 부담 없이 검증 가능한 7개 시나리오 선정, 제외 케이스 명시",
       },
       {
-        phase: "Independent Setup",
+        phase: "독립 실행 설계",
         description:
-          "메인 앱과 분리된 playwright-tests/ 독립 프로젝트 구조 설계",
+          "환경 혼용과 자격증명 노출을 막는 Playwright 독립 프로젝트 구성",
       },
       {
-        phase: "Env Design",
-        description: "BASE_URL 필수화 · 자격증명 skip · .env .gitignore 처리",
-      },
-      {
-        phase: "Write Specs",
-        description:
-          "로그인 렌더링부터 보호 페이지 접근 제어 리다이렉트까지 7개 케이스 구현",
-      },
-      {
-        phase: "Verify & Document",
-        description: "201 응답 코드 발견 및 스펙 반영, README 작성",
+        phase: "자동 검증·공유",
+        description: "실제 응답 코드와 API 문서의 차이를 기록하고 README 작성",
       },
     ],
     features: [
@@ -441,7 +402,7 @@ const projectData = {
       {
         title: "운영 부담 회피",
         description:
-          "rate limiting·계정 잠금·IDS 알람 유발 가능 케이스를 의도적으로 제외하고 retain-on-failure로 평시 부담을 최소화했습니다.",
+          "rate limiting·계정 잠금 가능성이 있는 반복 로그인 실패 케이스를 범위에서 제외했습니다.",
       },
     ],
     tech: [
@@ -452,13 +413,15 @@ const projectData = {
       "NestJS",
       "Smoke Test",
     ],
-    metrics: [],
-    results: [
-      "로그인 페이지 진입부터 인증 여부에 따른 화면 이동까지 핵심 인증 흐름 7개 시나리오 자동화",
-      "POST /auth/login 응답 코드와 API 문서 간 스펙 불일치 발견 및 공유",
-      "배포 후 로그인·인증 흐름을 반복 검증할 수 있는 Smoke Test 체계 구축",
+    metrics: [
+      { value: "7", label: "자동화 시나리오" },
+      { value: "1", label: "API 문서 불일치" },
     ],
-    nextProject: "seomse-reservation-qa",
+    results: [
+      "로그인·접근 제어·리다이렉트를 운영 부담이 낮은 범위로 분리해 반복 실행",
+      "로그인 API의 실제 상태 코드와 문서 기준 간 불일치를 확인해 공유",
+    ],
+    nextProject: "service-flow-qa",
   },
   "seomse-login-e2e": {
     title: "섬세 로그인 E2E 자동화 테스트",
@@ -477,24 +440,24 @@ const projectData = {
       "Playwright의 page.route()로 실제 API 경로를 가로채 401·403·500·지연 응답을 직접 주입해 오류 케이스를 안정적으로 재현했습니다. Page Object Model로 선택자를 LoginPage에 모아 UI 변경 시 수정 범위를 최소화했습니다.",
     process: [
       {
-        phase: "Define Scope",
+        phase: "범위 정의",
         description:
           "로그인 성공, 인증 오류, 권한 오류, 서버 오류, 네트워크 장애, 응답 지연을 테스트 범위로 정의",
       },
       {
-        phase: "Build POM",
+        phase: "POM 구성",
         description: "LoginPage 클래스로 선택자와 사용자 액션 캡슐화",
       },
       {
-        phase: "Write Mocks",
+        phase: "응답 모킹",
         description: "auth.mock.ts에 시나리오별 page.route() 응답 모킹 구현",
       },
       {
-        phase: "Write Specs",
+        phase: "케이스 구현",
         description: "6개 테스트 케이스 작성, dialog.ts로 alert 검증 헬퍼 추가",
       },
       {
-        phase: "CI Integration",
+        phase: "CI 연동",
         description: "GitHub Actions로 자동화 실행 파이프라인 구성",
       },
     ],
@@ -556,27 +519,27 @@ const projectData = {
       "서비스 화면의 UI 리뉴얼 과정에서 색상 대비와 정보 흐름을 함께 확인했습니다. SEO 가이드 공동 집필 때는 복잡한 기술 개념을 비전공자도 읽기 쉬운 순서로 정리했습니다.",
     process: [
       {
-        phase: "Audit",
+        phase: "품질 점검",
         description:
           "색상 대비, 정보 전달 구조, 화면 흐름에서 사용자가 막힐 수 있는 지점 확인",
       },
       {
-        phase: "Improve UI",
+        phase: "화면 개선",
         description:
           "기반 디자인 틀을 활용해 서비스 화면 UI 리뉴얼과 흐름 개선 진행",
       },
       {
-        phase: "Explain",
+        phase: "정보 구조화",
         description:
           "SEO의 개념과 등장 배경을 프론트엔드 관점에서 이해하기 쉽게 구조화",
       },
       {
-        phase: "Collaborate",
+        phase: "협업",
         description:
           "Figma로 표지 디자인 방향과 레이아웃을 검토하며 시각적 완성도 보완",
       },
       {
-        phase: "Clarify",
+        phase: "기준 명확화",
         description: "기술 기준을 사용자가 정보를 찾는 과정과 연결해 설명",
       },
     ],
@@ -620,6 +583,35 @@ const projectData = {
   },
 };
 
+const projectSummaries: Partial<
+  Record<keyof typeof projectData, { label: string; value: string }[]>
+> = {
+  "admin-ops-automation": [
+    { label: "목표", value: "운영 데이터 반영 누락과 반복 수정 지점 감소" },
+    { label: "범위", value: "관리 항목 → 데이터 렌더링 → 사용자 화면" },
+  ],
+  "onboarding-qa-system": [
+    { label: "목표", value: "온보딩 리뷰 기준을 일관된 절차로 정립" },
+    { label: "범위", value: "개발 과제 → PR 리뷰 → 피드백 반영" },
+  ],
+  "seomse-reservation-qa": [
+    { label: "목표", value: "예약 데이터 연결과 예외 흐름 검증" },
+    { label: "범위", value: "매장 선택 → 예약 생성 → 관리자 조회" },
+  ],
+  "service-flow-qa": [
+    { label: "목표", value: "기능 변경 후 기존 사용자 흐름 보호" },
+    { label: "범위", value: "권한 · CRUD · 다국어 · 예외 응답" },
+  ],
+  "operations-e2e-smoke": [
+    { label: "목표", value: "배포 후 핵심 인증 장애 조기 발견" },
+    { label: "범위", value: "로그인 · 접근 제어 · 리다이렉트" },
+  ],
+  "seo-accessibility-quality": [
+    { label: "목표", value: "정보 탐색을 방해하는 접근성·검색 노출 요소 개선" },
+    { label: "범위", value: "화면 리뉴얼 · 정보 구조 · SEO 가이드" },
+  ],
+};
+
 const seomsePriorityColor: Record<string, string> = {
   P1: "bg-rose-500",
   P2: "bg-amber-500",
@@ -650,63 +642,6 @@ const seomseKeyIssues = [
     title: "매장 정렬/필터 탭 미동작",
     impact:
       "리뷰순·평점순·가격순 탭을 눌러도 목록이 바뀌지 않아 탐색 편의성이 낮아짐",
-  },
-];
-
-const seomseArtifacts = [
-  {
-    title: "Test Cases (31건)",
-    description: "예약 생성·조회·관리 플로우에 대한 정상 및 예외 시나리오 검증",
-  },
-  {
-    title: "Bug Reports (4건)",
-    description: "재현 절차, 기대 결과, 실제 결과, 영향도 및 개선 방향 정리",
-  },
-  {
-    title: "API Validation",
-    description: "주요 이슈 분석에 활용한 API 요청·응답 및 데이터 검증 결과",
-  },
-  {
-    title: "QA Summary",
-    description: "검증 범위, 테스트 결과, 주요 결함 및 개선 사항 요약",
-  },
-];
-
-function ParagraphText({ text }: { text: string }) {
-  return (
-    <div className="max-w-5xl space-y-4 md:space-y-5">
-      {text.split("\n\n").map((paragraph) => (
-        <p
-          key={paragraph}
-          className="text-base md:text-xl leading-[1.75] text-neutral-700"
-        >
-          {paragraph}
-        </p>
-      ))}
-    </div>
-  );
-}
-
-const seomseResultSummary = [
-  { label: "PASS", value: 24, color: "bg-emerald-500" },
-  { label: "FAIL", value: 6, color: "bg-rose-500" },
-  { label: "BLOCKED", value: 1, color: "bg-amber-500" },
-];
-
-const seomseIssueSummary = [
-  {
-    label: "P1",
-    value: 2,
-    width: "50%",
-    color: "bg-rose-500",
-    desc: "예약 경험에 직접 영향을 주는 결함",
-  },
-  {
-    label: "P2",
-    value: 2,
-    width: "50%",
-    color: "bg-amber-500",
-    desc: "사용자 이용에 불편을 주는 결함",
   },
 ];
 
@@ -802,6 +737,14 @@ const seomseScreenshots = [
     alt: "SEOMSE 관리자 예약 상세 화면",
   },
 ];
+
+const representativeSeomseScreenshotSteps = new Set([
+  "01",
+  "03",
+  "04",
+  "08",
+  "10",
+]);
 
 const serviceFlowRegressionCases = [
   {
@@ -971,6 +914,15 @@ const serviceFlowRegressionCases = [
   },
 ];
 
+const representativeServiceCaseIds = new Set([
+  "REG-003",
+  "REG-005",
+  "REG-010",
+  "REG-015",
+  "REG-016",
+  "REG-018",
+]);
+
 const adminDataQaCases = [
   {
     id: "ADM-001",
@@ -1048,19 +1000,23 @@ const adminDataQaCases = [
   },
 ];
 
-const hiddenProjectIds = new Set([
-  "seomse-login-e2e",
-]);
+const hiddenProjectIds = new Set(["seomse-login-e2e"]);
 
 export default function ProjectDetail() {
+  const [showAllRegressionCases, setShowAllRegressionCases] = useState(false);
   const { id } = useParams();
   const project =
     id && !hiddenProjectIds.has(id)
       ? projectData[id as keyof typeof projectData]
       : null;
+  const projectSummary =
+    id && !hiddenProjectIds.has(id)
+      ? projectSummaries[id as keyof typeof projectData]
+      : null;
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setShowAllRegressionCases(false);
   }, [id]);
 
   if (!project) {
@@ -1076,6 +1032,32 @@ export default function ProjectDetail() {
     );
   }
 
+  const metricGridClass =
+    project.metrics.length >= 4
+      ? "md:grid-cols-4"
+      : project.metrics.length === 3
+        ? "md:grid-cols-3"
+        : project.metrics.length === 1
+          ? "md:grid-cols-1"
+          : "md:grid-cols-2";
+  const visibleRegressionCases = showAllRegressionCases
+    ? serviceFlowRegressionCases
+    : serviceFlowRegressionCases.filter((tc) =>
+        representativeServiceCaseIds.has(tc.id),
+      );
+  const qaDocument =
+    id === "seomse-reservation-qa"
+      ? {
+          to: "/qa/seomse-reservation",
+          description: "전체 테스트 케이스 31건, 버그 리포트 4건과 자동화 결과",
+        }
+      : id === "operations-e2e-smoke"
+        ? {
+            to: "/qa/operations-e2e-smoke",
+            description: "자동화 시나리오 7건과 Playwright 실행 결과",
+          }
+        : null;
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-white text-black">
@@ -1086,14 +1068,16 @@ export default function ProjectDetail() {
               className="flex items-center gap-2 hover:opacity-50 transition-opacity text-sm md:text-base"
             >
               <ArrowLeft size={18} className="md:w-5 md:h-5" />
-              <span className="tracking-tight">Back</span>
+              <span className="tracking-tight">목록</span>
             </Link>
             <Link
               to={`/project/${project.nextProject}`}
               className="flex items-center gap-2 hover:opacity-50 transition-opacity text-sm md:text-base"
             >
-              <span className="tracking-tight hidden md:inline">Next Case</span>
-              <span className="tracking-tight md:hidden">Next</span>
+              <span className="tracking-tight hidden md:inline">
+                다음 QA 사례
+              </span>
+              <span className="tracking-tight md:hidden">다음</span>
               <ArrowRight size={18} className="md:w-5 md:h-5" />
             </Link>
           </div>
@@ -1112,7 +1096,7 @@ export default function ProjectDetail() {
               <h1 className="text-2xl md:text-4xl lg:text-5xl tracking-tighter mb-4 md:mb-6 leading-tight">
                 {project.title}
               </h1>
-              <p className="text-base md:text-xl leading-[1.75] text-neutral-600 max-w-5xl">
+              <p className="text-base md:text-xl leading-[1.75] text-neutral-600">
                 {project.subtitle}
               </p>
             </motion.div>
@@ -1120,12 +1104,14 @@ export default function ProjectDetail() {
         </section>
 
         {project.metrics.length > 0 && (
-          <section className="px-6 md:px-8 mb-12 md:mb-20">
+          <section className="px-6 md:px-8 mb-10 md:mb-14">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-                IMPACT
+                KEY RESULTS
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+              <div
+                className={`grid grid-cols-2 border-y border-neutral-200 ${metricGridClass}`}
+              >
                 {project.metrics.map((metric, index) => (
                   <motion.div
                     key={`${metric.value}-${metric.label}`}
@@ -1136,7 +1122,7 @@ export default function ProjectDetail() {
                       duration: 0.5,
                       delay: index * 0.1,
                     }}
-                    className="p-5 md:p-6 border border-neutral-200 rounded-lg bg-white"
+                    className="border-b border-neutral-200 py-4 pr-4 even:pl-4 md:border-b-0 md:border-r md:px-5 md:first:pl-0 md:last:border-r-0 md:last:pr-0"
                   >
                     <div className="text-2xl md:text-3xl tracking-tight mb-2">
                       {metric.value}
@@ -1151,69 +1137,30 @@ export default function ProjectDetail() {
           </section>
         )}
 
-        <section className="px-6 md:px-8 mb-12 md:mb-20">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-[0.7fr_1.3fr] gap-8 md:gap-16">
-            <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-              SUMMARY
+        <section className="px-6 md:px-8 mb-12 md:mb-16">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6">
+              프로젝트 개요
             </h2>
-            <ParagraphText text={project.overview} />
+            <dl className="border-t border-neutral-200">
+              {[
+                ["목표", projectSummary?.[0]?.value ?? project.subtitle],
+                ["범위", projectSummary?.[1]?.value ?? project.subtitle],
+                ["담당", project.role],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  className="grid gap-2 border-b border-neutral-200 py-5 md:grid-cols-[120px_1fr] md:gap-8"
+                >
+                  <dt className="text-sm font-medium">{label}</dt>
+                  <dd className="text-sm leading-7 text-neutral-600 md:text-base">
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
-
-        {id === "seomse-reservation-qa" && (
-          <section className="px-6 md:px-8 mb-16 md:mb-24">
-            <div className="max-w-6xl mx-auto">
-              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-5 md:p-6">
-                <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <p className="mb-2 text-xs tracking-[0.18em] text-neutral-400">
-                      QA DOCUMENT
-                    </p>
-                    <p className="max-w-3xl text-base leading-[1.8] tracking-tight text-neutral-700 md:text-lg">
-                      31개의 테스트 케이스와 4개의 주요 버그를 바탕으로 검증
-                      과정, 원인 분석, 개선 사항, QA 회고를 정리했습니다.
-                    </p>
-                  </div>
-                  <Link
-                    to="/qa/seomse-reservation"
-                    className="inline-flex shrink-0 justify-center rounded-full bg-neutral-900 px-5 py-2.5 text-sm text-white transition-opacity hover:opacity-80"
-                  >
-                    QA 문서 보기
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {id === "operations-e2e-smoke" && (
-          <section className="px-6 md:px-8 mb-16 md:mb-24">
-            <div className="max-w-6xl mx-auto">
-              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-5 md:p-6">
-                <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <p className="mb-2 text-xs tracking-[0.18em] text-neutral-400">
-                      QA DOCUMENT
-                    </p>
-                    <h2 className="text-xl tracking-tight md:text-2xl">
-                      Smoke Test 구축 과정과 검증 결과를 문서로 정리했습니다.
-                    </h2>
-                    <p className="mt-3 max-w-3xl text-sm leading-[1.8] text-neutral-600">
-                      7개 자동화 시나리오, 운영 환경 테스트 전략, API 스펙 불일치
-                      발견 사례를 확인할 수 있습니다.
-                    </p>
-                  </div>
-                  <Link
-                    to="/qa/operations-e2e-smoke"
-                    className="inline-flex shrink-0 justify-center rounded-full bg-neutral-900 px-5 py-2.5 text-sm text-white transition-opacity hover:opacity-80"
-                  >
-                    QA 문서 보기
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
 
         {id === "seomse-login-e2e" && (
           <section className="px-6 md:px-8 mb-16 md:mb-24">
@@ -1227,7 +1174,7 @@ export default function ProjectDetail() {
                     <h2 className="text-xl tracking-tight md:text-2xl">
                       자동화 코드와 전체 시나리오를 문서로 정리했습니다.
                     </h2>
-                    <p className="mt-3 max-w-3xl text-sm leading-[1.8] text-neutral-600">
+                    <p className="mt-3 text-sm leading-[1.8] text-neutral-600">
                       POM 코드, Network Mock 구현, 6개 시나리오 결과와 QA
                       인사이트를 한 페이지에서 확인할 수 있습니다.
                     </p>
@@ -1303,7 +1250,7 @@ export default function ProjectDetail() {
                         <td className="p-4 font-medium">{tc.id}</td>
                         <td className="p-4">{tc.area}</td>
                         <td className="p-4">{tc.target}</td>
-                        <td className="max-w-[420px] p-4 leading-[1.7] text-neutral-600">
+                        <td className="p-4 leading-[1.7] text-neutral-600">
                           {tc.expected}
                         </td>
                         <td className="p-4">
@@ -1332,72 +1279,57 @@ export default function ProjectDetail() {
           <section className="px-6 md:px-8 mb-16 md:mb-24">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-                REGRESSION TEST SCOPE
+                {showAllRegressionCases
+                  ? "전체 회귀 테스트 케이스 · 18 / 18"
+                  : "대표 회귀 테스트 케이스 · 6 / 18"}
               </h2>
-              <div className="mb-8 grid gap-4 md:grid-cols-3">
-                {[
-                  {
-                    title: "권한 기반 접근",
-                    value: "Admin Role",
-                    note: "계정 유형별 메뉴 노출, 직접 URL 접근, 접근 제한 상태 확인",
-                  },
-                  {
-                    title: "CRUD 흐름",
-                    value: "Create / Update / Delete",
-                    note: "관리자 데이터 변경 후 목록, 상세, 사용자 화면 반영 확인",
-                  },
-                  {
-                    title: "다국어 회귀",
-                    value: "KO / EN",
-                    note: "언어 전환 후 주요 화면과 상세 정보 모달의 번역 누락, UI 깨짐 확인",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-lg border border-neutral-200 p-5 md:p-6"
-                  >
-                    <p className="text-xs tracking-[0.18em] text-neutral-400">
-                      {item.title}
-                    </p>
-                    <h3 className="mt-4 text-xl tracking-tight">
-                      {item.value}
-                    </h3>
-                    <p className="mt-3 text-sm leading-[1.7] text-neutral-500">
-                      {item.note}
-                    </p>
-                  </div>
-                ))}
+              <div className="mb-5 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShowAllRegressionCases((current) => !current)
+                  }
+                  aria-expanded={showAllRegressionCases}
+                  className="cursor-pointer text-sm underline underline-offset-4 transition-opacity hover:opacity-50"
+                >
+                  {showAllRegressionCases
+                    ? "대표 테스트 케이스만 보기"
+                    : "전체 회귀 테스트 18건 보기"}
+                </button>
               </div>
               <div className="overflow-x-auto rounded-lg border border-neutral-200 bg-white">
-                <table className="w-full min-w-[1280px] text-left text-sm">
+                <table className="w-full min-w-[1120px] text-left text-sm">
                   <thead className="bg-neutral-50 text-xs text-neutral-500">
                     <tr>
                       {[
                         "TC ID",
                         "영역",
                         "대상 기능",
-                        "검증 관점",
                         "기대 결과",
                         "실제 결과",
                         "판정",
                       ].map((head) => (
-                        <th key={head} className="p-4">
+                        <th
+                          key={head}
+                          className={`p-4 ${head === "TC ID" ? "whitespace-nowrap" : ""}`}
+                        >
                           {head}
                         </th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {serviceFlowRegressionCases.map((tc) => (
+                    {visibleRegressionCases.map((tc) => (
                       <tr key={tc.id} className="border-t">
-                        <td className="p-4 font-medium">{tc.id}</td>
+                        <td className="whitespace-nowrap p-4 font-medium">
+                          {tc.id}
+                        </td>
                         <td className="p-4">{tc.area}</td>
                         <td className="p-4">{tc.target}</td>
-                        <td className="p-4 text-neutral-600">{tc.viewpoint}</td>
-                        <td className="max-w-[320px] p-4 leading-[1.7] text-neutral-600">
+                        <td className="p-4 leading-[1.7] text-neutral-600">
                           {tc.expected}
                         </td>
-                        <td className="max-w-[320px] p-4 leading-[1.7] text-neutral-600">
+                        <td className="p-4 leading-[1.7] text-neutral-600">
                           {tc.actual}
                         </td>
                         <td className="p-4">
@@ -1418,6 +1350,95 @@ export default function ProjectDetail() {
                   </tbody>
                 </table>
               </div>
+
+              <div className="mt-12 md:mt-16">
+                <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
+                  검증 인사이트
+                </h2>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {[
+                    {
+                      title: "화면 끝까지 탐색",
+                      description:
+                        "주요 화면이 정상이어도 상세 모달과 부가 화면에는 번역 누락이 남을 수 있어, 사용자가 접근할 수 있는 하위 화면까지 회귀 범위에 포함했습니다.",
+                    },
+                    {
+                      title: "조건을 조합해 검증",
+                      description:
+                        "권한·언어·데이터 상태가 함께 바뀔 때 발생하는 문제를 놓치지 않도록 기능 단위보다 실제 사용자 흐름을 기준으로 확인했습니다.",
+                    },
+                  ].map((item, index) => (
+                    <motion.article
+                      key={item.title}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.08 }}
+                      className="rounded-lg border border-neutral-200 p-5 md:p-6"
+                    >
+                      <h3 className="text-lg tracking-tight">{item.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-neutral-500 md:text-base">
+                        {item.description}
+                      </p>
+                    </motion.article>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {id === "operations-e2e-smoke" && (
+          <section className="px-6 md:px-8 mb-16 md:mb-24">
+            <div className="max-w-6xl mx-auto">
+              <div className="mb-6 md:mb-8">
+                <h2 className="text-xs md:text-sm tracking-widest text-neutral-400">
+                  자동화 설계 기준
+                </h2>
+                <p className="mt-4  text-sm leading-7 text-neutral-500 md:text-base">
+                  운영 환경을 직접 검증하는 만큼 테스트 수를 늘리기보다,
+                  서비스에 부담을 주지 않고 반복 실행할 수 있는 범위를 먼저
+                  정했습니다.
+                </p>
+              </div>
+              <div className="grid gap-4 md:grid-cols-3">
+                {[
+                  {
+                    title: "운영에 안전한 범위",
+                    description:
+                      "계정 잠금과 요청 제한 가능성이 있는 반복 실패 케이스는 제외하고 로그인·접근 제어·리다이렉트에 집중했습니다.",
+                  },
+                  {
+                    title: "실행 환경 분리",
+                    description:
+                      "Playwright를 별도 프로젝트로 구성하고 BASE_URL을 필수화해 로컬·스테이징·운영 환경의 혼용을 방지했습니다.",
+                  },
+                  {
+                    title: "API 기준 교차 확인",
+                    description:
+                      "화면 동작뿐 아니라 실제 로그인 응답과 API 문서를 비교해 상태 코드 불일치를 확인했습니다.",
+                  },
+                ].map((item, index) => (
+                  <motion.article
+                    key={item.title}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.08 }}
+                    className="rounded-lg border border-neutral-200 p-5 md:p-6"
+                  >
+                    <span className="text-xs text-neutral-400">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mt-4 text-lg tracking-tight">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-neutral-500">
+                      {item.description}
+                    </p>
+                  </motion.article>
+                ))}
+              </div>
             </div>
           </section>
         )}
@@ -1429,59 +1450,63 @@ export default function ProjectDetail() {
                 <h2 className="text-xs md:text-sm tracking-widest text-neutral-400">
                   USER FLOW VALIDATION
                 </h2>
-                <p className="max-w-2xl text-sm leading-[1.7] text-neutral-500">
+                <p className="text-sm leading-[1.7] text-neutral-500">
                   핵심 사용자 플로우를 기준으로 검증 포인트와 테스트 결과를
                   정리했습니다.
                 </p>
               </div>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-                {seomseScreenshots.map((screen, index) => (
-                  <motion.figure
-                    key={screen.title}
-                    initial={{ opacity: 0, y: 14 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.5,
-                      delay: index * 0.06,
-                    }}
-                    className="overflow-hidden rounded-lg border border-neutral-200 bg-white"
-                  >
-                    <div className="flex h-[330px] items-center justify-center bg-neutral-50 p-3">
-                      <img
-                        src={screen.src}
-                        alt={screen.alt}
-                        loading="lazy"
-                        className="h-full w-full object-contain"
-                      />
-                    </div>
-                    <figcaption className="border-t border-neutral-200 p-4">
-                      <div className="mb-3 flex items-center justify-between gap-2">
-                        <span className="text-xs tracking-[0.2em] text-neutral-400">
-                          {screen.step}
-                        </span>
-                        <span
-                          className={`rounded-full px-2.5 py-1 text-[11px] ${
-                            screen.status === "PASS"
-                              ? "bg-emerald-50 text-emerald-700"
-                              : "bg-rose-50 text-rose-700"
-                          }`}
-                        >
-                          {screen.status}
-                        </span>
+                {seomseScreenshots
+                  .filter((screen) =>
+                    representativeSeomseScreenshotSteps.has(screen.step),
+                  )
+                  .map((screen, index) => (
+                    <motion.figure
+                      key={screen.title}
+                      initial={{ opacity: 0, y: 14 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.5,
+                        delay: index * 0.06,
+                      }}
+                      className="overflow-hidden rounded-lg border border-neutral-200 bg-white"
+                    >
+                      <div className="flex h-[330px] items-center justify-center bg-neutral-50 p-3">
+                        <img
+                          src={screen.src}
+                          alt={screen.alt}
+                          loading="lazy"
+                          className="h-full w-full object-contain"
+                        />
                       </div>
-                      <h3 className="text-base tracking-tight">
-                        {screen.title}
-                      </h3>
-                      <p className="mt-2 min-h-12 text-sm leading-[1.6] text-neutral-500">
-                        {screen.description}
-                      </p>
-                      <p className="mt-3 text-xs text-neutral-400">
-                        {screen.qaPoint}
-                      </p>
-                    </figcaption>
-                  </motion.figure>
-                ))}
+                      <figcaption className="border-t border-neutral-200 p-4">
+                        <div className="mb-3 flex items-center justify-between gap-2">
+                          <span className="text-xs tracking-[0.2em] text-neutral-400">
+                            {screen.step}
+                          </span>
+                          <span
+                            className={`rounded-full px-2.5 py-1 text-[11px] ${
+                              screen.status === "PASS"
+                                ? "bg-emerald-50 text-emerald-700"
+                                : "bg-rose-50 text-rose-700"
+                            }`}
+                          >
+                            {screen.status}
+                          </span>
+                        </div>
+                        <h3 className="text-base tracking-tight">
+                          {screen.title}
+                        </h3>
+                        <p className="mt-2 min-h-12 text-sm leading-[1.6] text-neutral-500">
+                          {screen.description}
+                        </p>
+                        <p className="mt-3 text-xs text-neutral-400">
+                          {screen.qaPoint}
+                        </p>
+                      </figcaption>
+                    </motion.figure>
+                  ))}
               </div>
             </div>
           </section>
@@ -1491,191 +1516,90 @@ export default function ProjectDetail() {
           <section className="px-6 md:px-8 mb-16 md:mb-24">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-                TEST RESULT SUMMARY
+                KEY ISSUES
               </h2>
-              <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-                <div className="flex flex-col rounded-lg border border-neutral-200 p-5 md:p-6">
-                  <div className="flex w-full flex-1 items-center justify-center gap-6">
-                    <div
-                      className="relative h-32 w-32 shrink-0 rounded-full"
-                      style={{
-                        background:
-                          "conic-gradient(#10b981 0 77.419%, #f43f5e 77.419% 96.774%, #f59e0b 96.774% 100%)",
-                      }}
-                    >
-                      <div className="absolute inset-5 flex flex-col items-center justify-center rounded-full bg-white">
-                        <span className="text-2xl tracking-tight">31</span>
-                        <span className="text-[11px] text-neutral-400">
-                          Test Cases
-                        </span>
-                      </div>
-                    </div>
-                    <div className="w-full space-y-3">
-                      {seomseResultSummary.map((item) => (
-                        <div
-                          key={item.label}
-                          className="flex items-center justify-between gap-4 text-sm"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span
-                              className={`h-2.5 w-2.5 rounded-full ${item.color}`}
-                            />
-                            <span>{item.label}</span>
-                          </div>
-                          <span className="text-neutral-500">{item.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <p className="mt-5 text-xs leading-[1.7] text-neutral-400">
-                    * FAIL 6건은 테스트 케이스 기준 결과입니다.
-                  </p>
-                </div>
-                <div className="rounded-lg border border-neutral-200 p-5 md:p-6">
-                  <div className="mb-5">
-                    <h3 className="text-xs tracking-widest text-neutral-400">
-                      DEFECT PRIORITY
-                    </h3>
-                  </div>
-                  <div className="space-y-4">
-                    {seomseIssueSummary.map((item) => (
-                      <div key={item.label}>
-                        <div className="mb-2 flex items-baseline justify-between gap-3 text-sm text-neutral-500">
-                          <span>
-                            <span className="text-neutral-700">
-                              {item.label}
-                            </span>
-                            <span className="ml-2 text-xs text-neutral-400">
-                              {item.desc}
-                            </span>
-                          </span>
-                          <span className="shrink-0">{item.value}건</span>
-                        </div>
-                        <div className="h-2 rounded-full bg-neutral-100">
-                          <div
-                            className={`h-2 rounded-full ${item.color}`}
-                            style={{
-                              width: item.width,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {id === "seomse-reservation-qa" && (
-          <section className="px-6 md:px-8 mb-16 md:mb-24">
-            <div className="max-w-6xl mx-auto grid lg:grid-cols-[1.2fr_0.8fr] gap-8 md:gap-12">
-              <div>
-                <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-                  KEY ISSUES
-                </h2>
-                <div className="border-t border-neutral-200">
-                  {seomseKeyIssues.map((issue) => (
-                    <div
-                      key={issue.title}
-                      className="grid md:grid-cols-[72px_1fr] gap-3 md:gap-5 border-b border-neutral-200 py-5 md:py-6"
-                    >
-                      <span
-                        className={`w-fit h-fit px-3 py-1 rounded-full text-white text-xs tracking-widest ${
-                          seomsePriorityColor[issue.priority] ??
-                          "bg-neutral-900"
-                        }`}
-                      >
-                        {issue.priority}
-                      </span>
-                      <div>
-                        <h3 className="text-base md:text-lg tracking-tight mb-2">
-                          {issue.title}
-                        </h3>
-                        <p className="text-sm md:text-base leading-[1.8] text-neutral-600">
-                          {issue.impact}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-                  QA DOCUMENTS
-                </h2>
-                <div className="border border-neutral-200 rounded-lg p-5 md:p-6">
-                  <p className="text-sm md:text-base leading-[1.8] text-neutral-500 mb-6">
-                    예약 기능 검증 과정에서 작성한 주요 산출물입니다. <br />
-                    테스트 케이스, 버그 리포트, API 검증 결과, QA 요약을 확인할
-                    수 있습니다.
-                  </p>
-                  <div className="space-y-4">
-                    {seomseArtifacts.map((artifact) => (
-                      <div key={artifact.title}>
-                        <h3 className="text-sm md:text-base tracking-tight">
-                          {artifact.title}
-                        </h3>
-                        <p className="mt-1 text-sm leading-[1.7] text-neutral-500">
-                          {artifact.description}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                  <Link
-                    to="/qa/seomse-reservation"
-                    className="mt-6 inline-flex rounded-full bg-neutral-900 px-5 py-2.5 text-sm text-white transition-opacity hover:opacity-80"
+              <div className="border-t border-neutral-200">
+                {seomseKeyIssues.map((issue) => (
+                  <div
+                    key={issue.title}
+                    className="grid md:grid-cols-[72px_1fr] gap-3 md:gap-5 border-b border-neutral-200 py-5 md:py-6"
                   >
-                    QA 문서 보기
-                  </Link>
-                </div>
+                    <span
+                      className={`w-fit h-fit px-3 py-1 rounded-full text-white text-xs tracking-widest ${
+                        seomsePriorityColor[issue.priority] ?? "bg-neutral-900"
+                      }`}
+                    >
+                      {issue.priority}
+                    </span>
+                    <div>
+                      <h3 className="text-base md:text-lg tracking-tight mb-2">
+                        {issue.title}
+                      </h3>
+                      <p className="text-sm md:text-base leading-[1.8] text-neutral-600">
+                        {issue.impact}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
         )}
 
-        <section className="px-6 md:px-8 mb-16 md:mb-24">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-              OUTCOMES
-            </h2>
-            <div className="grid gap-3 md:gap-4">
-              {project.results.map((result, index) => (
-                <motion.div
-                  key={result}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.1,
-                  }}
-                  className="flex items-start gap-4 border-t border-neutral-200 py-5 md:py-6"
-                >
-                  <span className="text-sm text-neutral-400 mt-1">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <p className="text-base md:text-xl leading-[1.8]">{result}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {(project as { insight?: string }).insight && (
-          <section className="px-6 md:px-8 mb-16 md:mb-24">
-            <div className="max-w-6xl mx-auto grid md:grid-cols-[0.7fr_1.3fr] gap-8 md:gap-16">
+        {id !== "service-flow-qa" && (
+          <section className="px-6 md:px-8 mb-12 md:mb-16">
+            <div className="max-w-6xl mx-auto">
               <h2 className="text-xs md:text-sm tracking-widest text-neutral-400 mb-6 md:mb-8">
-                INSIGHT
+                RESULT
               </h2>
-              <ParagraphText text={(project as { insight: string }).insight} />
+              <div className="grid gap-3 md:gap-4">
+                {project.results.map((result, index) => (
+                  <motion.div
+                    key={result}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.1,
+                    }}
+                    className="flex items-start gap-4 border-t border-neutral-200 py-4 md:py-5"
+                  >
+                    <span className="text-sm text-neutral-400 mt-1">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <p className="text-base leading-7 md:text-lg">{result}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {qaDocument && (
+          <section className="px-6 md:px-8 mb-12 md:mb-16">
+            <div className="max-w-6xl mx-auto flex flex-col gap-3 border-y border-neutral-200 py-5 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-xs tracking-widest text-neutral-400">
+                  QA DOCUMENTS
+                </p>
+                <p className="mt-2 text-sm leading-7 text-neutral-600 md:text-base">
+                  {qaDocument.description}
+                </p>
+              </div>
+              <Link
+                to={qaDocument.to}
+                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-80"
+              >
+                QA 문서 보기
+                <ArrowRight size={16} />
+              </Link>
             </div>
           </section>
         )}
 
         {/* Next Case */}
-        <section className="px-6 md:px-8 py-16 md:py-32 border-t border-neutral-200">
+        <section className="px-6 md:px-8 py-14 md:py-20 border-t border-neutral-200">
           <div className="max-w-6xl mx-auto">
             <Link
               to={`/project/${project.nextProject}`}
@@ -1683,7 +1607,7 @@ export default function ProjectDetail() {
             >
               <div className="flex-1 min-w-0">
                 <p className="text-xs md:text-sm tracking-widest text-neutral-400 mb-3 md:mb-4">
-                  NEXT CASE
+                  다음 QA 사례
                 </p>
                 <h2 className="text-xl md:text-3xl lg:text-4xl tracking-tighter group-hover:translate-x-4 transition-transform">
                   {

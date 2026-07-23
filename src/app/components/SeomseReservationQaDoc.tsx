@@ -1,15 +1,18 @@
 import { ArrowLeft, FileText, XCircle } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import reservationTestImage from "../../assets/img/reservation-test.png";
 import PageTransition from "./PageTransition";
 
 type Status = "PASS" | "FAIL" | "BLOCKED";
-type Severity = "High" | "Medium" | "Low" | "-";
+type Severity = "High" | "Medium";
 
 type BugReport = {
   id: string;
   title: string;
-  severity: Exclude<Severity, "Low" | "-">;
+  severity: Severity;
+  relatedTestCases: string[];
+  status: "회귀 검증 완료" | "수정 필요" | "요구사항 확인";
   steps: string;
   actual: string;
   expected: string;
@@ -157,7 +160,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "매장 목록",
     "매장 API 응답 없음",
     "빈 상태 또는 안내 표시",
-    "빈 상태 안내 없이 빈 Swiper 영역만 노출될 가능성 있음",
+    "코드 검토 결과, 빈 응답을 안내 화면으로 분기하는 처리가 확인되지 않음",
     "FAIL",
   ],
   [
@@ -205,7 +208,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "디자이너",
     "상세 API 디자이너 표시",
     "API 닉네임 표시",
-    "API 타입은 nickName이나 화면은 nickname을 참조해 기본 문구로 표시될 가능성 있음",
+    "코드 검토 결과, API 타입은 nickName이고 화면은 nickname을 참조함",
     "FAIL",
   ],
   [
@@ -254,7 +257,7 @@ const testCases: [string, string, string, string, string, Status][] = [
     "시간 선택",
     "미래 날짜 선택 후 시간 표시",
     "영업시간 전체 표시",
-    "선택 날짜와 무관하게 현재 시각 기준으로 필터링되어 미래 날짜 시간도 사라질 수 있음",
+    "코드 검토 결과, 선택 날짜 분기 없이 현재 시각을 기준으로 시간 슬롯을 필터링함",
     "FAIL",
   ],
   [
@@ -373,21 +376,31 @@ const testCases: [string, string, string, string, string, Status][] = [
   ],
 ];
 
-const testCaseSeverity: Record<string, Severity> = {
-  "RES-02": "Low",
-  "RES-05": "Medium",
-  "RES-08": "High",
-  "RES-15": "High",
-  "RES-18": "Medium",
-  "RES-24": "Medium",
-  "RES-31": "Medium",
+const linkedBugByTestCase: Record<string, string> = {
+  "RES-05": "BUG-004",
+  "RES-08": "BUG-002",
+  "RES-15": "BUG-001",
+  "RES-18": "BUG-003",
+  "RES-24": "BUG-003",
 };
+
+const representativeTestCaseIds = new Set([
+  "RES-01",
+  "RES-08",
+  "RES-15",
+  "RES-17",
+  "RES-18",
+  "RES-23",
+  "RES-31",
+]);
 
 const bugs: BugReport[] = [
   {
     id: "BUG-001",
     title: "미래 날짜 선택 시 예약 가능 시간이 현재 시각 기준으로 제한됨",
     severity: "High",
+    relatedTestCases: ["RES-15"],
+    status: "회귀 검증 완료",
     steps:
       "예약 화면 진입 -> 매장 선택 -> 서비스 선택 -> 일정 선택 -> 내일 날짜 선택",
     actual: "미래 날짜임에도 현재 시각 이전 시간 슬롯이 표시되지 않음",
@@ -398,10 +411,12 @@ const bugs: BugReport[] = [
   },
   {
     id: "BUG-002",
-    title: "디자이너 닉네임이 정상 표시되지 않을 수 있음",
+    title: "API 응답과 화면의 디자이너 닉네임 필드명이 일치하지 않음",
     severity: "High",
+    relatedTestCases: ["RES-08"],
+    status: "수정 필요",
     steps: "매장 선택 -> 서비스/디자이너 선택 화면 진입",
-    actual: "디자이너 이름 대신 '디자이너'로 표시될 수 있음",
+    actual: "API 타입은 nickName이고 화면 렌더링은 nickname을 참조함",
     expected: "API에서 전달된 디자이너 닉네임이 표시되어야 함",
     impact: "디자이너 선택 신뢰도가 낮아짐",
     cause: "API 응답 필드명과 화면 바인딩 필드명이 일치하지 않는 것으로 추정",
@@ -412,6 +427,8 @@ const bugs: BugReport[] = [
     id: "BUG-003",
     title: "예약 실패 시 사용자에게 오류 메시지가 표시되지 않음",
     severity: "Medium",
+    relatedTestCases: ["RES-18", "RES-24"],
+    status: "수정 필요",
     steps: "예약 API 실패 상황 발생 -> 예약 제출",
     actual: "화면상 실패 안내 없이 console에만 오류 출력",
     expected: "사용자에게 예약 실패 사유 또는 재시도 안내 표시",
@@ -425,6 +442,8 @@ const bugs: BugReport[] = [
     id: "BUG-004",
     title: "매장 정렬/필터 요구사항이 목록 결과에 반영되지 않음",
     severity: "Medium",
+    relatedTestCases: ["RES-05"],
+    status: "요구사항 확인",
     steps: "예약 화면 진입 -> 리뷰순/평점순/가격 낮은순 탭 클릭",
     actual: "탭 UI만 변경되고 목록 정렬 변화 없음",
     expected: "선택한 탭 기준으로 매장 목록이 정렬 또는 필터링되어야 함",
@@ -434,11 +453,27 @@ const bugs: BugReport[] = [
   },
 ];
 
-const improvements = [
-  "선택 날짜를 기준으로 예약 가능 시간이 계산되도록 시간 슬롯 로직 보완",
-  "예약 실패 시 원인과 재시도 가능 여부를 안내하는 사용자 피드백 제공",
-  "디자이너 정보가 정상 표시되도록 API 응답 필드와 화면 매핑 규칙 정리",
-  "매장 정렬·필터 선택이 실제 목록 결과에 반영되도록 기능 연결",
+const followUpActions = [
+  {
+    label: "회귀 유지",
+    description:
+      "BUG-001 수정 동작을 AUTO-R07로 고정해 미래 날짜 시간 슬롯을 반복 검증",
+  },
+  {
+    label: "API 계약 정리",
+    description:
+      "BUG-002의 디자이너 필드명을 API 타입과 화면 모델에서 하나의 규칙으로 통일",
+  },
+  {
+    label: "오류 UX 보완",
+    description:
+      "BUG-003의 일반·섬세 예약 실패 응답을 공통 사용자 피드백으로 연결",
+  },
+  {
+    label: "요구사항 확정",
+    description:
+      "BUG-004 정렬·필터의 기대 동작과 우선순위를 확인한 뒤 회귀 범위에 반영",
+  },
 ];
 
 const automationCases: [string, string, string, string, Status][] = [
@@ -472,7 +507,7 @@ const automationCases: [string, string, string, string, Status][] = [
   ],
   [
     "AUTO-R05",
-    "예약 제출 실패",
+    "알려진 결함 재현 · 오류 피드백 부재",
     "POST /interaction/appointments/normal 500",
     "실패 응답 시 사용자 피드백이 제공되지 않는 현재 동작 검증",
     "PASS",
@@ -482,6 +517,13 @@ const automationCases: [string, string, string, string, Status][] = [
     "응답 지연 중 중복 제출 방지",
     "POST 1.5s delay",
     "제출 중 다음 버튼 비활성화 후 성공 시 확정 시트 표시",
+    "PASS",
+  ],
+  [
+    "AUTO-R07",
+    "수정 후 회귀 · 미래 날짜 시간 슬롯",
+    "고정 시각 + 미래 날짜",
+    "미래 날짜에서는 현재 시각 이전의 예약 가능 슬롯도 표시됨",
     "PASS",
   ],
 ];
@@ -496,24 +538,6 @@ function StatusBadge({ status }: { status: Status }) {
   return (
     <span className={`rounded-full border px-2.5 py-1 text-xs ${style}`}>
       {status}
-    </span>
-  );
-}
-
-function SeverityBadge({ severity }: { severity: Severity }) {
-  if (severity === "-") {
-    return <span className="text-xs text-neutral-300">-</span>;
-  }
-
-  const style = {
-    High: "bg-rose-50 text-rose-700",
-    Medium: "bg-amber-50 text-amber-700",
-    Low: "bg-neutral-100 text-neutral-600",
-  }[severity];
-
-  return (
-    <span className={`rounded-full px-2.5 py-1 text-xs ${style}`}>
-      {severity}
     </span>
   );
 }
@@ -549,16 +573,38 @@ function Table({ children }: { children: React.ReactNode }) {
 }
 
 export default function SeomseReservationQaDoc() {
+  const [showAllTestCases, setShowAllTestCases] = useState(false);
+  const [showAutomationReport, setShowAutomationReport] = useState(false);
   const passCount = testCases.filter((tc) => tc[5] === "PASS").length;
   const failCount = testCases.filter((tc) => tc[5] === "FAIL").length;
   const blockedCount = testCases.filter((tc) => tc[5] === "BLOCKED").length;
+  const highSeverityBugCount = bugs.filter(
+    (bug) => bug.severity === "High",
+  ).length;
+  const mediumSeverityBugCount = bugs.filter(
+    (bug) => bug.severity === "Medium",
+  ).length;
   const automationPassCount = automationCases.filter(
     (tc) => tc[4] === "PASS",
   ).length;
+  const visibleTestCases = showAllTestCases
+    ? testCases
+    : testCases.filter((tc) => representativeTestCaseIds.has(tc[0]));
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (!showAutomationReport) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowAutomationReport(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [showAutomationReport]);
 
   return (
     <PageTransition>
@@ -570,7 +616,7 @@ export default function SeomseReservationQaDoc() {
               className="flex items-center gap-2 text-sm transition-opacity hover:opacity-50"
             >
               <ArrowLeft size={18} />
-              Back to Case
+              프로젝트로 돌아가기
             </Link>
             <span className="text-xs tracking-[0.2em] text-neutral-400">
               QA DOCUMENT
@@ -584,152 +630,134 @@ export default function SeomseReservationQaDoc() {
               <FileText size={17} />
               SEOMSE Reservation QA
             </div>
-            <h1 className="max-w-4xl text-3xl tracking-tight md:text-5xl">
+            <h1 className="text-3xl tracking-tight md:text-5xl">
               예약 기능 QA 문서
             </h1>
             <p className="mt-5 text-base leading-8 text-neutral-600 md:text-lg">
-              예약 생성부터 관리자 조회까지의 주요 시나리오를 대상으로 테스트
-              케이스를 작성하고, <br /> 기능 검증과 API 응답 확인을 통해 발견한
-              버그와 원인 분석 결과를 담았습니다.
+              예약 생성부터 관리자 조회까지 31개 테스트 케이스를 작성하고,
+              주요 결함과 자동화 결과를 정리했습니다.
             </p>
           </div>
         </header>
 
-        <Section number="01" title="QA Result">
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
-            {[
-              ["Test Cases", String(testCases.length)],
-              ["Bugs Found", String(bugs.length)],
-              ["PASS", String(passCount)],
-              ["FAIL", String(failCount)],
-              ["BLOCKED", String(blockedCount)],
-            ].map(([label, value]) => (
-              <div
-                key={label}
-                className="rounded-lg border border-neutral-200 p-5 md:p-6"
-              >
-                <p className="text-xs text-neutral-400">{label}</p>
-                <p className="mt-3 text-3xl tracking-tight">{value}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section number="02" title="예약 플로우 분석 및 검증 범위">
-          <p className="mb-8 text-base leading-8 text-neutral-600">
-            SEOMSE는 예약 전 상담 정보를 함께 전달할 수 있도록 설계된 헤어 예약
-            서비스입니다. <br />본 QA는 일반 예약과 섬세 예약을 대상으로 예약
-            생성, 조회, 관리자 확인까지의 핵심 사용자 플로우를 검증했습니다.
-          </p>
-          <div className="grid gap-4 md:grid-cols-2">
-            {flows.map((flow) => (
-              <div
-                key={flow.title}
-                className="flex flex-col rounded-lg border border-neutral-200 p-5 md:p-6"
-              >
-                <h3 className="mb-5 text-lg">{flow.title}</h3>
-                {Boolean(flow.points?.length) && (
-                  <div className="mb-5 rounded-lg bg-neutral-50 p-4">
-                    <p className="mb-3 text-xs tracking-[0.18em] text-neutral-400">
-                      검증 포인트
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {flow.points?.map((point) => (
-                        <span
-                          key={point}
-                          className="rounded-full bg-white px-3 py-1 text-xs text-neutral-700"
-                        >
-                          {point}
-                        </span>
+        <Section number="01" title="테스트 결과 요약">
+          <div className="grid gap-8 lg:grid-cols-2">
+            <div>
+              <h3 className="mb-3 text-sm font-medium">테스트 케이스 결과</h3>
+              <Table>
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-neutral-50 text-xs text-neutral-500">
+                    <tr>
+                      {["전체", "PASS", "FAIL", "BLOCKED"].map((head) => (
+                        <th key={head} className="p-4">
+                          {head}
+                        </th>
                       ))}
-                    </div>
-                  </div>
-                )}
-                <ol className="flex flex-1 flex-col justify-between gap-3">
-                  {flow.steps.map((step, index) => (
-                    <li key={step.label} className="flex items-center gap-3">
-                      <span
-                        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs ${
-                          step.focus
-                            ? "bg-neutral-900 text-white"
-                            : "bg-neutral-100 text-neutral-500"
-                        }`}
-                      >
-                        {index + 1}
-                      </span>
-                      <span className="text-sm text-neutral-700">
-                        {step.label}
-                      </span>
-                      {step.focus && (
-                        <span className="ml-auto rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] text-emerald-700">
-                          QA Focus
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section number="03" title="요구사항 분석 및 리스크 식별">
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-            <Table>
-              <table className="w-full min-w-[620px] text-left text-sm">
-                <thead className="bg-neutral-50 text-xs text-neutral-500">
-                  <tr>
-                    <th className="p-4">구분</th>
-                    <th className="p-4">검증 가능한 요구사항</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {requirements.map(([label, value]) => (
-                    <tr key={label} className="border-t">
-                      <td className="p-4">{label}</td>
-                      <td className="p-4 leading-7 text-neutral-600">
-                        {value}
-                      </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </Table>
-            <div className="flex flex-col rounded-lg border border-neutral-200 p-5 md:p-6">
-              <h3 className="mb-5 text-lg">검증 우선순위 항목</h3>
-              <div className="flex flex-1 flex-col justify-between gap-4">
-                {risks.map((risk) => (
-                  <div
-                    key={risk.title}
-                    className="border-t pt-4 first:border-0 first:pt-0"
-                  >
-                    <div className="mb-2 flex items-center justify-between gap-3">
-                      <p className="text-sm">{risk.title}</p>
-                      <span
-                        className={`rounded-full px-2.5 py-1 text-[11px] ${
-                          risk.severity === "High"
-                            ? "bg-rose-50 text-rose-700"
-                            : risk.severity === "Medium"
-                              ? "bg-amber-50 text-amber-700"
-                              : "bg-neutral-100 text-neutral-600"
-                        }`}
-                      >
-                        {risk.severity}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-sm leading-7 text-neutral-500">
-                      {risk.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
+                  </thead>
+                  <tbody>
+                    <tr className="border-t">
+                      {[
+                        testCases.length,
+                        passCount,
+                        failCount,
+                        blockedCount,
+                      ].map((value, index) => (
+                        <td key={index} className="p-4 text-lg">
+                          {value}
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </Table>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-sm font-medium">결함 현황</h3>
+              <Table>
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-neutral-50 text-xs text-neutral-500">
+                    <tr>
+                      {["전체", "High", "Medium"].map((head) => (
+                        <th key={head} className="p-4">
+                          {head}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-t">
+                      {[
+                        bugs.length,
+                        highSeverityBugCount,
+                        mediumSeverityBugCount,
+                      ].map((value, index) => (
+                        <td key={index} className="p-4 text-lg">
+                          {value}
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </Table>
             </div>
           </div>
+
+          <div className="mt-6 border-y border-neutral-200 py-4 text-sm leading-7 text-neutral-600">
+            <p>
+              FAIL {failCount}건은 동일 원인을 통합해 주요 결함 {bugs.length}
+              건으로 관리했습니다.
+            </p>
+            <p>
+              Playwright 자동화 {automationCases.length}건은{" "}
+              {automationPassCount}건 모두 통과했습니다.
+            </p>
+          </div>
+
+          <div className="mt-10">
+            <h3 className="mb-3 text-sm font-medium">테스트 정보</h3>
+            <dl className="grid border-y border-neutral-200 md:grid-cols-2">
+              {[
+                ["대상", "SEOMSE 예약 사용자·관리자 화면"],
+                ["범위", "매장 조회 → 일반·섬세 예약 → 예약 조회"],
+                ["검증 기준", "정상·예외 흐름 · 경계값 · API 응답"],
+                ["자동화 환경", "API Network Mocking · 고정 시각"],
+              ].map(([label, value]) => (
+                <div
+                  key={label}
+                  className="grid grid-cols-[96px_1fr] gap-3 border-b border-neutral-200 py-4 md:px-4 md:odd:pl-0"
+                >
+                  <dt className="text-sm text-neutral-400">{label}</dt>
+                  <dd className="text-sm leading-6">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </Section>
 
-        <Section number="04" title="테스트 케이스">
+        <Section
+          number="02"
+          title={showAllTestCases ? "전체 테스트 케이스" : "대표 테스트 케이스"}
+        >
+          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <p className="text-sm leading-7 text-neutral-500">
+              전체 31건 중 정상 흐름, 데이터 불일치, 경계값, 오류 응답을 포함한
+              대표 7건을 먼저 표시합니다.
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowAllTestCases((current) => !current)}
+              aria-expanded={showAllTestCases}
+              className="w-fit shrink-0 cursor-pointer text-sm underline underline-offset-4 transition-opacity hover:opacity-50"
+            >
+              {showAllTestCases
+                ? "대표 테스트 케이스만 보기"
+                : "전체 테스트 케이스 31건 보기"}
+            </button>
+          </div>
           <Table>
-            <table className="w-full min-w-[1220px] text-left text-xs">
+            <table className="w-full min-w-[1180px] text-left text-xs">
               <thead className="bg-neutral-50 text-neutral-500">
                 <tr>
                   {[
@@ -738,7 +766,7 @@ export default function SeomseReservationQaDoc() {
                     "테스트 케이스",
                     "기대 결과",
                     "실제 결과",
-                    "Severity",
+                    "연결 결함",
                     "판정",
                   ].map((head) => (
                     <th key={head} className="p-4">
@@ -748,19 +776,15 @@ export default function SeomseReservationQaDoc() {
                 </tr>
               </thead>
               <tbody>
-                {testCases.map((tc) => (
+                {visibleTestCases.map((tc) => (
                   <tr key={tc[0]} className="border-t">
                     <td className="p-4 font-medium">{tc[0]}</td>
                     <td className="p-4">{tc[1]}</td>
-                    <td className="max-w-[220px] p-4 leading-6">{tc[2]}</td>
-                    <td className="max-w-[260px] p-4 leading-6">{tc[3]}</td>
-                    <td className="max-w-[340px] p-4 leading-6 text-neutral-600">
-                      {tc[4]}
-                    </td>
-                    <td className="p-4">
-                      <SeverityBadge
-                        severity={testCaseSeverity[tc[0]] ?? "-"}
-                      />
+                    <td className="p-4 leading-6">{tc[2]}</td>
+                    <td className="p-4 leading-6">{tc[3]}</td>
+                    <td className="p-4 leading-6 text-neutral-600">{tc[4]}</td>
+                    <td className="p-4 font-medium text-neutral-600">
+                      {linkedBugByTestCase[tc[0]] ?? "-"}
                     </td>
                     <td className="p-4">
                       <StatusBadge status={tc[5]} />
@@ -770,80 +794,15 @@ export default function SeomseReservationQaDoc() {
               </tbody>
             </table>
           </Table>
-          <div className="mt-5 rounded-lg border border-neutral-200 p-5 md:p-6">
-            <p className="mb-3 text-xs tracking-[0.18em] text-neutral-400">
-              결과 분석
-            </p>
-            <p className="text-sm leading-7 text-neutral-600">
-              총 31건의 테스트를 수행한 결과, 24건은 PASS, 6건은 FAIL, 1건은
-              BLOCKED로 확인되었습니다.
-              <br /> 주요 이슈는 예약 가능 시간 계산, 디자이너 정보 표시, 예약
-              실패 피드백 영역에서 발견되었습니다. FAIL 6건 중 동일 원인으로
-              발생한 케이스는 하나의 결함으로 통합해 관리했으며, 사용자 영향도를
-              기준으로 총 4건의 주요 결함을 정리했습니다.
-            </p>
-          </div>
         </Section>
 
-        <Section number="05" title="Playwright 예약 자동화">
-          <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-3">
-            {[
-              ["자동화 시나리오", String(automationCases.length)],
-              ["PASS", String(automationPassCount)],
-              ["Playwright", "Network Mocking"],
-            ].map(([label, value]) => (
-              <div
-                key={label}
-                className="rounded-lg border border-neutral-200 p-5 md:p-6"
-              >
-                <p className="text-xs text-neutral-400">{label}</p>
-                <p className="mt-3 text-2xl tracking-tight">{value}</p>
-              </div>
-            ))}
-          </div>
-
+        <Section number="03" title="Playwright 자동화">
           <p className="mb-6 text-base leading-8 text-neutral-600">
-            전체 수동 검증 케이스 중 배포마다 반복 확인이 필요한 핵심 예약 경로
-            6개를 선별해 자동화했습니다.
+            전체 테스트 중 결과를 자동 판정하고 API 응답을 고정할 수 있는{" "}
+            {automationCases.length}건을 자동화 대상으로 선정했습니다. <br />
+            정상·실패·지연 응답을 Network Mocking으로 재현해 동일한 조건에서
+            확인했습니다.
           </p>
-
-          <div className="mb-8 rounded-lg bg-neutral-50 p-5 md:p-6">
-            <p className="text-base leading-8 text-neutral-700">
-              예약 플로우는 샵 목록, 샵 상세, 예약 제출이 모두 API 응답에
-              의존하기 때문에 Playwright Network Mocking을 적용했습니다.
-              <br /> 백엔드 서버 없이도 동일한 조건에서 검증할 수 있도록 API
-              응답을 고정했으며, 인증 상태와 테스트 시각을 일정하게 유지해 반복
-              실행 시에도 동일한 결과를 확인할 수 있도록 구성했습니다.
-            </p>
-          </div>
-
-          <div className="mb-8 rounded-lg border border-neutral-200 p-5 md:p-6">
-            <h3 className="mb-5 text-lg">자동화 설계 포인트</h3>
-            <div className="grid gap-4 md:grid-cols-3">
-              {[
-                [
-                  "화면 구조 분리",
-                  "예약, 서비스 선택, 일정 선택 화면별 액션과 선택자를 분리해 유지보수성을 높임",
-                ],
-                [
-                  "응답 고정",
-                  "실시간 API 대신 샵 목록·상세·예약 제출 응답을 테스트 데이터로 고정",
-                ],
-                [
-                  "오류 재현",
-                  "POST 500 응답과 지연 응답을 자동화해 실패 피드백 부재와 중복 제출 방지 동작 검증",
-                ],
-              ].map(([title, body]) => (
-                <div
-                  key={title}
-                  className="border-t pt-4 md:border-t-0 md:pt-0"
-                >
-                  <p className="mb-2 text-sm font-medium">{title}</p>
-                  <p className="text-sm leading-7 text-neutral-500">{body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
 
           <Table>
             <table className="w-full min-w-[960px] text-left text-sm">
@@ -870,9 +829,7 @@ export default function SeomseReservationQaDoc() {
                     <td className="p-4 font-mono text-xs text-neutral-600">
                       {tc[2]}
                     </td>
-                    <td className="max-w-[420px] p-4 leading-7 text-neutral-600">
-                      {tc[3]}
-                    </td>
+                    <td className="p-4 leading-7 text-neutral-600">{tc[3]}</td>
                     <td className="p-4">
                       <StatusBadge status={tc[4]} />
                     </td>
@@ -881,161 +838,126 @@ export default function SeomseReservationQaDoc() {
               </tbody>
             </table>
           </Table>
-        </Section>
 
-        <Section number="06" title="버그 리포트">
-          <p className="mb-8 text-base leading-8 text-neutral-600">
-            총 4건의 주요 이슈를 도출했으며, 예약 가능 시간 계산 오류와 사용자
-            피드백 부재를 우선 수정이 필요한 항목으로 판단했습니다.
-          </p>
-          <div className="mb-8">
-            <h3 className="mb-4 text-xs tracking-[0.18em] text-neutral-400">
-              High Severity
-            </h3>
-            <div className="grid gap-4 md:grid-cols-2">
-              {bugs
-                .filter((bug) => bug.severity === "High")
-                .map((bug) => (
-                  <article
-                    key={bug.id}
-                    className="rounded-lg border border-rose-200 bg-rose-50/30 p-5 md:p-6"
-                  >
-                    <div className="mb-4 flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-xs text-rose-500">
-                          {bug.id} · {bug.severity}
-                        </p>
-                        <h3 className="mt-2 text-lg leading-7">{bug.title}</h3>
-                      </div>
-                      <XCircle className="shrink-0 text-rose-500" size={20} />
-                    </div>
-                    <dl className="space-y-4 text-sm leading-7">
-                      <div>
-                        <dt className="text-neutral-400">재현 절차</dt>
-                        <dd>{bug.steps}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-neutral-400">실제 결과</dt>
-                        <dd>{bug.actual}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-neutral-400">기대 결과</dt>
-                        <dd>{bug.expected}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-neutral-400">사용자 영향</dt>
-                        <dd>{bug.impact}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-neutral-400">원인 추정</dt>
-                        <dd>{bug.cause}</dd>
-                      </div>
-                      {bug.apiEvidence && (
-                        <div>
-                          <dt className="text-neutral-400">API 확인 근거</dt>
-                          <dd>{bug.apiEvidence}</dd>
-                        </div>
-                      )}
-                    </dl>
-                  </article>
-                ))}
+          <div className="mt-6 flex flex-col gap-3 border-y border-neutral-200 py-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-sm font-medium">Playwright 실행 결과</p>
+              <p className="mt-1 text-sm leading-6 text-neutral-500">
+                예약 시나리오 7건을 포함한 전체 자동화 테스트 13건의 결과 화면
+              </p>
             </div>
-          </div>
-
-          <div>
-            <h3 className="mb-4 text-xs tracking-[0.18em] text-neutral-400">
-              Medium Severity
-            </h3>
-            <div className="grid gap-4 md:grid-cols-2">
-              {bugs
-                .filter((bug) => bug.severity === "Medium")
-                .map((bug) => (
-                  <article
-                    key={bug.id}
-                    className="rounded-lg border border-neutral-200 p-5 md:p-6"
-                  >
-                    <div className="mb-4 flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-xs text-neutral-400">
-                          {bug.id} · {bug.severity}
-                        </p>
-                        <h3 className="mt-2 text-lg leading-7">{bug.title}</h3>
-                      </div>
-                      <XCircle className="shrink-0 text-rose-500" size={20} />
-                    </div>
-                    <dl className="space-y-4 text-sm leading-7">
-                      <div>
-                        <dt className="text-neutral-400">재현 절차</dt>
-                        <dd>{bug.steps}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-neutral-400">실제 결과</dt>
-                        <dd>{bug.actual}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-neutral-400">기대 결과</dt>
-                        <dd>{bug.expected}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-neutral-400">사용자 영향</dt>
-                        <dd>{bug.impact}</dd>
-                      </div>
-                      <div>
-                        <dt className="text-neutral-400">원인 추정</dt>
-                        <dd>{bug.cause}</dd>
-                      </div>
-                      {bug.apiEvidence && (
-                        <div>
-                          <dt className="text-neutral-400">API 확인 근거</dt>
-                          <dd>{bug.apiEvidence}</dd>
-                        </div>
-                      )}
-                    </dl>
-                  </article>
-                ))}
-            </div>
+            <button
+              type="button"
+              onClick={() => setShowAutomationReport(true)}
+              className="w-fit shrink-0 cursor-pointer text-sm underline underline-offset-4 transition-opacity hover:opacity-50"
+            >
+              실행 결과 이미지 보기
+            </button>
           </div>
         </Section>
 
-        <Section number="07" title="Recommendations">
-          <div className="space-y-3">
-            {improvements.map((item, index) => (
-              <div
-                key={item}
-                className="flex gap-4 border-t border-neutral-200 py-5 first:border-0"
+        <Section number="04" title="주요 버그 리포트">
+          <div className="grid gap-4 md:grid-cols-2">
+            {bugs.map((bug) => (
+              <article
+                key={bug.id}
+                className={`rounded-lg border p-5 md:p-6 ${
+                  bug.severity === "High"
+                    ? "border-rose-200 bg-rose-50/30"
+                    : "border-neutral-200"
+                }`}
               >
-                <span className="text-sm text-neutral-400">
+                <div className="mb-4 flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs text-neutral-400">
+                      {bug.id} · {bug.severity} · {bug.status}
+                    </p>
+                    <h3 className="mt-2 text-base leading-7">{bug.title}</h3>
+                  </div>
+                  <XCircle className="shrink-0 text-rose-500" size={18} />
+                </div>
+                <dl className="space-y-3 text-sm leading-6">
+                  <div>
+                    <dt className="text-neutral-400">연결 테스트</dt>
+                    <dd>{bug.relatedTestCases.join(", ")}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-neutral-400">재현</dt>
+                    <dd>{bug.steps}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-neutral-400">실제 / 기대 결과</dt>
+                    <dd>
+                      {bug.actual} / {bug.expected}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-neutral-400">사용자 영향</dt>
+                    <dd>{bug.impact}</dd>
+                  </div>
+                </dl>
+              </article>
+            ))}
+          </div>
+        </Section>
+
+        <Section number="05" title="결함별 대응 방향">
+          <div className="space-y-3">
+            {followUpActions.map((item, index) => (
+              <div
+                key={item.label}
+                className="grid grid-cols-[28px_minmax(0,1fr)] gap-x-3 gap-y-1 border-t border-neutral-200 py-5 first:border-0 md:grid-cols-[28px_140px_minmax(0,1fr)] md:gap-x-6"
+              >
+                <span className="text-sm leading-8 text-neutral-400">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <p className="text-base leading-8">{item}</p>
+                <span className="whitespace-nowrap text-sm leading-8 text-neutral-500">
+                  {item.label}
+                </span>
+                <p className="col-start-2 text-base leading-8 md:col-start-3">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
         </Section>
 
-        <Section number="08" title="QA 회고">
-          <div className="rounded-lg bg-neutral-50 p-6 md:p-8">
-            <p className="text-base leading-8 text-neutral-700">
-              이번 QA를 진행하며 예약 기능이 정상적으로 동작하더라도 사용자
-              경험에는 문제가 발생할 수 있다는 점을 확인했습니다. 실제로 예약
-              생성 자체는 가능했지만, 미래 날짜 시간 계산 오류나 예약 실패
-              피드백 부재처럼 사용자의 예약 과정에 직접 영향을 주는 이슈를
-              발견할 수 있었습니다.
-            </p>
-            <p className="mt-5 text-base leading-8 text-neutral-700">
-              또한 테스트 케이스를 작성하는 과정에서 정상 시나리오뿐 아니라 예외
-              상황과 경계 조건을 함께 검토하는 것이 중요하다는 점을
-              경험했습니다. 특히 API 응답 데이터와 화면 표시 정보가 일치하는지,
-              실패 상황에서도 사용자가 현재 상태를 명확하게 인지할 수 있는지는
-              기능 구현 과정에서 놓치기 쉬운 검증 포인트임을 확인했습니다.
-            </p>
-            <p className="mt-5 text-base leading-8 text-neutral-700">
-              이번 프로젝트를 통해 테스트 케이스 설계, 버그 리포트 작성, API
-              검증 과정을 경험하며 기능 단위보다 사용자 흐름과 데이터 흐름을
-              기준으로 서비스를 검증하는 관점을 정리할 수 있었습니다.
-            </p>
+        {showAutomationReport && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Playwright 실행 결과"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 md:p-8"
+            onClick={() => setShowAutomationReport(false)}
+          >
+            <div
+              className="relative max-h-full w-full max-w-6xl overflow-auto rounded-lg bg-white"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="sticky top-0 z-10 flex items-center justify-between border-b border-neutral-200 bg-white px-5 py-4">
+                <div>
+                  <p className="text-sm font-medium">Playwright 실행 결과</p>
+                  <p className="mt-1 text-xs text-neutral-500">
+                    예약 시나리오 7건 포함 · 전체 자동화 테스트 13건 통과
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowAutomationReport(false)}
+                  aria-label="이미지 닫기"
+                  className="cursor-pointer rounded-full p-2 transition-colors hover:bg-neutral-100"
+                >
+                  <XCircle size={22} />
+                </button>
+              </div>
+              <img
+                src={reservationTestImage}
+                alt="예약 시나리오 7건을 포함한 Playwright 자동화 테스트 13건 통과 결과 화면"
+                className="w-full"
+              />
+            </div>
           </div>
-        </Section>
+        )}
       </div>
     </PageTransition>
   );
